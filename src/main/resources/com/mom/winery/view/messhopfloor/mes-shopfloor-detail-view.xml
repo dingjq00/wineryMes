@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view"
+      title="msg://mesShopfloorDetailView.title"
+      focusComponent="form">
+    <data>
+        <instance id="mesShopfloorDc"
+                  class="com.mom.winery.entity.MesShopfloor">
+            <fetchPlan extends="_base">
+                <property name="mesAreas" fetchPlan="_base"/>
+                <property name="mesShopfloorWineTanks" fetchPlan="_base"/>
+                <property name="mesCleanWaterTanks" fetchPlan="_base"/>
+                <property name="mesCirculatingWaterTanks" fetchPlan="_base"/>
+            </fetchPlan>
+            <loader id="mesShopfloorDl"/>
+            <collection id="mesAreasDc" property="mesAreas"/>
+            <collection id="mesShopfloorWineTanksDc" property="mesShopfloorWineTanks"/>
+            <collection id="mesCleanWaterTanksDc" property="mesCleanWaterTanks"/>
+            <collection id="mesCirculatingWaterTanksDc" property="mesCirculatingWaterTanks"/>
+        </instance>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+    </facets>
+    <actions>
+        <action id="saveAction" type="detail_saveClose"/>
+        <action id="closeAction" type="detail_close"/>
+    </actions>
+    <layout>
+        <formLayout id="form" dataContainer="mesShopfloorDc">
+            <textField id="mesSiteCodeField" property="mesSiteCode"/>
+            <textField id="mesSiteNameField" property="mesSiteName"/>
+            <textField id="mesShopfloorCodeField" property="mesShopfloorCode"/>
+            <textField id="mesShopfloorNameField" property="mesShopfloorName"/>
+        </formLayout>
+        <hbox id="buttonsPanel" classNames="buttons-panel">
+            <button action="mesAreasDataGrid.create"/>
+            <button action="mesAreasDataGrid.edit"/>
+            <button action="mesAreasDataGrid.remove"/>
+        </hbox>
+        <dataGrid id="mesAreasDataGrid" dataContainer="mesAreasDc" width="100%" minHeight="15em">
+            <actions>
+                <action id="create" type="list_create">
+                    <properties>
+                        <property name="openMode" value="DIALOG"/>
+                    </properties>
+                </action>
+                <action id="edit" type="list_edit">
+                    <properties>
+                        <property name="openMode" value="DIALOG"/>
+                    </properties>
+                </action>
+                <action id="remove" type="list_remove"/>
+            </actions>
+            <columns>
+                <column property="areaCode"/>
+                <column property="areaName"/>
+                <column property="wineType"/>
+                <column property="createdBy"/>
+                <column property="createdDate"/>
+                <column property="lastModifiedBy"/>
+                <column property="lastModifiedDate"/>
+            </columns>
+        </dataGrid>
+        <hbox id="buttonsPanel2" classNames="buttons-panel">
+            <button action="mesShopfloorWineTanksDataGrid.create"/>
+            <button action="mesShopfloorWineTanksDataGrid.edit"/>
+            <button action="mesShopfloorWineTanksDataGrid.remove"/>
+        </hbox>
+        <dataGrid id="mesShopfloorWineTanksDataGrid" dataContainer="mesShopfloorWineTanksDc" width="100%"
+                  minHeight="20em">
+            <actions>
+                <action id="create" type="list_create">
+                    <properties>
+                        <property name="openMode" value="DIALOG"/>
+                    </properties>
+                </action>
+                <action id="edit" type="list_edit">
+                    <properties>
+                        <property name="openMode" value="DIALOG"/>
+                    </properties>
+                </action>
+                <action id="remove" type="list_remove"/>
+            </actions>
+            <columns>
+                <column property="shopfloorWineTankCode"/>
+                <column property="wineGrade"/>
+                <column property="createdBy"/>
+                <column property="createdDate"/>
+                <column property="lastModifiedBy"/>
+                <column property="lastModifiedDate"/>
+            </columns>
+        </dataGrid>
+        <hbox id="buttonsPanel3" classNames="buttons-panel">
+            <button action="mesCleanWaterTanksDataGrid.create"/>
+            <button action="mesCleanWaterTanksDataGrid.edit"/>
+            <button action="mesCleanWaterTanksDataGrid.remove"/>
+        </hbox>
+        <dataGrid id="mesCleanWaterTanksDataGrid" dataContainer="mesCleanWaterTanksDc" width="100%" minHeight="20em">
+            <actions>
+                <action id="create" type="list_create">
+                    <properties>
+                        <property name="openMode" value="DIALOG"/>
+                    </properties>
+                </action>
+                <action id="edit" type="list_edit">
+                    <properties>
+                        <property name="openMode" value="DIALOG"/>
+                    </properties>
+                </action>
+                <action id="remove" type="list_remove"/>
+            </actions>
+            <columns>
+                <column property="cleanWaterTankCode"/>
+                <column property="createdBy"/>
+                <column property="createdDate"/>
+                <column property="lastModifiedBy"/>
+                <column property="lastModifiedDate"/>
+            </columns>
+        </dataGrid>
+        <hbox id="buttonsPanel4" classNames="buttons-panel">
+            <button action="mesCirculatingWaterTanksDataGrid.create"/>
+            <button action="mesCirculatingWaterTanksDataGrid.edit"/>
+            <button action="mesCirculatingWaterTanksDataGrid.remove"/>
+        </hbox>
+        <dataGrid id="mesCirculatingWaterTanksDataGrid" dataContainer="mesCirculatingWaterTanksDc" width="100%"
+                  minHeight="20em">
+            <actions>
+                <action id="create" type="list_create">
+                    <properties>
+                        <property name="openMode" value="DIALOG"/>
+                    </properties>
+                </action>
+                <action id="edit" type="list_edit">
+                    <properties>
+                        <property name="openMode" value="DIALOG"/>
+                    </properties>
+                </action>
+                <action id="remove" type="list_remove"/>
+            </actions>
+            <columns>
+                <column property="circulatingWaterTankCode"/>
+                <column property="createdBy"/>
+                <column property="createdDate"/>
+                <column property="lastModifiedBy"/>
+                <column property="lastModifiedDate"/>
+            </columns>
+        </dataGrid>
+        <hbox id="detailActions">
+            <button id="saveAndCloseBtn" action="saveAction"/>
+            <button id="closeBtn" action="closeAction"/>
+        </hbox>
+    </layout>
+</view>

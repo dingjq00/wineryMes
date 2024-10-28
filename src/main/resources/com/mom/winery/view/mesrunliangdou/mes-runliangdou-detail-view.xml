@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view"
+      title="msg://mesRunliangdouDetailView.title"
+      focusComponent="form">
+    <data>
+        <instance id="mesRunliangdouDc"
+                  class="com.mom.winery.entity.MesRunliangdou">
+            <fetchPlan extends="_base">
+                <property name="mesArea" fetchPlan="_base"/>
+                <property name="location" fetchPlan="_base"/>
+                <property name="emptyOrFull" fetchPlan="_base"/>
+                <property name="diuZaoOrliangzao" fetchPlan="_base"/>
+                <property name="jiaochi" fetchPlan="_base"/>
+                <property name="durationQualified" fetchPlan="_base"/>
+            </fetchPlan>
+            <loader id="mesRunliangdouDl"/>
+        </instance>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+    </facets>
+    <actions>
+        <action id="saveAction" type="detail_saveClose"/>
+        <action id="closeAction" type="detail_close"/>
+    </actions>
+    <layout>
+        <formLayout id="form" dataContainer="mesRunliangdouDc">
+            <textField id="runliangdouCodeField" property="runliangdouCode"/>
+            <textField id="runliangdouNoField" property="runliangdouNo"/>
+            <entityPicker id="mesAreaField" property="mesArea">
+                <actions>
+                    <action id="entityLookup" type="entity_lookup"/>
+                    <action id="entityClear" type="entity_clear"/>
+                </actions>
+            </entityPicker>
+            <entityPicker id="locationField" property="location">
+                <actions>
+                    <action id="entityLookup" type="entity_lookup"/>
+                    <action id="entityClear" type="entity_clear"/>
+                </actions>
+            </entityPicker>
+            <entityPicker id="emptyOrFullField" property="emptyOrFull">
+                <actions>
+                    <action id="entityLookup" type="entity_lookup"/>
+                    <action id="entityClear" type="entity_clear"/>
+                </actions>
+            </entityPicker>
+            <entityPicker id="diuZaoOrliangzaoField" property="diuZaoOrliangzao">
+                <actions>
+                    <action id="entityLookup" type="entity_lookup"/>
+                    <action id="entityClear" type="entity_clear"/>
+                </actions>
+            </entityPicker>
+            <textField id="waterQtyAddField" property="waterQtyAdd"/>
+            <textField id="runliangDurationField" property="runliangDuration"/>
+            <dateTimePicker id="startTimeField" property="startTime"/>
+            <dateTimePicker id="endTimeField" property="endTime"/>
+            <entityPicker id="jiaochiField" property="jiaochi">
+                <actions>
+                    <action id="entityLookup" type="entity_lookup"/>
+                    <action id="entityClear" type="entity_clear"/>
+                </actions>
+            </entityPicker>
+            <textField id="jiaochiLayerField" property="jiaochiLayer"/>
+            <dateTimePicker id="jiaochiTimeField" property="jiaochiTime"/>
+            <select id="zaopeiTypeField" property="zaopeiType"/>
+            <textField id="daokeAddQtyField" property="daokeAddQty"/>
+            <textField id="liangshiAddQtyField" property="liangshiAddQty"/>
+            <textField id="zaopeiAddQtyField" property="zaopeiAddQty"/>
+            <entityPicker id="durationQualifiedField" property="durationQualified">
+                <actions>
+                    <action id="entityLookup" type="entity_lookup"/>
+                    <action id="entityClear" type="entity_clear"/>
+                </actions>
+            </entityPicker>
+            <select id="liangshiTypeField" property="liangshiType"/>
+            <dateTimePicker id="winccUpdateTimeField" property="winccUpdateTime"/>
+            <textField id="winccStartIDField" property="winccStartID"/>
+        </formLayout>
+        <hbox id="detailActions">
+            <button id="saveAndCloseBtn" action="saveAction"/>
+            <button id="closeBtn" action="closeAction"/>
+        </hbox>
+    </layout>
+</view>

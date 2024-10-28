@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd"
+        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+    <changeSet id="1" author="wineryMes">
+        <addColumn tableName="MES_ZENGGUO_RECORD">
+            <column name="END_TIME_TALL" type="DATETIME"/>
+            <column name="RUNLIANG_DUARATION_QUALIFIED_UP_ID" type="BIGINT"/>
+            <column name="RUNLIANG_DURATION_QUALIFIED_DOWN_ID" type="BIGINT"/>
+            <column name="RUNLIANG_END_TIME_DOWN" type="DATETIME"/>
+            <column name="RUNLIANG_END_TIME_UP" type="DATETIME"/>
+            <column name="RUNLIANG_START_TIME_DOWN" type="DATETIME"/>
+            <column name="RUNLIANG_START_TIME_UP" type="DATETIME"/>
+            <column name="SHANGZENG_TOTAL_QTY" type="FLOAT"/>
+            <column name="ZHENGLIU_DURATION" type="FLOAT"/>
+        </addColumn>
+    </changeSet>
+    <changeSet id="2" author="wineryMes">
+        <addColumn tableName="MES_ZENGTONG">
+            <column name="RUNLIANG_DUARATION_QUALIFIED_UP_ID" type="BIGINT"/>
+            <column name="RUNLIANG_DURATION_QUALIFIED_ID" type="BIGINT"/>
+            <column name="RUNLIANG_END_TIME_DOWN" type="DATETIME"/>
+            <column name="RUNLIANG_END_TIME_UP" type="VARCHAR(255)"/>
+            <column name="RUNLIANG_START_TIME_DOWN" type="DATETIME"/>
+            <column name="RUNLIANG_START_TIME_UP" type="DATETIME"/>
+            <column name="ZHENGLIU_DURATION" type="FLOAT"/>
+        </addColumn>
+    </changeSet>
+    <changeSet id="3" author="wineryMes">
+        <createIndex indexName="IDX_MES_ZENGGUO_RECORD_RUNLIANG_DUARATION_QUALIFIED_UP" tableName="MES_ZENGGUO_RECORD">
+            <column name="RUNLIANG_DUARATION_QUALIFIED_UP_ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="RUNLIANG_DUARATION_QUALIFIED_UP_ID" baseTableName="MES_ZENGGUO_RECORD"
+                                 constraintName="FK_MES_ZENGGUO_RECORD_ON_RUNLIANG_DUARATION_QUALIFIED_UP"
+                                 referencedColumnNames="ID" referencedTableName="MES_WINCC_ITEM_CONFIG"/>
+    </changeSet>
+    <changeSet id="4" author="wineryMes">
+        <createIndex indexName="IDX_MES_ZENGGUO_RECORD_RUNLIANG_DURATION_QUALIFIED_DOWN" tableName="MES_ZENGGUO_RECORD">
+            <column name="RUNLIANG_DURATION_QUALIFIED_DOWN_ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="RUNLIANG_DURATION_QUALIFIED_DOWN_ID"
+                                 baseTableName="MES_ZENGGUO_RECORD"
+                                 constraintName="FK_MES_ZENGGUO_RECORD_ON_RUNLIANG_DURATION_QUALIFIED_DOWN"
+                                 referencedColumnNames="ID" referencedTableName="MES_WINCC_ITEM_CONFIG"/>
+    </changeSet>
+    <changeSet id="5" author="wineryMes">
+        <createIndex indexName="IDX_MES_ZENGTONG_RUNLIANG_DUARATION_QUALIFIED_UP" tableName="MES_ZENGTONG">
+            <column name="RUNLIANG_DUARATION_QUALIFIED_UP_ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="RUNLIANG_DUARATION_QUALIFIED_UP_ID" baseTableName="MES_ZENGTONG"
+                                 constraintName="FK_MES_ZENGTONG_ON_RUNLIANG_DUARATION_QUALIFIED_UP"
+                                 referencedColumnNames="ID" referencedTableName="MES_WINCC_ITEM_CONFIG"/>
+    </changeSet>
+    <changeSet id="6" author="wineryMes">
+        <createIndex indexName="IDX_MES_ZENGTONG_RUNLIANG_DURATION_QUALIFIED" tableName="MES_ZENGTONG">
+            <column name="RUNLIANG_DURATION_QUALIFIED_ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="RUNLIANG_DURATION_QUALIFIED_ID" baseTableName="MES_ZENGTONG"
+                                 constraintName="FK_MES_ZENGTONG_ON_RUNLIANG_DURATION_QUALIFIED"
+                                 referencedColumnNames="ID" referencedTableName="MES_WINCC_ITEM_CONFIG"/>
+    </changeSet>
+</databaseChangeLog>

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view"
+      xmlns:c="http://jmix.io/schema/flowui/jpql-condition"
+      title="msg://mesAreaListView.title"
+      focusComponent="mesAreasDataGrid">
+    <data>
+        <collection id="mesAreasDc"
+                    class="com.mom.winery.entity.MesArea">
+            <fetchPlan extends="_base">
+                <property name="mesCells" fetchPlan="_base">
+                    <property name="mesHangches" fetchPlan="_base"/>
+                    <property name="mesJiaochis" fetchPlan="_base"/>
+                </property>
+                <property name="mesZhuanyundous" fetchPlan="_base"/>
+                <property name="mesRunliangdous" fetchPlan="_base"/>
+                <property name="mesZhuangzengDevices" fetchPlan="_base"/>
+                <property name="mesZengguos" fetchPlan="_base"/>
+                <property name="mesTanliangjis" fetchPlan="_base"/>
+                <property name="mesAreaWineTanks" fetchPlan="_base"/>
+                <property name="mesShopfloor" fetchPlan="_base"/>
+            </fetchPlan>
+            <loader id="mesAreasDl" readOnly="true">
+                <query>
+                    <![CDATA[select e from MesArea e]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+        <urlQueryParameters>
+            <genericFilter component="genericFilter"/>
+            <pagination component="pagination"/>
+        </urlQueryParameters>
+    </facets>
+    <actions>
+        <action id="selectAction" type="lookup_select"/>
+        <action id="discardAction" type="lookup_discard"/>
+    </actions>
+    <layout>
+        <genericFilter id="genericFilter"
+                       dataLoader="mesAreasDl">
+            <properties include=".*"/>
+        </genericFilter>
+        <hbox id="buttonsPanel" classNames="buttons-panel">
+            <button id="bulkEditBtn" action="mesAreasDataGrid.bulkEdit"/>
+            <button id="createBtn" action="mesAreasDataGrid.create"/>
+            <button id="editBtn" action="mesAreasDataGrid.edit"/>
+            <button id="excelExportBtn" action="mesAreasDataGrid.excelExport"/>
+            <button id="jsonExportBtn" action="mesAreasDataGrid.jsonExport"/>
+            <button id="refreshBtn" action="mesAreasDataGrid.refresh"/>
+            <button id="removeBtn" action="mesAreasDataGrid.remove"/>
+            <simplePagination id="pagination" dataLoader="mesAreasDl"/>
+        </hbox>
+        <dataGrid id="mesAreasDataGrid"
+                  width="100%"
+                  minHeight="20em"
+                  dataContainer="mesAreasDc"
+                  columnReorderingAllowed="true"
+                  selectionMode="MULTI">
+            <actions>
+                <action id="bulkEdit" type="bulked_edit"/>
+                <action id="create" type="list_create"/>
+                <action id="edit" type="list_edit"/>
+                <action id="excelExport" type="grdexp_excelExport"/>
+                <action id="jsonExport" type="grdexp_jsonExport"/>
+                <action id="refresh" type="list_refresh"/>
+                <action id="remove" type="list_remove"/>
+            </actions>
+            <columns resizable="true">
+                <column property="mesShopfloor"/>
+                <column property="areaCode"/>
+                <column property="wineType"/>
+                <column property="areaName"/>
+            </columns>
+        </dataGrid>
+        <hbox id="lookupActions" visible="false">
+            <button id="selectBtn" action="selectAction"/>
+            <button id="discardBtn" action="discardAction"/>
+        </hbox>
+    </layout>
+</view>

@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view"
+      xmlns:c="http://jmix.io/schema/flowui/jpql-condition"
+      title="msg://mesZengguoListView.title"
+      focusComponent="mesZengguosDataGrid">
+    <data>
+        <collection id="mesZengguosDc"
+                    class="com.mom.winery.entity.MesZengguo">
+            <fetchPlan extends="_base">
+                <property name="mesArea" fetchPlan="_base"/>
+                <property name="zengguoPhase" fetchPlan="_base"/>
+                <property name="jiaochiDown" fetchPlan="_base"/>
+                <property name="jiaochiUp" fetchPlan="_base"/>
+                <property name="runliangDurationQualifiedDown" fetchPlan="_base"/>
+                <property name="runliangDuarationQualifiedUp" fetchPlan="_base"/>
+            </fetchPlan>
+            <loader id="mesZengguosDl" readOnly="true">
+                <query>
+                    <![CDATA[select e from MesZengguo e]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+        <urlQueryParameters>
+            <genericFilter component="genericFilter"/>
+            <pagination component="pagination"/>
+        </urlQueryParameters>
+    </facets>
+    <actions>
+        <action id="selectAction" type="lookup_select"/>
+        <action id="discardAction" type="lookup_discard"/>
+    </actions>
+    <layout>
+        <genericFilter id="genericFilter"
+                       dataLoader="mesZengguosDl">
+            <properties include=".*"/>
+        </genericFilter>
+        <hbox id="buttonsPanel" classNames="buttons-panel">
+            <button id="bulkEditBtn" action="mesZengguosDataGrid.bulkEdit"/>
+            <button id="createBtn" action="mesZengguosDataGrid.create"/>
+            <button id="editBtn" action="mesZengguosDataGrid.edit"/>
+            <button id="excelExportBtn" action="mesZengguosDataGrid.excelExport"/>
+            <button id="jsonExportBtn" action="mesZengguosDataGrid.jsonExport"/>
+            <button id="refreshBtn" action="mesZengguosDataGrid.refresh"/>
+            <button id="removeBtn" action="mesZengguosDataGrid.remove"/>
+            <simplePagination id="pagination" dataLoader="mesZengguosDl"/>
+        </hbox>
+        <dataGrid id="mesZengguosDataGrid"
+                  width="100%"
+                  minHeight="20em"
+                  dataContainer="mesZengguosDc"
+                  columnReorderingAllowed="true"
+                  selectionMode="MULTI">
+            <actions>
+                <action id="bulkEdit" type="bulked_edit"/>
+                <action id="create" type="list_create"/>
+                <action id="edit" type="list_edit"/>
+                <action id="excelExport" type="grdexp_excelExport"/>
+                <action id="jsonExport" type="grdexp_jsonExport"/>
+                <action id="refresh" type="list_refresh"/>
+                <action id="remove" type="list_remove"/>
+            </actions>
+            <columns resizable="true">
+                <column property="mesArea.mesShopfloor"/>
+                <column property="mesArea"/>
+                <column property="zengguoCode"/>
+                <column property="zengSequence"/>
+                <column property="startTimeTotal"/>
+                <column property="zengguoPhase"/>
+                <column property="startTimeDeviceShangZeng"/>
+                <column property="startTimeKagai"/>
+                <column property="endTimeLiujiu"/>
+                <column property="jiaochiDown"/>
+                <column property="jiaochiLayerDown"/>
+                <column property="jiaochiTimeDown"/>
+                <column property="zaopeiTypeDown"/>
+                <column property="runliangAddWaterDown"/>
+                <column property="runliangDurationDown"/>
+                <column property="zaopeiQtyDown"/>
+                <column property="daokeQtyDown"/>
+                <column property="liangshiQtyDown"/>
+                <column property="liangshiTypeDown"/>
+                <column property="jiaochiUp"/>
+                <column property="jiaochiTimeUp"/>
+                <column property="jiaochiLayerUp"/>
+                <column property="zaopeiTypeUp"/>
+                <column property="runliangAddWaterUp"/>
+                <column property="runliangDurationUp"/>
+                <column property="zaopeiQtyUp"/>
+                <column property="daokeQtyUp"/>
+                <column property="liangshiQtyUp"/>
+                <column property="liangshiTypUp"/>
+                <column property="zaopeiType"/>
+                <column property="shangzengLayer"/>
+                <column property="shangzengDuration"/>
+                <column property="shangzengHeight"/>
+                <column property="jiejiuDurationFirstClass"/>
+                <column property="jiejiuDurationSecondClass"/>
+                <column property="jiejiuDurationThirdClass"/>
+                <column property="jiejiuDurationFeishui"/>
+                <column property="jiejiuDurationJiuwei"/>
+                <column property="liangshuiAddQty"/>
+                <column property="huishoudiguoWaterAddQty"/>
+                <column property="hotWaterAddQty"/>
+                <column property="jiuweiAddQty"/>
+                <column property="huangshuiAddQty"/>
+                <column property="energyQiShangzeng"/>
+                <column property="energyQiZhengliu"/>
+                <column property="liujiuAddZhengzhuDuration"/>
+                <column property="lastModifiedDate"/>
+                <column property="zengguoName"/>
+                <column property="endTimeTall"/>
+                <column property="shangzengTotalQty"/>
+                <column property="runliangStartTimeDown"/>
+                <column property="runliangEndTimeDown"/>
+                <column property="runliangDurationQualifiedDown"/>
+                <column property="runliangStartTimeUp"/>
+                <column property="runliangEndTimeUp"/>
+                <column property="runliangDuarationQualifiedUp"/>
+                <column property="zhengliuDuration"/>
+            </columns>
+        </dataGrid>
+        <hbox id="lookupActions" visible="false">
+            <button id="selectBtn" action="selectAction"/>
+            <button id="discardBtn" action="discardAction"/>
+        </hbox>
+    </layout>
+</view>

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view"
+      xmlns:c="http://jmix.io/schema/flowui/jpql-condition"
+      title="msg://mesShopfloorListView.title"
+      focusComponent="mesShopfloorsDataGrid">
+    <data>
+        <collection id="mesShopfloorsDc"
+                    class="com.mom.winery.entity.MesShopfloor">
+            <fetchPlan extends="_base">
+                <property name="mesAreas" fetchPlan="_base">
+                    <property name="mesCells" fetchPlan="_base">
+                        <property name="mesHangches" fetchPlan="_base"/>
+                        <property name="mesJiaochis" fetchPlan="_base"/>
+                    </property>
+                    <property name="mesZhuanyundous" fetchPlan="_base"/>
+                    <property name="mesRunliangdous" fetchPlan="_base"/>
+                    <property name="mesZhuangzengDevices" fetchPlan="_base"/>
+                    <property name="mesZengguos" fetchPlan="_base"/>
+                    <property name="mesTanliangjis" fetchPlan="_base"/>
+                    <property name="mesAreaWineTanks" fetchPlan="_base"/>
+                </property>
+                <property name="mesShopfloorWineTanks" fetchPlan="_base"/>
+                <property name="mesCleanWaterTanks" fetchPlan="_base"/>
+                <property name="mesCirculatingWaterTanks" fetchPlan="_base"/>
+            </fetchPlan>
+            <loader id="mesShopfloorsDl" readOnly="true">
+                <query>
+                    <![CDATA[select e from MesShopfloor e]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+        <urlQueryParameters>
+            <genericFilter component="genericFilter"/>
+            <pagination component="pagination"/>
+        </urlQueryParameters>
+    </facets>
+    <actions>
+        <action id="selectAction" type="lookup_select"/>
+        <action id="discardAction" type="lookup_discard"/>
+    </actions>
+    <layout>
+        <genericFilter id="genericFilter"
+                       dataLoader="mesShopfloorsDl">
+            <properties include=".*"/>
+        </genericFilter>
+        <hbox id="buttonsPanel" classNames="buttons-panel">
+            <button id="bulkEditBtn" action="mesShopfloorsDataGrid.bulkEdit"/>
+            <button id="createBtn" action="mesShopfloorsDataGrid.create"/>
+            <button id="editBtn" action="mesShopfloorsDataGrid.edit"/>
+            <button id="excelExportBtn" action="mesShopfloorsDataGrid.excelExport"/>
+            <button id="jsonExportBtn" action="mesShopfloorsDataGrid.jsonExport"/>
+            <button id="refreshBtn" action="mesShopfloorsDataGrid.refresh"/>
+            <button id="removeBtn" action="mesShopfloorsDataGrid.remove"/>
+            <simplePagination id="pagination" dataLoader="mesShopfloorsDl"/>
+        </hbox>
+        <dataGrid id="mesShopfloorsDataGrid"
+                  width="100%"
+                  minHeight="20em"
+                  dataContainer="mesShopfloorsDc"
+                  columnReorderingAllowed="true"
+                  selectionMode="MULTI">
+            <actions>
+                <action id="bulkEdit" type="bulked_edit"/>
+                <action id="create" type="list_create"/>
+                <action id="edit" type="list_edit"/>
+                <action id="excelExport" type="grdexp_excelExport"/>
+                <action id="jsonExport" type="grdexp_jsonExport"/>
+                <action id="refresh" type="list_refresh"/>
+                <action id="remove" type="list_remove"/>
+            </actions>
+            <columns resizable="true">
+                <column property="mesSiteCode"/>
+                <column property="mesSiteName"/>
+                <column property="mesShopfloorCode"/>
+                <column property="mesShopfloorName"/>
+            </columns>
+        </dataGrid>
+        <hbox id="lookupActions" visible="false">
+            <button id="selectBtn" action="selectAction"/>
+            <button id="discardBtn" action="discardAction"/>
+        </hbox>
+    </layout>
+</view>

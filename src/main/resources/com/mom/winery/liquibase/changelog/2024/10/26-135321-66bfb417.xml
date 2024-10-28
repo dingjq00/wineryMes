@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd"
+        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+    <changeSet id="1" author="wineryMes">
+        <addColumn tableName="MES_RUNLIANGDOU">
+            <column name="DIU_ZAO_ORLIANGZAO_ID" type="BIGINT"/>
+            <column name="EMPTY_OR_FULL_ID" type="BIGINT"/>
+            <column name="END_TIME" type="DATETIME"/>
+            <column name="JIAOCHI_ID" type="BIGINT"/>
+            <column name="JIAOCHI_LAYER" type="INT"/>
+            <column name="JIAOCHI_TIME" type="DATETIME"/>
+            <column name="RUNLIANG_DURATION" type="FLOAT"/>
+            <column name="START_TIME" type="DATETIME"/>
+            <column name="WATER_QTY_ADD" type="FLOAT"/>
+            <column name="ZAOPEI_TYPE_ID" type="BIGINT"/>
+        </addColumn>
+    </changeSet>
+    <changeSet id="2" author="wineryMes">
+        <createIndex indexName="IDX_MES_RUNLIANGDOU_DIU_ZAO_ORLIANGZAO" tableName="MES_RUNLIANGDOU">
+            <column name="DIU_ZAO_ORLIANGZAO_ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="DIU_ZAO_ORLIANGZAO_ID" baseTableName="MES_RUNLIANGDOU"
+                                 constraintName="FK_MES_RUNLIANGDOU_ON_DIU_ZAO_ORLIANGZAO" referencedColumnNames="ID"
+                                 referencedTableName="MES_WINCC_ITEM_CONFIG"/>
+    </changeSet>
+    <changeSet id="3" author="wineryMes">
+        <createIndex indexName="IDX_MES_RUNLIANGDOU_EMPTY_OR_FULL" tableName="MES_RUNLIANGDOU">
+            <column name="EMPTY_OR_FULL_ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="EMPTY_OR_FULL_ID" baseTableName="MES_RUNLIANGDOU"
+                                 constraintName="FK_MES_RUNLIANGDOU_ON_EMPTY_OR_FULL" referencedColumnNames="ID"
+                                 referencedTableName="MES_WINCC_ITEM_CONFIG"/>
+    </changeSet>
+    <changeSet id="4" author="wineryMes">
+        <createIndex indexName="IDX_MES_RUNLIANGDOU_JIAOCHI" tableName="MES_RUNLIANGDOU">
+            <column name="JIAOCHI_ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="JIAOCHI_ID" baseTableName="MES_RUNLIANGDOU"
+                                 constraintName="FK_MES_RUNLIANGDOU_ON_JIAOCHI" referencedColumnNames="ID"
+                                 referencedTableName="MES_JIAOCHI"/>
+    </changeSet>
+    <changeSet id="5" author="wineryMes">
+        <createIndex indexName="IDX_MES_RUNLIANGDOU_ZAOPEI_TYPE" tableName="MES_RUNLIANGDOU">
+            <column name="ZAOPEI_TYPE_ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="ZAOPEI_TYPE_ID" baseTableName="MES_RUNLIANGDOU"
+                                 constraintName="FK_MES_RUNLIANGDOU_ON_ZAOPEI_TYPE" referencedColumnNames="ID"
+                                 referencedTableName="MES_WINCC_ITEM_CONFIG"/>
+    </changeSet>
+</databaseChangeLog>

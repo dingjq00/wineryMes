@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view"
+      xmlns:c="http://jmix.io/schema/flowui/jpql-condition"
+      title="msg://winccTanliangjiListView.title"
+      focusComponent="winccTanliangjisDataGrid">
+    <data>
+        <collection id="winccTanliangjisDc"
+                    class="com.mom.winery.entity.WinccTanliangji">
+            <fetchPlan extends="_base"/>
+            <loader id="winccTanliangjisDl" readOnly="true">
+                <query>
+                    <![CDATA[select e from WinccTanliangji e]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+        <urlQueryParameters>
+            <genericFilter component="genericFilter"/>
+            <pagination component="pagination"/>
+        </urlQueryParameters>
+    </facets>
+    <actions>
+        <action id="selectAction" type="lookup_select"/>
+        <action id="discardAction" type="lookup_discard"/>
+    </actions>
+    <layout>
+        <genericFilter id="genericFilter"
+                       dataLoader="winccTanliangjisDl">
+            <properties include=".*"/>
+        </genericFilter>
+        <hbox id="buttonsPanel" classNames="buttons-panel">
+            <button id="bulkEditBtn" action="winccTanliangjisDataGrid.bulkEdit"/>
+            <button id="createBtn" action="winccTanliangjisDataGrid.create"/>
+            <button id="editBtn" action="winccTanliangjisDataGrid.edit"/>
+            <button id="excelExportBtn" action="winccTanliangjisDataGrid.excelExport"/>
+            <button id="jsonExportBtn" action="winccTanliangjisDataGrid.jsonExport"/>
+            <button id="refreshBtn" action="winccTanliangjisDataGrid.refresh"/>
+            <button id="removeBtn" action="winccTanliangjisDataGrid.remove"/>
+            <simplePagination id="pagination" dataLoader="winccTanliangjisDl"/>
+        </hbox>
+        <dataGrid id="winccTanliangjisDataGrid"
+                  width="100%"
+                  minHeight="20em"
+                  dataContainer="winccTanliangjisDc"
+                  columnReorderingAllowed="true"
+                  selectionMode="MULTI">
+            <actions>
+                <action id="bulkEdit" type="bulked_edit"/>
+                <action id="create" type="list_create"/>
+                <action id="edit" type="list_edit"/>
+                <action id="excelExport" type="grdexp_excelExport"/>
+                <action id="jsonExport" type="grdexp_jsonExport"/>
+                <action id="refresh" type="list_refresh"/>
+                <action id="remove" type="list_remove"/>
+            </actions>
+            <columns resizable="true">
+                <column property="id"/>
+                <column property="areaNo" autoWidth="true"/>
+                <column property="devtype" autoWidth="true"/>
+                <column property="winccId" autoWidth="true"/>
+                <column property="starttime" autoWidth="true"/>
+                <column property="comment" autoWidth="true"/>
+                <column property="isDealed" autoWidth="true"/>
+            </columns>
+        </dataGrid>
+        <hbox id="lookupActions" visible="false">
+            <button id="selectBtn" action="selectAction"/>
+            <button id="discardBtn" action="discardAction"/>
+        </hbox>
+    </layout>
+</view>

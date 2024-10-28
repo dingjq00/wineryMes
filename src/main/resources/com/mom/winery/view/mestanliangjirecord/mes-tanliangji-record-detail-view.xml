@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view"
+      title="msg://mesTanliangjiRecordDetailView.title"
+      focusComponent="form">
+    <data>
+        <instance id="mesTanliangjiRecordDc"
+                  class="com.mom.winery.entity.MesTanliangjiRecord">
+            <fetchPlan extends="_base">
+                <property name="mesTanliangji" fetchPlan="_base"/>
+                <property name="resourceZengguo" fetchPlan="_base"/>
+                <property name="currentZhuanyundou" fetchPlan="_base"/>
+                <property name="winccInputJiaochi" fetchPlan="_base"/>
+            </fetchPlan>
+            <loader id="mesTanliangjiRecordDl"/>
+        </instance>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+    </facets>
+    <actions>
+        <action id="saveAction" type="detail_saveClose"/>
+        <action id="closeAction" type="detail_close"/>
+    </actions>
+    <layout>
+        <formLayout id="form" dataContainer="mesTanliangjiRecordDc">
+            <textField id="zengSequenceField" property="zengSequence"/>
+            <textField id="winccZaopeiQtyField" property="winccZaopeiQty"/>
+            <textField id="winccJiaquQtyField" property="winccJiaquQty"/>
+            <textField id="winccOutMaxTempField" property="winccOutMaxTemp"/>
+            <textField id="winccOutMinTempField" property="winccOutMinTemp"/>
+            <textField id="winccOutAvgTempField" property="winccOutAvgTemp"/>
+            <dateTimePicker id="winccStartTimeField" property="winccStartTime"/>
+            <dateTimePicker id="winccEndTimeField" property="winccEndTime"/>
+            <textField id="winccDurationField" property="winccDuration"/>
+            <textField id="daokeAddQtyDownField" property="daokeAddQtyDown"/>
+            <textField id="liangshiAddQtyDownField" property="liangshiAddQtyDown"/>
+            <textField id="zaopeiAddQtyDownField" property="zaopeiAddQtyDown"/>
+            <textField id="daokeAddQtyUpField" property="daokeAddQtyUp"/>
+            <textField id="liangshiAddQtyUpField" property="liangshiAddQtyUp"/>
+            <textField id="zaopeiAddQtyUpField" property="zaopeiAddQtyUp"/>
+            <textField id="zhengliuDurationField" property="zhengliuDuration"/>
+            <textField id="shangzengDurationField" property="shangzengDuration"/>
+            <select id="zaopeiTypeField" property="zaopeiType"/>
+            <textField id="shangzengTotalQtyField" property="shangzengTotalQty"/>
+            <textField id="winccJiaochiLayerField" property="winccJiaochiLayer"/>
+            <dateTimePicker id="winccChujiaoTimeField" property="winccChujiaoTime"/>
+            <select id="winccZaopeiTypeField" property="winccZaopeiType"/>
+            <textField id="winccStartIdField" property="winccStartId"/>
+            <textField id="winccEndIdField" property="winccEndId"/>
+            <textField id="liangshuiAddQtyField" property="liangshuiAddQty"/>
+            <textField id="phaseDurationField" property="phaseDuration"/>
+            <dateTimePicker id="lastModifiedDateField" property="lastModifiedDate"/>
+            <entityPicker id="mesTanliangjiField" property="mesTanliangji">
+                <actions>
+                    <action id="entityLookup" type="entity_lookup"/>
+                    <action id="entityClear" type="entity_clear"/>
+                </actions>
+            </entityPicker>
+            <entityPicker id="resourceZengguoField" property="resourceZengguo">
+                <actions>
+                    <action id="entityLookup" type="entity_lookup"/>
+                    <action id="entityClear" type="entity_clear"/>
+                </actions>
+            </entityPicker>
+            <entityPicker id="currentZhuanyundouField" property="currentZhuanyundou">
+                <actions>
+                    <action id="entityLookup" type="entity_lookup"/>
+                    <action id="entityClear" type="entity_clear"/>
+                </actions>
+            </entityPicker>
+            <entityPicker id="winccInputJiaochiField" property="winccInputJiaochi">
+                <actions>
+                    <action id="entityLookup" type="entity_lookup"/>
+                    <action id="entityClear" type="entity_clear"/>
+                </actions>
+            </entityPicker>
+            <dateTimePicker id="phaseStartTimeField" property="phaseStartTime"/>
+            <dateTimePicker id="phaseEndTimeField" property="phaseEndTime"/>
+        </formLayout>
+        <hbox id="detailActions">
+            <button id="saveAndCloseBtn" action="saveAction"/>
+            <button id="closeBtn" action="closeAction"/>
+        </hbox>
+    </layout>
+</view>

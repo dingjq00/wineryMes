@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view" xmlns:charts="http://jmix.io/schema/charts/ui"
+      xmlns:c="http://jmix.io/schema/flowui/jpql-condition"
+      title="msg://mesTanliangjiRealTimeDataListView.title"
+      focusComponent="mesTanliangjiRealTimeDatasDataGrid">
+    <data>
+        <collection id="mesTanliangjiRealTimeDatasDc"
+                    class="com.mom.winery.entity.MesTanliangjiRealTimeData">
+            <fetchPlan extends="_base">
+                <property name="mesArea" fetchPlan="_base"/>
+            </fetchPlan>
+            <loader id="mesTanliangjiRealTimeDatasDl" readOnly="true">
+                <query>
+                    <![CDATA[select e from MesTanliangjiRealTimeData e]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+        <urlQueryParameters>
+            <genericFilter component="genericFilter"/>
+            <pagination component="pagination"/>
+        </urlQueryParameters>
+    </facets>
+    <actions>
+        <action id="selectAction" type="lookup_select"/>
+        <action id="discardAction" type="lookup_discard"/>
+    </actions>
+    <layout>
+
+        <charts:chart id="bar" width="100%" height="100%" minHeight="30em" alignSelf="STRETCH">
+            <charts:title text="摊晾示例图"/>
+            <charts:tooltip trigger="AXIS">
+                <charts:axisPointer type="SHADOW"/>
+            </charts:tooltip>
+            <charts:dataSet>
+                <charts:source dataContainer="mesTanliangjiRealTimeDatasDc" categoryField="winccUpdateTime"
+                               valueFields="tangliangGeiliaojiLiusu1 qufenLiusu1"/>
+            </charts:dataSet>
+            <charts:series>
+                <charts:bar name = "流速_1#摊晾给料机" yAxisIndex="0"/>
+                <charts:line name="流速_1#曲粉" yAxisIndex="1">
+
+                </charts:line>
+            </charts:series>
+            <charts:xAxes>
+                <charts:xAxis/>
+            </charts:xAxes>
+            <charts:yAxes>
+                <charts:yAxis name="流速_1#摊晾给料机" position="LEFT" alignTicks="true"/>
+                <charts:yAxis name="流速_1#曲粉" position="RIGHT" alignTicks="true"/>
+            </charts:yAxes>
+        </charts:chart>
+        <genericFilter id="genericFilter"
+                       dataLoader="mesTanliangjiRealTimeDatasDl">
+            <properties include=".*"/>
+        </genericFilter>
+        <hbox id="buttonsPanel" classNames="buttons-panel">
+            <button id="bulkEditBtn" action="mesTanliangjiRealTimeDatasDataGrid.bulkEdit"/>
+            <button id="createBtn" action="mesTanliangjiRealTimeDatasDataGrid.create"/>
+            <button id="editBtn" action="mesTanliangjiRealTimeDatasDataGrid.edit"/>
+            <button id="excelExportBtn" action="mesTanliangjiRealTimeDatasDataGrid.excelExport"/>
+            <button id="jsonExportBtn" action="mesTanliangjiRealTimeDatasDataGrid.jsonExport"/>
+            <button id="readBtn" action="mesTanliangjiRealTimeDatasDataGrid.read"/>
+            <button id="refreshBtn" action="mesTanliangjiRealTimeDatasDataGrid.refresh"/>
+            <button id="removeBtn" action="mesTanliangjiRealTimeDatasDataGrid.remove"/>
+            <simplePagination id="pagination" dataLoader="mesTanliangjiRealTimeDatasDl"/>
+        </hbox>
+        <dataGrid id="mesTanliangjiRealTimeDatasDataGrid"
+                  width="100%"
+                  minHeight="20em"
+                  dataContainer="mesTanliangjiRealTimeDatasDc"
+                  columnReorderingAllowed="true"
+                  selectionMode="MULTI">
+            <actions>
+                <action id="bulkEdit" type="bulked_edit"/>
+                <action id="create" type="list_create"/>
+                <action id="edit" type="list_edit"/>
+                <action id="excelExport" type="grdexp_excelExport"/>
+                <action id="jsonExport" type="grdexp_jsonExport"/>
+                <action id="read" type="list_read"/>
+                <action id="refresh" type="list_refresh"/>
+                <action id="remove" type="list_remove"/>
+            </actions>
+            <columns resizable="true">
+                <column property="mesArea"/>
+                <column property="winccUpdateTime"/>
+                <column property="tanliangGeiliaojiYuzhong1"/>
+                <column property="tanliangGeiliaojiYuzhong2"/>
+                <column property="qufeiZancuncangYuzhong1"/>
+                <column property="qufeiZancuncangYuzhong2"/>
+                <column property="tangliangGeiliaojiLiusu1"/>
+                <column property="tangliangGeiliaojiLiusu2"/>
+                <column property="qufenLiusu1"/>
+                <column property="qufenLiusu2"/>
+                <column property="tanliangZhongbuTemp1"/>
+                <column property="tanliangZhongbuTemp2"/>
+                <column property="tanliangChukouTemp1"/>
+                <column property="tanliangChukouTemp2"/>
+                <column property="winccId"/>
+
+            </columns>
+        </dataGrid>
+        <hbox id="lookupActions" visible="false">
+            <button id="selectBtn" action="selectAction"/>
+            <button id="discardBtn" action="discardAction"/>
+            <charts:chart/>
+        </hbox>
+    </layout>
+</view>

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view"
+      xmlns:c="http://jmix.io/schema/flowui/jpql-condition"
+      title="msg://mesWinccItemConfigListView.title"
+      focusComponent="mesWinccItemConfigsDataGrid">
+    <data>
+        <collection id="mesWinccItemConfigsDc"
+                    class="com.mom.winery.entity.MesWinccItemConfig">
+            <fetchPlan extends="_base"/>
+            <loader id="mesWinccItemConfigsDl" readOnly="true">
+                <query>
+                    <![CDATA[select e from MesWinccItemConfig e]]>
+                </query>
+            </loader>
+        </collection>
+        <instance id="mesWinccItemConfigDc"
+                  class="com.mom.winery.entity.MesWinccItemConfig">
+            <fetchPlan extends="_base"/>
+            <loader id="mesWinccItemConfigDl"/>
+        </instance>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+        <urlQueryParameters>
+            <genericFilter component="genericFilter"/>
+            <pagination component="pagination"/>
+        </urlQueryParameters>
+    </facets>
+    <actions>
+        <action id="selectAction" type="lookup_select"/>
+        <action id="discardAction" type="lookup_discard"/>
+    </actions>
+    <layout padding="false">
+        <formLayout id="layoutWrapper" classNames="master-detail-layout" height="100%">
+            <vbox id="listLayout" height="100%">
+                <genericFilter id="genericFilter"
+                               dataLoader="mesWinccItemConfigsDl">
+                    <properties include=".*"/>
+                </genericFilter>
+                <hbox id="buttonsPanel" classNames="buttons-panel">
+                    <button id="bulkEditBtn" action="mesWinccItemConfigsDataGrid.bulkEdit"/>
+                    <button id="createBtn" action="mesWinccItemConfigsDataGrid.create"/>
+                    <button id="editBtn" action="mesWinccItemConfigsDataGrid.edit"/>
+                    <button id="excelExportBtn" action="mesWinccItemConfigsDataGrid.excelExport"/>
+                    <button id="jsonExportBtn" action="mesWinccItemConfigsDataGrid.jsonExport"/>
+                    <button id="refreshBtn" action="mesWinccItemConfigsDataGrid.refresh"/>
+                    <button id="removeBtn" action="mesWinccItemConfigsDataGrid.remove"/>
+                    <simplePagination id="pagination" dataLoader="mesWinccItemConfigsDl"/>
+                </hbox>
+                <dataGrid id="mesWinccItemConfigsDataGrid"
+                          width="100%"
+                          minHeight="20em"
+                          dataContainer="mesWinccItemConfigsDc"
+                          columnReorderingAllowed="true"
+                          selectionMode="MULTI">
+                    <actions>
+                        <action id="bulkEdit" type="bulked_edit"/>
+                        <action id="create" type="list_create"/>
+                        <action id="edit" type="list_edit"/>
+                        <action id="excelExport" type="grdexp_excelExport"/>
+                        <action id="jsonExport" type="grdexp_jsonExport"/>
+                        <action id="refresh" type="list_refresh"/>
+                        <action id="remove" type="list_remove"/>
+                    </actions>
+                    <columns resizable="true">
+                        <column property="configType" editable="true"/>
+                        <column property="valueNo" editable="true"/>
+                        <column property="valueName" editable="true"/>
+                        <column property="description" editable="true"/>
+                    </columns>
+                </dataGrid>
+                <hbox id="lookupActions" visible="false">
+                    <button id="selectBtn" action="selectAction"/>
+                    <button id="discardBtn" action="discardAction"/>
+                </hbox>
+            </vbox>
+            <vbox id="detailsLayout" height="100%">
+                <formLayout id="form" dataContainer="mesWinccItemConfigDc">
+                    <select id="configTypeField" property="configType"/>
+                    <textField id="valueNoField" property="valueNo"/>
+                    <textField id="valueNameField" property="valueName"/>
+                    <textField id="descriptionField" property="description"/>
+                </formLayout>
+                <hbox id="detailActions">
+                    <button id="saveBtn" text="msg:///actions.Save" icon="CHECK" themeNames="primary"/>
+                    <button id="cancelBtn" text="msg:///actions.Cancel" icon="BAN"/>
+                </hbox>
+            </vbox>
+        </formLayout>
+    </layout>
+</view>

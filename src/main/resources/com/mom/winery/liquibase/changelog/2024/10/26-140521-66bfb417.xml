@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd"
+        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+    <changeSet id="1" author="wineryMes">
+        <addColumn tableName="MES_RUNLIANGDOU">
+            <column name="DAOKE_ADD_QTY" type="FLOAT"/>
+            <column name="DURATION_QUALIFIED_ID" type="BIGINT"/>
+            <column name="LIANGSHI_ADD_QTY" type="FLOAT"/>
+            <column name="LIANGSHI_TYPE" type="INT"/>
+            <column name="ZAOPEI_ADD_QTY" type="FLOAT"/>
+        </addColumn>
+    </changeSet>
+    <changeSet id="2" author="wineryMes">
+        <createIndex indexName="IDX_MES_RUNLIANGDOU_DURATION_QUALIFIED" tableName="MES_RUNLIANGDOU">
+            <column name="DURATION_QUALIFIED_ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="DURATION_QUALIFIED_ID" baseTableName="MES_RUNLIANGDOU"
+                                 constraintName="FK_MES_RUNLIANGDOU_ON_DURATION_QUALIFIED" referencedColumnNames="ID"
+                                 referencedTableName="MES_WINCC_ITEM_CONFIG"/>
+    </changeSet>
+</databaseChangeLog>

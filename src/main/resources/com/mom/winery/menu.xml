@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<menu-config xmlns="http://jmix.io/schema/flowui/menu">
+
+    <menu id="basicData" title="msg://com.mom.winery/menu.basicData.title" opened="true">
+        <item view="MesShopfloor.list" title="msg://com.mom.winery.view.messhopfloor/mesShopfloorListView.title"/>
+        <item view="MesArea.list" title="msg://com.mom.winery.view.mesarea/mesAreaListView.title"/>
+        <item view="MesCell.list" title="msg://com.mom.winery.view.mescell/mesCellListView.title"/>
+        <item view="MesHangche.list" title="msg://com.mom.winery.view.meshangche/mesHangcheListView.title"/>
+        <item view="MesJiaochi.list" title="msg://com.mom.winery.view.mesjiaochi/mesJiaochiListView.title"/>
+        <item view="MesZhuanyundou.list" title="msg://com.mom.winery.view.meszhuanyundou/mesZhuanyundouListView.title"/>
+        <item view="MesRunliangdou.list" title="msg://com.mom.winery.view.mesrunliangdou/mesRunliangdouListView.title"/>
+        <item view="MesZhuangzengDvice.list"
+              title="msg://com.mom.winery.view.meszhuangzengdvice/mesZhuangzengDviceListView.title"/>
+        <item view="MesZengguo.list" title="msg://com.mom.winery.view.meszengguo/mesZengguoListView.title"/>
+        <item view="MesTanliangji.list" title="msg://com.mom.winery.view.mestanliangji/mesTanliangjiListView.title"/>
+        <item view="MesAreaWineTank.list"
+              title="msg://com.mom.winery.view.mesareawinetank/mesAreaWineTankListView.title"/>
+        <item view="MesShopfloorWineTank.list"
+              title="msg://com.mom.winery.view.messhopfloorwinetank/mesShopfloorWineTankListView.title"/>
+        <item view="MesCirculatingWaterTank.list"
+              title="msg://com.mom.winery.view.mescirculatingwatertank/mesCirculatingWaterTankListView.title"/>
+        <item view="MesCleanWaterTank.list"
+              title="msg://com.mom.winery.view.mescleanwatertank/mesCleanWaterTankListView.title"/>
+        <item view="MesRunliangWaterTank.list"
+              title="msg://com.mom.winery.view.mesrunliangwatertank/mesRunliangWaterTankListView.title"/>
+        <item view="MesLiangshuiTank.list"
+              title="msg://com.mom.winery.view.mesliangshuitank/mesLiangshuiTankListView.title"/>
+        <item view="MesRecyclingBottomWaterTank.list"
+              title="msg://com.mom.winery.view.mesrecyclingbottomwatertank/mesRecyclingBottomWaterTankListView.title"/>
+        <item view="MesDiuZaoWeiJiuTank.list"
+              title="msg://com.mom.winery.view.mesdiuzaoweijiutank/mesDiuZaoWeiJiuTankListView.title"/>
+        <item view="MesWinccItemConfig.list"
+              title="msg://com.mom.winery.view.meswinccitemconfig/mesWinccItemConfigListView.title"/>
+        <item view="JobConfig.list" title="msg://com.mom.winery.view.jobconfig/jobConfigListView.title"/>
+        <item view="MesRunliangdoudouRecord.list"
+              title="msg://com.mom.winery.view.mesrunliangdoudourecord/mesRunliangdoudouRecordListView.title"/>
+        <item view="MesZenggouPhaseConfig.list"
+              title="msg://com.mom.winery.view.meszenggouphaseconfig/mesZenggouPhaseConfigListView.title"/>
+        <item view="MesZengguoRecord.list"
+              title="msg://com.mom.winery.view.meszengguorecord/mesZengguoRecordListView.title"/>
+        <item view="MesTanliangjiRecord.list"
+              title="msg://com.mom.winery.view.mestanliangjirecord/mesTanliangjiRecordListView.title"/>
+        <item view="MesTanliangjiRealTimeData.list"
+              title="msg://com.mom.winery.view.mestanliangjirealtimedata/mesTanliangjiRealTimeDataListView.title"/>
+
+
+    </menu>
+    <menu id="winccRawData" title="msg://com.mom.winery/menu.winccRawData.title" opened="true">
+        <item view="WinccGeiliaoji.list" title="msg://com.mom.winery.view.winccgeiliaoji/winccGeiliaojiListView.title"/>
+        <item view="WinccHangche.list" title="msg://com.mom.winery.view.wincchangche/winccHangcheListView.title"/>
+        <item view="WinccMoniliang.list" title="msg://com.mom.winery.view.winccmoniliang/winccMoniliangListView.title"/>
+        <item view="WinccRunliangdou.list"
+              title="msg://com.mom.winery.view.winccrunliangdou/winccRunliangdouListView.title"/>
+        <item view="WinccTanliangji.list"
+              title="msg://com.mom.winery.view.wincctanliangji/winccTanliangjiListView.title"/>
+        <item view="WinccZengdata.list" title="msg://com.mom.winery.view.wincczengdata/winccZengdataListView.title"/>
+        <item view="WinccZengdevice.list"
+              title="msg://com.mom.winery.view.wincczengdevice/winccZengdeviceListView.title"/>
+        <item view="WinccZhuanyundou.list"
+              title="msg://com.mom.winery.view.wincczhuanyundou/winccZhuanyundouListView.title"/>
+    </menu>
+    <menu id="application" title="msg://com.mom.winery/menu.application.title" opened="true">
+        <item view="User.list" title="msg://com.mom.winery.view.user/UserListView.title"/>
+    </menu>
+
+</menu-config>

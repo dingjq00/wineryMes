@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view"
+      xmlns:c="http://jmix.io/schema/flowui/jpql-condition"
+      title="msg://mesShopfloorWineTankListView.title"
+      focusComponent="mesShopfloorWineTanksDataGrid">
+    <data>
+        <collection id="mesShopfloorWineTanksDc"
+                    class="com.mom.winery.entity.MesShopfloorWineTank">
+            <fetchPlan extends="_base">
+                <property name="mesShopfloor" fetchPlan="_base"/>
+            </fetchPlan>
+            <loader id="mesShopfloorWineTanksDl" readOnly="true">
+                <query>
+                    <![CDATA[select e from MesShopfloorWineTank e]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+        <urlQueryParameters>
+            <genericFilter component="genericFilter"/>
+            <pagination component="pagination"/>
+        </urlQueryParameters>
+    </facets>
+    <actions>
+        <action id="selectAction" type="lookup_select"/>
+        <action id="discardAction" type="lookup_discard"/>
+    </actions>
+    <layout>
+        <genericFilter id="genericFilter"
+                       dataLoader="mesShopfloorWineTanksDl">
+            <properties include=".*"/>
+        </genericFilter>
+        <hbox id="buttonsPanel" classNames="buttons-panel">
+            <button id="bulkEditBtn" action="mesShopfloorWineTanksDataGrid.bulkEdit"/>
+            <button id="createBtn" action="mesShopfloorWineTanksDataGrid.create"/>
+            <button id="editBtn" action="mesShopfloorWineTanksDataGrid.edit"/>
+            <button id="excelExportBtn" action="mesShopfloorWineTanksDataGrid.excelExport"/>
+            <button id="jsonExportBtn" action="mesShopfloorWineTanksDataGrid.jsonExport"/>
+            <button id="refreshBtn" action="mesShopfloorWineTanksDataGrid.refresh"/>
+            <button id="removeBtn" action="mesShopfloorWineTanksDataGrid.remove"/>
+            <simplePagination id="pagination" dataLoader="mesShopfloorWineTanksDl"/>
+        </hbox>
+        <dataGrid id="mesShopfloorWineTanksDataGrid"
+                  width="100%"
+                  minHeight="20em"
+                  dataContainer="mesShopfloorWineTanksDc"
+                  columnReorderingAllowed="true"
+                  selectionMode="MULTI">
+            <actions>
+                <action id="bulkEdit" type="bulked_edit"/>
+                <action id="create" type="list_create"/>
+                <action id="edit" type="list_edit"/>
+                <action id="excelExport" type="grdexp_excelExport"/>
+                <action id="jsonExport" type="grdexp_jsonExport"/>
+                <action id="refresh" type="list_refresh"/>
+                <action id="remove" type="list_remove"/>
+            </actions>
+            <columns resizable="true">
+                <column property="mesShopfloor"/>
+                <column property="shopfloorWineTankCode"/>
+                <column property="wineGrade"/>
+            </columns>
+        </dataGrid>
+        <hbox id="lookupActions" visible="false">
+            <button id="selectBtn" action="selectAction"/>
+            <button id="discardBtn" action="discardAction"/>
+        </hbox>
+    </layout>
+</view>

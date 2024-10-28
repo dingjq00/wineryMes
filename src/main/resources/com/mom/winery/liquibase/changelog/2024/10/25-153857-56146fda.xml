@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd"
+        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+    <changeSet id="1" author="wineryMes">
+        <createTable tableName="MES_SHOPFLOOR_WINE_TANK">
+            <column name="ID" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_MES_SHOPFLOOR_WINE_TANK"/>
+            </column>
+            <column name="SHOPFLOOR_WINE_TANK_CODE" type="VARCHAR(120)"/>
+            <column name="WINE_GRADE" type="VARCHAR(120)"/>
+            <column name="CREATED_BY" type="VARCHAR(255)"/>
+            <column name="CREATED_DATE" type="${offsetDateTime.type}"/>
+            <column name="LAST_MODIFIED_BY" type="VARCHAR(255)"/>
+            <column name="LAST_MODIFIED_DATE" type="${offsetDateTime.type}"/>
+            <column name="MES_SHOPFLOOR_ID" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="2" author="wineryMes">
+        <createIndex indexName="IDX_MES_SHOPFLOOR_WINE_TANK_MES_SHOPFLOOR" tableName="MES_SHOPFLOOR_WINE_TANK">
+            <column name="MES_SHOPFLOOR_ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="MES_SHOPFLOOR_ID" baseTableName="MES_SHOPFLOOR_WINE_TANK"
+                                 constraintName="FK_MES_SHOPFLOOR_WINE_TANK_ON_MES_SHOPFLOOR" onDelete="CASCADE"
+                                 referencedColumnNames="ID" referencedTableName="MES_SHOPFLOOR"/>
+    </changeSet>
+</databaseChangeLog>

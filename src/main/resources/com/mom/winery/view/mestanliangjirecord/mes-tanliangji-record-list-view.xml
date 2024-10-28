@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view"
+      xmlns:c="http://jmix.io/schema/flowui/jpql-condition"
+      title="msg://mesTanliangjiRecordListView.title"
+      focusComponent="mesTanliangjiRecordsDataGrid">
+    <data>
+        <collection id="mesTanliangjiRecordsDc"
+                    class="com.mom.winery.entity.MesTanliangjiRecord">
+            <fetchPlan extends="_base">
+                <property name="mesTanliangji" fetchPlan="_base">
+                    <property name="mesArea" fetchPlan="_base">
+                        <property name="mesShopfloor" fetchPlan="_base"/>
+                    </property>
+                </property>
+                <property name="resourceZengguo" fetchPlan="_base"/>
+                <property name="currentZhuanyundou" fetchPlan="_base"/>
+                <property name="winccInputJiaochi" fetchPlan="_base"/>
+            </fetchPlan>
+            <loader id="mesTanliangjiRecordsDl" readOnly="true">
+                <query>
+                    <![CDATA[select e from MesTanliangjiRecord e]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+        <urlQueryParameters>
+            <genericFilter component="genericFilter"/>
+            <pagination component="pagination"/>
+        </urlQueryParameters>
+    </facets>
+    <actions>
+        <action id="selectAction" type="lookup_select"/>
+        <action id="discardAction" type="lookup_discard"/>
+    </actions>
+    <layout>
+        <genericFilter id="genericFilter"
+                       dataLoader="mesTanliangjiRecordsDl">
+            <properties include=".*"/>
+        </genericFilter>
+        <hbox id="buttonsPanel" classNames="buttons-panel">
+            <button id="bulkEditBtn" action="mesTanliangjiRecordsDataGrid.bulkEdit"/>
+            <button id="createBtn" action="mesTanliangjiRecordsDataGrid.create"/>
+            <button id="editBtn" action="mesTanliangjiRecordsDataGrid.edit"/>
+            <button id="excelExportBtn" action="mesTanliangjiRecordsDataGrid.excelExport"/>
+            <button id="jsonExportBtn" action="mesTanliangjiRecordsDataGrid.jsonExport"/>
+            <button id="readBtn" action="mesTanliangjiRecordsDataGrid.read"/>
+            <button id="refreshBtn" action="mesTanliangjiRecordsDataGrid.refresh"/>
+            <button id="removeBtn" action="mesTanliangjiRecordsDataGrid.remove"/>
+            <simplePagination id="pagination" dataLoader="mesTanliangjiRecordsDl"/>
+        </hbox>
+        <dataGrid id="mesTanliangjiRecordsDataGrid"
+                  width="100%"
+                  minHeight="20em"
+                  dataContainer="mesTanliangjiRecordsDc"
+                  columnReorderingAllowed="true"
+                  selectionMode="MULTI">
+            <actions>
+                <action id="bulkEdit" type="bulked_edit"/>
+                <action id="create" type="list_create"/>
+                <action id="edit" type="list_edit"/>
+                <action id="excelExport" type="grdexp_excelExport"/>
+                <action id="jsonExport" type="grdexp_jsonExport"/>
+                <action id="read" type="list_read"/>
+                <action id="refresh" type="list_refresh"/>
+                <action id="remove" type="list_remove"/>
+            </actions>
+            <columns resizable="true">
+                <column property="mesTanliangji.mesArea"/>
+                <column property="mesTanliangji"/>
+                <column property="resourceZengguo"/>
+                <column property="zengSequence"/>
+                <column property="winccZaopeiQty"/>
+                <column property="winccJiaquQty"/>
+                <column property="winccOutMaxTemp"/>
+                <column property="winccOutMinTemp"/>
+                <column property="winccOutAvgTemp"/>
+                <column property="winccStartTime"/>
+                <column property="winccEndTime"/>
+                <column property="winccDuration"/>
+                <column property="daokeAddQtyDown"/>
+                <column property="liangshiAddQtyDown"/>
+                <column property="zaopeiAddQtyDown"/>
+                <column property="daokeAddQtyUp"/>
+                <column property="liangshiAddQtyUp"/>
+                <column property="zaopeiAddQtyUp"/>
+                <column property="zhengliuDuration"/>
+                <column property="shangzengDuration"/>
+                <column property="zaopeiType"/>
+                <column property="shangzengTotalQty"/>
+                <column property="currentZhuanyundou"/>
+                <column property="winccJiaochiLayer"/>
+                <column property="winccChujiaoTime"/>
+                <column property="winccZaopeiType"/>
+                <column property="winccInputJiaochi"/>
+                <column property="winccStartId"/>
+                <column property="winccEndId"/>
+                <column property="liangshuiAddQty"/>
+                <column property="phaseDuration"/>
+                <column property="lastModifiedDate"/>
+                <column property="phaseStartTime"/>
+                <column property="phaseEndTime"/>
+            </columns>
+        </dataGrid>
+        <hbox id="lookupActions" visible="false">
+            <button id="selectBtn" action="selectAction"/>
+            <button id="discardBtn" action="discardAction"/>
+        </hbox>
+    </layout>
+</view>

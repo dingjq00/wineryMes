@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view"
+      title="msg://winccZhuanyundouDetailView.title"
+      focusComponent="form">
+    <data>
+        <instance id="winccZhuanyundouDc"
+                  class="com.mom.winery.entity.WinccZhuanyundou">
+            <fetchPlan extends="_base"/>
+            <loader id="winccZhuanyundouDl"/>
+        </instance>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+    </facets>
+    <actions>
+        <action id="saveAction" type="detail_saveClose"/>
+        <action id="closeAction" type="detail_close"/>
+    </actions>
+    <layout>
+        <formLayout id="form" dataContainer="winccZhuanyundouDc">
+            <textField id="idField" property="id"/>
+            <textField id="winccIdField" property="winccId"/>
+            <textField id="areaNoField" property="areaNo"/>
+            <textField id="devtypeField" property="devtype"/>
+            <dateTimePicker id="starttimeField" property="starttime"/>
+            <textField id="isDealedField" property="isDealed"/>
+            <textArea id="commentField" height="19em" property="comment" colspan="2"/>
+        </formLayout>
+        <hbox id="detailActions">
+            <button id="saveAndCloseBtn" action="saveAction"/>
+            <button id="closeBtn" action="closeAction"/>
+        </hbox>
+    </layout>
+</view>

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view"
+      title="msg://mesRunliangdoudouRecordDetailView.title"
+      focusComponent="form">
+    <data>
+        <instance id="mesRunliangdoudouRecordDc"
+                  class="com.mom.winery.entity.MesRunliangdoudouRecord">
+            <fetchPlan extends="_base">
+                <property name="mesRunliangdou" fetchPlan="_base"/>
+                <property name="preLocation" fetchPlan="_base"/>
+                <property name="location" fetchPlan="_base"/>
+                <property name="afterLocation" fetchPlan="_base"/>
+                <property name="emptyOrFull" fetchPlan="_base"/>
+                <property name="diuZaoOrliangzao" fetchPlan="_base"/>
+                <property name="jiaochi" fetchPlan="_base"/>
+                <property name="durationQualified" fetchPlan="_base"/>
+            </fetchPlan>
+            <loader id="mesRunliangdoudouRecordDl"/>
+        </instance>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+    </facets>
+    <actions>
+        <action id="saveAction" type="detail_saveClose"/>
+        <action id="closeAction" type="detail_close"/>
+    </actions>
+    <layout>
+        <formLayout id="form" dataContainer="mesRunliangdoudouRecordDc">
+            <dateTimePicker id="winccUpdateTimeField" property="winccUpdateTime"/>
+            <textField id="waterQtyAddField" property="waterQtyAdd"/>
+            <textField id="runliangDurationField" property="runliangDuration"/>
+            <dateTimePicker id="startTimeField" property="startTime"/>
+            <dateTimePicker id="endTimeField" property="endTime"/>
+            <textField id="jiaochiLayerField" property="jiaochiLayer"/>
+            <dateTimePicker id="jiaochiTimeField" property="jiaochiTime"/>
+            <select id="zaopeiTypeField" property="zaopeiType"/>
+            <textField id="daokeAddQtyField" property="daokeAddQty"/>
+            <textField id="liangshiAddQtyField" property="liangshiAddQty"/>
+            <textField id="zaopeiAddQtyField" property="zaopeiAddQty"/>
+            <select id="liangshiTypeField" property="liangshiType"/>
+            <entityPicker id="mesRunliangdouField" property="mesRunliangdou">
+                <actions>
+                    <action id="entityLookup" type="entity_lookup"/>
+                    <action id="entityClear" type="entity_clear"/>
+                </actions>
+            </entityPicker>
+            <dateTimePicker id="winccEndTimeField" property="winccEndTime"/>
+            <textField id="phaseDurationField" property="phaseDuration"/>
+            <entityPicker id="preLocationField" property="preLocation">
+                <actions>
+                    <action id="entityLookup" type="entity_lookup"/>
+                    <action id="entityClear" type="entity_clear"/>
+                </actions>
+            </entityPicker>
+            <entityPicker id="locationField" property="location">
+                <actions>
+                    <action id="entityLookup" type="entity_lookup"/>
+                    <action id="entityClear" type="entity_clear"/>
+                </actions>
+            </entityPicker>
+            <entityPicker id="afterLocationField" property="afterLocation">
+                <actions>
+                    <action id="entityLookup" type="entity_lookup"/>
+                    <action id="entityClear" type="entity_clear"/>
+                </actions>
+            </entityPicker>
+            <entityPicker id="emptyOrFullField" property="emptyOrFull">
+                <actions>
+                    <action id="entityLookup" type="entity_lookup"/>
+                    <action id="entityClear" type="entity_clear"/>
+                </actions>
+            </entityPicker>
+            <entityPicker id="diuZaoOrliangzaoField" property="diuZaoOrliangzao">
+                <actions>
+                    <action id="entityLookup" type="entity_lookup"/>
+                    <action id="entityClear" type="entity_clear"/>
+                </actions>
+            </entityPicker>
+            <entityPicker id="jiaochiField" property="jiaochi">
+                <actions>
+                    <action id="entityLookup" type="entity_lookup"/>
+                    <action id="entityClear" type="entity_clear"/>
+                </actions>
+            </entityPicker>
+            <entityPicker id="durationQualifiedField" property="durationQualified">
+                <actions>
+                    <action id="entityLookup" type="entity_lookup"/>
+                    <action id="entityClear" type="entity_clear"/>
+                </actions>
+            </entityPicker>
+            <textField id="winccStartIDField" property="winccStartID"/>
+            <textField id="winccEndIdField" property="winccEndId"/>
+            <dateTimePicker id="lastModifiedDateField" property="lastModifiedDate"/>
+        </formLayout>
+        <hbox id="detailActions">
+            <button id="saveAndCloseBtn" action="saveAction"/>
+            <button id="closeBtn" action="closeAction"/>
+        </hbox>
+    </layout>
+</view>

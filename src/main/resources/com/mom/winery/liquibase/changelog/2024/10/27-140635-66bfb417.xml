@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd"
+        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+    <changeSet id="1" author="wineryMes">
+        <createTable tableName="MES_ZENGGUO_RECORD">
+            <column name="ID" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_MES_ZENGGUO_RECORD"/>
+            </column>
+            <column name="MES_ZENGGUO_ID" type="BIGINT"/>
+            <column name="ZENG_SEQUENCE" type="INT"/>
+            <column name="START_TIME_TOTAL" type="DATETIME"/>
+            <column name="ZENGGUO_PHASE_ID" type="BIGINT"/>
+            <column name="START_TIME_DEVICE_SHANG_ZENG" type="DATETIME"/>
+            <column name="START_TIME_KAGAI" type="DATETIME"/>
+            <column name="END_TIME_LIUJIU" remarks="馏酒结束时间,通常是酒尾结束，切换至蒸煮/大汽冲酸阶段的时间点"
+                    type="DATETIME"/>
+            <column name="JIAOCHI_DOWN_ID" type="BIGINT"/>
+            <column name="JIAOCHI_LAYER_DOWN" type="INT"/>
+            <column name="JIAOCHI_TIME_DOWN" type="DATETIME"/>
+            <column name="ZAOPEI_TYPE_DOWN" type="INT"/>
+            <column name="RUNLIANG_ADD_WATER_DOWN" type="FLOAT"/>
+            <column name="RUNLIANG_DURATION_DOWN" type="FLOAT"/>
+            <column name="ZAOPEI_QTY_DOWN" type="FLOAT"/>
+            <column name="DAOKE_QTY_DOWN" type="FLOAT"/>
+            <column name="LIANGSHI_QTY_DOWN" type="FLOAT"/>
+            <column name="LIANGSHI_TYPE_DOWN" type="INT"/>
+            <column name="JIAOCHI_UP_ID" type="BIGINT"/>
+            <column name="JIAOCHI_TIME_UP" type="DATETIME"/>
+            <column name="JIAOCHI_LAYER_UP" type="INT"/>
+            <column name="ZAOPEI_TYPE_UP" type="INT"/>
+            <column name="RUNLIANG_ADD_WATER_UP" type="FLOAT"/>
+            <column name="RUNLIANG_DURATION_UP" type="FLOAT"/>
+            <column name="ZAOPEI_QTY_UP" type="FLOAT"/>
+            <column name="DAOKE_QTY_UP" type="FLOAT"/>
+            <column name="LIANGSHI_QTY_UP" type="FLOAT"/>
+            <column name="LIANGSHI_TYP_UP" type="INT"/>
+            <column name="ZAOPEI_TYPE" type="INT"/>
+            <column name="ZHUANGZENG_LAYER" type="INT"/>
+            <column name="SHANGZENG_DURATION" type="FLOAT"/>
+            <column name="SHANGZENG_HEIGHT" type="FLOAT"/>
+            <column name="JIEJIU_DURATION_FIRST_CLASS" type="FLOAT"/>
+            <column name="JIEJIU_DURATION_SECOND_CLASS" type="FLOAT"/>
+            <column name="JIEJIU_DURATION_THIRD_CLASS" type="FLOAT"/>
+            <column name="JIEJIU_DURATION_FEISHUI" type="FLOAT"/>
+            <column name="JIEJIU_DURATION_JIUWEI" type="FLOAT"/>
+            <column name="LIANGSHUI_ADD_QTY" type="FLOAT"/>
+            <column name="HUISHOUDIGUO_WATER_ADD_QTY" type="FLOAT"/>
+            <column name="HOT_WATER_ADD_QTY" type="FLOAT"/>
+            <column name="JIUWEI_ADD_QTY" type="FLOAT"/>
+            <column name="HUANGSHUI_ADD_QTY" type="FLOAT"/>
+            <column name="ENERGY_QI_SHANGZENG" type="FLOAT"/>
+            <column name="ENERGY_QI_ZHENGLIU" type="FLOAT"/>
+            <column name="LIUJIU_ADD_ZHENGZHU_DURATION" type="FLOAT"/>
+            <column name="CREATED_BY" type="VARCHAR(255)"/>
+            <column name="CREATED_DATE" type="${offsetDateTime.type}"/>
+            <column name="LAST_MODIFIED_BY" type="VARCHAR(255)"/>
+            <column name="LAST_MODIFIED_DATE" type="${offsetDateTime.type}"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="2" author="wineryMes">
+        <createIndex indexName="IDX_MES_ZENGGUO_RECORD_MES_ZENGGUO" tableName="MES_ZENGGUO_RECORD">
+            <column name="MES_ZENGGUO_ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="MES_ZENGGUO_ID" baseTableName="MES_ZENGGUO_RECORD"
+                                 constraintName="FK_MES_ZENGGUO_RECORD_ON_MES_ZENGGUO" referencedColumnNames="ID"
+                                 referencedTableName="MES_ZENGTONG"/>
+    </changeSet>
+    <changeSet id="3" author="wineryMes">
+        <createIndex indexName="IDX_MES_ZENGTONG_RECORD_JIAOCHI_UP" tableName="MES_ZENGGUO_RECORD">
+            <column name="JIAOCHI_UP_ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="JIAOCHI_UP_ID" baseTableName="MES_ZENGGUO_RECORD"
+                                 constraintName="FK_MES_ZENGGUO_RECORD_ON_JIAOCHI_UP" referencedColumnNames="ID"
+                                 referencedTableName="MES_JIAOCHI"/>
+    </changeSet>
+    <changeSet id="4" author="wineryMes">
+        <createIndex indexName="IDX_MES_ZENGTONG_RECORD_ZENGGUO_PHASE" tableName="MES_ZENGGUO_RECORD">
+            <column name="ZENGGUO_PHASE_ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="ZENGGUO_PHASE_ID" baseTableName="MES_ZENGGUO_RECORD"
+                                 constraintName="FK_MES_ZENGGUO_RECORD_ON_ZENGGUO_PHASE" referencedColumnNames="ID"
+                                 referencedTableName="MES_ZENGGOU_PHASE_CONFIG"/>
+    </changeSet>
+    <changeSet id="5" author="wineryMes">
+        <addForeignKeyConstraint baseColumnNames="JIAOCHI_DOWN_ID" baseTableName="MES_ZENGGUO_RECORD"
+                                 constraintName="FK_MES_ZENGGUO_RECORD_ON_JIAOCHI_DOWN" referencedColumnNames="ID"
+                                 referencedTableName="MES_JIAOCHI"/>
+    </changeSet>
+</databaseChangeLog>

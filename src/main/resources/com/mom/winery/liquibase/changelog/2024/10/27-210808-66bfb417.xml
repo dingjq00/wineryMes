@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd"
+        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+    <changeSet id="1" author="wineryMes">
+        <createTable tableName="MES_TANLIANGJI_REAL_TIME_DATA">
+            <column name="ID" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_MES_TANLIANGJI_REAL_TIME_DATA"/>
+            </column>
+            <column name="WINCC_UPDATE_TIME" remarks="发生时间" type="DATE"/>
+            <column name="MES_AREA_ID" remarks="生产单元" type="BIGINT"/>
+            <column name="TANLIANG_GEILIAOJI_YUZHONG1" remarks="余重_1#摊晾给料机" type="FLOAT"/>
+            <column name="TANLIANG_GEILIAOJI_YUZHONG2" remarks="余重_2#摊晾给料机" type="FLOAT"/>
+            <column name="QUFEI_ZANCUNCANG_YUZHONG1" remarks="余重_1#曲粉暂存仓" type="FLOAT"/>
+            <column name="QUFEI_ZANCUNCANG_YUZHONG2" remarks="余重_2#曲粉暂存仓" type="FLOAT"/>
+            <column name="TANGLIANG_GEILIAOJI_LIUSU1" remarks="流速_1#摊晾给料机" type="FLOAT"/>
+            <column name="TANGLIANG_GEILIAOJI_LIUSU2" remarks="流速_2#摊晾给料机" type="FLOAT"/>
+            <column name="QUFEN_LIUSU1" remarks="流速_1#曲粉" type="FLOAT"/>
+            <column name="QUFEN_LIUSU2" remarks="流速_2#曲粉" type="FLOAT"/>
+            <column name="TANLIANG_ZHONGBU_TEMP1" remarks="1#摊晾中部温度" type="FLOAT"/>
+            <column name="TANLIANG_ZHONGBU_TEMP2" remarks="2#摊晾中部温度" type="FLOAT"/>
+            <column name="TANLIANG_CHUKOU_TEMP1" remarks="1#摊晾出口温度" type="FLOAT"/>
+            <column name="TANLIANG_CHUKOU_TEMP2" remarks="2#摊晾出口温度" type="FLOAT"/>
+            <column name="WINCC_ID" type="INT"/>
+            <column name="CREATED_BY" type="VARCHAR(255)"/>
+            <column name="CREATED_DATE" type="${offsetDateTime.type}"/>
+            <column name="LAST_MODIFIED_BY" type="VARCHAR(255)"/>
+            <column name="LAST_MODIFIED_DATE" type="${offsetDateTime.type}"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="2" author="wineryMes">
+        <createIndex indexName="IDX_MES_TANLIANGJI_REAL_TIME_DATA_MES_AREA" tableName="MES_TANLIANGJI_REAL_TIME_DATA">
+            <column name="MES_AREA_ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="MES_AREA_ID" baseTableName="MES_TANLIANGJI_REAL_TIME_DATA"
+                                 constraintName="FK_MES_TANLIANGJI_REAL_TIME_DATA_ON_MES_AREA"
+                                 referencedColumnNames="ID" referencedTableName="MES_AREA"/>
+    </changeSet>
+</databaseChangeLog>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view"
+      title="msg://mesTanliangjiRealTimeDataDetailView.title"
+      focusComponent="form">
+    <data>
+        <instance id="mesTanliangjiRealTimeDataDc"
+                  class="com.mom.winery.entity.MesTanliangjiRealTimeData">
+            <fetchPlan extends="_base">
+                <property name="mesArea" fetchPlan="_base"/>
+            </fetchPlan>
+            <loader id="mesTanliangjiRealTimeDataDl"/>
+        </instance>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+    </facets>
+    <actions>
+        <action id="saveAction" type="detail_saveClose"/>
+        <action id="closeAction" type="detail_close"/>
+    </actions>
+    <layout>
+        <formLayout id="form" dataContainer="mesTanliangjiRealTimeDataDc">
+            <datePicker id="winccUpdateTimeField" property="winccUpdateTime"/>
+            <textField id="tanliangGeiliaojiYuzhong1Field" property="tanliangGeiliaojiYuzhong1"/>
+            <textField id="tanliangGeiliaojiYuzhong2Field" property="tanliangGeiliaojiYuzhong2"/>
+            <textField id="qufeiZancuncangYuzhong1Field" property="qufeiZancuncangYuzhong1"/>
+            <textField id="qufeiZancuncangYuzhong2Field" property="qufeiZancuncangYuzhong2"/>
+            <textField id="tangliangGeiliaojiLiusu1Field" property="tangliangGeiliaojiLiusu1"/>
+            <textField id="tangliangGeiliaojiLiusu2Field" property="tangliangGeiliaojiLiusu2"/>
+            <textField id="qufenLiusu1Field" property="qufenLiusu1"/>
+            <textField id="qufenLiusu2Field" property="qufenLiusu2"/>
+            <textField id="tanliangZhongbuTemp1Field" property="tanliangZhongbuTemp1"/>
+            <textField id="tanliangZhongbuTemp2Field" property="tanliangZhongbuTemp2"/>
+            <textField id="tanliangChukouTemp1Field" property="tanliangChukouTemp1"/>
+            <textField id="tanliangChukouTemp2Field" property="tanliangChukouTemp2"/>
+            <textField id="winccIdField" property="winccId"/>
+            <entityPicker id="mesAreaField" property="mesArea">
+                <actions>
+                    <action id="entityLookup" type="entity_lookup"/>
+                    <action id="entityClear" type="entity_clear"/>
+                </actions>
+            </entityPicker>
+        </formLayout>
+        <hbox id="detailActions">
+            <button id="saveAndCloseBtn" action="saveAction"/>
+            <button id="closeBtn" action="closeAction"/>
+        </hbox>
+    </layout>
+</view>

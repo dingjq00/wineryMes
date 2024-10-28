@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view"
+      xmlns:c="http://jmix.io/schema/flowui/jpql-condition"
+      title="msg://jobConfigListView.title"
+      focusComponent="jobConfigsDataGrid">
+    <data>
+        <collection id="jobConfigsDc"
+                    class="com.mom.winery.entity.JobConfig">
+            <fetchPlan extends="_base">
+                <property name="mesArea" fetchPlan="_base">
+                    <property name="mesShopfloor" fetchPlan="_base"/>
+                </property>
+            </fetchPlan>
+            <loader id="jobConfigsDl" readOnly="true">
+                <query>
+                    <![CDATA[select e from JobConfig e]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+        <urlQueryParameters>
+            <genericFilter component="genericFilter"/>
+            <pagination component="pagination"/>
+        </urlQueryParameters>
+    </facets>
+    <actions>
+        <action id="selectAction" type="lookup_select"/>
+        <action id="discardAction" type="lookup_discard"/>
+    </actions>
+    <layout>
+        <genericFilter id="genericFilter"
+                       dataLoader="jobConfigsDl">
+            <properties include=".*"/>
+        </genericFilter>
+        <hbox id="buttonsPanel" classNames="buttons-panel">
+            <button id="bulkEditBtn" action="jobConfigsDataGrid.bulkEdit"/>
+            <button id="createBtn" action="jobConfigsDataGrid.create"/>
+            <button id="editBtn" action="jobConfigsDataGrid.edit"/>
+            <button id="excelExportBtn" action="jobConfigsDataGrid.excelExport"/>
+            <button id="jsonExportBtn" action="jobConfigsDataGrid.jsonExport"/>
+            <button id="refreshBtn" action="jobConfigsDataGrid.refresh"/>
+            <button id="removeBtn" action="jobConfigsDataGrid.remove"/>
+            <simplePagination id="pagination" dataLoader="jobConfigsDl"/>
+        </hbox>
+        <dataGrid id="jobConfigsDataGrid"
+                  width="100%"
+                  minHeight="20em"
+                  dataContainer="jobConfigsDc"
+                  columnReorderingAllowed="true"
+                  selectionMode="MULTI">
+            <actions>
+                <action id="bulkEdit" type="bulked_edit"/>
+                <action id="create" type="list_create"/>
+                <action id="edit" type="list_edit"/>
+                <action id="excelExport" type="grdexp_excelExport"/>
+                <action id="jsonExport" type="grdexp_jsonExport"/>
+                <action id="refresh" type="list_refresh"/>
+                <action id="remove" type="list_remove"/>
+            </actions>
+            <columns resizable="true">
+                <column property="mesArea"/>
+                <column property="mainPhase"/>
+                <column property="winccId"/>
+            </columns>
+        </dataGrid>
+        <hbox id="lookupActions" visible="false">
+            <button id="selectBtn" action="selectAction"/>
+            <button id="discardBtn" action="discardAction"/>
+        </hbox>
+    </layout>
+</view>

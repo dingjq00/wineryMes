@@ -1,0 +1,368 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view"
+      title="msg://mesAreaDetailView.title"
+      focusComponent="form">
+    <data>
+        <instance id="mesAreaDc"
+                  class="com.mom.winery.entity.MesArea">
+            <fetchPlan extends="_base">
+                <property name="mesShopfloor" fetchPlan="_base"/>
+                <property name="mesCells" fetchPlan="_base"/>
+                <property name="mesZhuanyundous" fetchPlan="_base"/>
+                <property name="mesRunliangdous" fetchPlan="_base"/>
+                <property name="mesZhuangzengDevices" fetchPlan="_base"/>
+                <property name="mesZengguos" fetchPlan="_base"/>
+                <property name="mesTanliangjis" fetchPlan="_base"/>
+                <property name="mesAreaWineTanks" fetchPlan="_base"/>
+                <property name="mesRunliangWaterTanks" fetchPlan="_base"/>
+                <property name="mesLiangshuiTanks" fetchPlan="_base"/>
+                <property name="mesRecyclingBottomWaterTanks" fetchPlan="_base"/>
+                <property name="mesDiuZaoWeiJiuTanks" fetchPlan="_base"/>
+            </fetchPlan>
+            <loader id="mesAreaDl"/>
+            <collection id="mesCellsDc" property="mesCells"/>
+            <collection id="mesZhuanyundousDc" property="mesZhuanyundous"/>
+            <collection id="mesRunliangdousDc" property="mesRunliangdous"/>
+            <collection id="mesZhuangzengDevicesDc" property="mesZhuangzengDevices"/>
+            <collection id="mesZengguosDc" property="mesZengguos"/>
+            <collection id="mesTanliangjisDc" property="mesTanliangjis"/>
+            <collection id="mesAreaWineTanksDc" property="mesAreaWineTanks"/>
+            <collection id="mesRunliangWaterTanksDc" property="mesRunliangWaterTanks"/>
+            <collection id="mesLiangshuiTanksDc" property="mesLiangshuiTanks"/>
+            <collection id="mesRecyclingBottomWaterTanksDc" property="mesRecyclingBottomWaterTanks"/>
+            <collection id="mesDiuZaoWeiJiuTanksDc" property="mesDiuZaoWeiJiuTanks"/>
+        </instance>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+    </facets>
+    <actions>
+        <action id="saveAction" type="detail_saveClose"/>
+        <action id="closeAction" type="detail_close"/>
+    </actions>
+    <layout>
+        <formLayout id="form" dataContainer="mesAreaDc">
+            <textField id="areaCodeField" property="areaCode"/>
+            <select id="wineTypeField" property="wineType"/>
+            <textField id="areaNameField" property="areaName"/>
+            <entityPicker id="mesShopfloorField" property="mesShopfloor">
+                <actions>
+                    <action id="entityLookup" type="entity_lookup"/>
+                    <action id="entityClear" type="entity_clear"/>
+                </actions>
+            </entityPicker>
+        </formLayout>
+        <hbox id="buttonsPanel" classNames="buttons-panel">
+            <button action="mesCellsDataGrid.create"/>
+            <button action="mesCellsDataGrid.edit"/>
+            <button action="mesCellsDataGrid.remove"/>
+        </hbox>
+        <dataGrid id="mesCellsDataGrid" dataContainer="mesCellsDc" width="100%" height="100%" minHeight="15em">
+            <actions>
+                <action id="create" type="list_create">
+                    <properties>
+                        <property name="openMode" value="DIALOG"/>
+                    </properties>
+                </action>
+                <action id="edit" type="list_edit">
+                    <properties>
+                        <property name="openMode" value="DIALOG"/>
+                    </properties>
+                </action>
+                <action id="remove" type="list_remove"/>
+            </actions>
+            <columns>
+                <column property="cellCode"/>
+                <column property="cellName"/>
+                <column property="createdBy"/>
+                <column property="createdDate"/>
+                <column property="lastModifiedBy"/>
+                <column property="lastModifiedDate"/>
+            </columns>
+        </dataGrid>
+        <hbox id="buttonsPanel2" classNames="buttons-panel">
+            <button action="mesZhuanyundousDataGrid.create"/>
+            <button action="mesZhuanyundousDataGrid.edit"/>
+            <button action="mesZhuanyundousDataGrid.remove"/>
+        </hbox>
+        <dataGrid id="mesZhuanyundousDataGrid" dataContainer="mesZhuanyundousDc" width="100%" height="100%"
+                  minHeight="10em">
+            <actions>
+                <action id="create" type="list_create">
+                    <properties>
+                        <property name="openMode" value="DIALOG"/>
+                    </properties>
+                </action>
+                <action id="edit" type="list_edit">
+                    <properties>
+                        <property name="openMode" value="DIALOG"/>
+                    </properties>
+                </action>
+                <action id="remove" type="list_remove"/>
+            </actions>
+            <columns>
+                <column property="zhuanyundouCode"/>
+                <column property="createdBy"/>
+                <column property="createdDate"/>
+                <column property="lastModifiedBy"/>
+                <column property="lastModifiedDate"/>
+            </columns>
+        </dataGrid>
+        <hbox id="buttonsPanel3" classNames="buttons-panel">
+            <button action="mesRunliangdousDataGrid.create"/>
+            <button action="mesRunliangdousDataGrid.edit"/>
+            <button action="mesRunliangdousDataGrid.remove"/>
+        </hbox>
+        <dataGrid id="mesRunliangdousDataGrid" dataContainer="mesRunliangdousDc" width="100%" height="100%"
+                  minHeight="15em">
+            <actions>
+                <action id="create" type="list_create">
+                    <properties>
+                        <property name="openMode" value="DIALOG"/>
+                    </properties>
+                </action>
+                <action id="edit" type="list_edit">
+                    <properties>
+                        <property name="openMode" value="DIALOG"/>
+                    </properties>
+                </action>
+                <action id="remove" type="list_remove"/>
+            </actions>
+            <columns>
+                <column property="runliangdouCode"/>
+                <column property="createdBy"/>
+                <column property="createdDate"/>
+                <column property="lastModifiedBy"/>
+                <column property="lastModifiedDate"/>
+            </columns>
+        </dataGrid>
+        <hbox id="buttonsPanel4" classNames="buttons-panel">
+            <button action="mesZhuangzengDevicesDataGrid.create"/>
+            <button action="mesZhuangzengDevicesDataGrid.edit"/>
+            <button action="mesZhuangzengDevicesDataGrid.remove"/>
+        </hbox>
+        <dataGrid id="mesZhuangzengDevicesDataGrid" dataContainer="mesZhuangzengDevicesDc" width="100%" height="100%"
+                  minHeight="10em">
+            <actions>
+                <action id="create" type="list_create">
+                    <properties>
+                        <property name="openMode" value="DIALOG"/>
+                    </properties>
+                </action>
+                <action id="edit" type="list_edit">
+                    <properties>
+                        <property name="openMode" value="DIALOG"/>
+                    </properties>
+                </action>
+                <action id="remove" type="list_remove"/>
+            </actions>
+            <columns>
+                <column property="zhuangzengDeviceCode"/>
+                <column property="createdBy"/>
+                <column property="createdDate"/>
+                <column property="lastModifiedBy"/>
+                <column property="lastModifiedDate"/>
+            </columns>
+        </dataGrid>
+        <hbox id="buttonsPanel6" classNames="buttons-panel">
+            <button action="mesZengguosDataGrid.create"/>
+            <button action="mesZengguosDataGrid.edit"/>
+            <button action="mesZengguosDataGrid.remove"/>
+        </hbox>
+        <dataGrid id="mesZengguosDataGrid" dataContainer="mesZengguosDc" width="100%" height="100%" minHeight="15em">
+            <actions>
+                <action id="create" type="list_create">
+                    <properties>
+                        <property name="openMode" value="DIALOG"/>
+                    </properties>
+                </action>
+                <action id="edit" type="list_edit">
+                    <properties>
+                        <property name="openMode" value="DIALOG"/>
+                    </properties>
+                </action>
+                <action id="remove" type="list_remove"/>
+            </actions>
+            <columns>
+                <column property="zengguoCode"/>
+                <column property="createdBy"/>
+                <column property="createdDate"/>
+                <column property="lastModifiedBy"/>
+                <column property="lastModifiedDate"/>
+            </columns>
+        </dataGrid>
+        <hbox id="buttonsPanel7" classNames="buttons-panel">
+            <button action="mesTanliangjisDataGrid.create"/>
+            <button action="mesTanliangjisDataGrid.edit"/>
+            <button action="mesTanliangjisDataGrid.remove"/>
+        </hbox>
+        <dataGrid id="mesTanliangjisDataGrid" dataContainer="mesTanliangjisDc" width="100%" height="100%"
+                  minHeight="10em">
+            <actions>
+                <action id="create" type="list_create">
+                    <properties>
+                        <property name="openMode" value="DIALOG"/>
+                    </properties>
+                </action>
+                <action id="edit" type="list_edit">
+                    <properties>
+                        <property name="openMode" value="DIALOG"/>
+                    </properties>
+                </action>
+                <action id="remove" type="list_remove"/>
+            </actions>
+            <columns>
+                <column property="tanliangjiCode"/>
+                <column property="createdBy"/>
+                <column property="createdDate"/>
+                <column property="lastModifiedBy"/>
+                <column property="lastModifiedDate"/>
+            </columns>
+        </dataGrid>
+        <hbox id="buttonsPanel8" classNames="buttons-panel">
+            <button action="mesAreaWineTanksDataGrid.create"/>
+            <button action="mesAreaWineTanksDataGrid.edit"/>
+            <button action="mesAreaWineTanksDataGrid.remove"/>
+        </hbox>
+        <dataGrid id="mesAreaWineTanksDataGrid" dataContainer="mesAreaWineTanksDc" width="100%" height="100%"
+                  minHeight="10em">
+            <actions>
+                <action id="create" type="list_create">
+                    <properties>
+                        <property name="openMode" value="DIALOG"/>
+                    </properties>
+                </action>
+                <action id="edit" type="list_edit">
+                    <properties>
+                        <property name="openMode" value="DIALOG"/>
+                    </properties>
+                </action>
+                <action id="remove" type="list_remove"/>
+            </actions>
+            <columns>
+                <column property="areaWineTankCode"/>
+                <column property="wineGrade"/>
+                <column property="createdBy"/>
+                <column property="createdDate"/>
+                <column property="lastModifiedBy"/>
+                <column property="lastModifiedDate"/>
+            </columns>
+        </dataGrid>
+        <hbox id="buttonsPanel10" classNames="buttons-panel">
+            <button action="mesRunliangWaterTanksDataGrid.create"/>
+            <button action="mesRunliangWaterTanksDataGrid.edit"/>
+            <button action="mesRunliangWaterTanksDataGrid.remove"/>
+        </hbox>
+        <dataGrid id="mesRunliangWaterTanksDataGrid" dataContainer="mesRunliangWaterTanksDc" width="100%" height="100%"
+                  minHeight="10em">
+            <actions>
+                <action id="create" type="list_create">
+                    <properties>
+                        <property name="openMode" value="DIALOG"/>
+                    </properties>
+                </action>
+                <action id="edit" type="list_edit">
+                    <properties>
+                        <property name="openMode" value="DIALOG"/>
+                    </properties>
+                </action>
+                <action id="remove" type="list_remove"/>
+            </actions>
+            <columns>
+                <column property="runliangWaterTankCode"/>
+                <column property="createdBy"/>
+                <column property="createdDate"/>
+                <column property="lastModifiedBy"/>
+                <column property="lastModifiedDate"/>
+            </columns>
+        </dataGrid>
+        <hbox id="buttonsPanel12" classNames="buttons-panel">
+            <button action="mesLiangshuiTanksDataGrid.create"/>
+            <button action="mesLiangshuiTanksDataGrid.edit"/>
+            <button action="mesLiangshuiTanksDataGrid.remove"/>
+        </hbox>
+        <dataGrid id="mesLiangshuiTanksDataGrid" dataContainer="mesLiangshuiTanksDc" width="100%" height="100%"
+                  minHeight="10em">
+            <actions>
+                <action id="create" type="list_create">
+                    <properties>
+                        <property name="openMode" value="DIALOG"/>
+                    </properties>
+                </action>
+                <action id="edit" type="list_edit">
+                    <properties>
+                        <property name="openMode" value="DIALOG"/>
+                    </properties>
+                </action>
+                <action id="remove" type="list_remove"/>
+            </actions>
+            <columns>
+                <column property="liangshuiTankCode"/>
+                <column property="createdBy"/>
+                <column property="createdDate"/>
+                <column property="lastModifiedBy"/>
+                <column property="lastModifiedDate"/>
+            </columns>
+        </dataGrid>
+        <hbox id="buttonsPanel13" classNames="buttons-panel">
+            <button action="mesRecyclingBottomWaterTanksDataGrid.create"/>
+            <button action="mesRecyclingBottomWaterTanksDataGrid.edit"/>
+            <button action="mesRecyclingBottomWaterTanksDataGrid.remove"/>
+        </hbox>
+        <dataGrid id="mesRecyclingBottomWaterTanksDataGrid" dataContainer="mesRecyclingBottomWaterTanksDc" width="100%"
+                  height="100%" minHeight="10em">
+            <actions>
+                <action id="create" type="list_create">
+                    <properties>
+                        <property name="openMode" value="DIALOG"/>
+                    </properties>
+                </action>
+                <action id="edit" type="list_edit">
+                    <properties>
+                        <property name="openMode" value="DIALOG"/>
+                    </properties>
+                </action>
+                <action id="remove" type="list_remove"/>
+            </actions>
+            <columns>
+                <column property="recyclingBottomWaterTankCode"/>
+                <column property="createdBy"/>
+                <column property="createdDate"/>
+                <column property="lastModifiedBy"/>
+                <column property="lastModifiedDate"/>
+            </columns>
+        </dataGrid>
+        <hbox id="buttonsPanel14" classNames="buttons-panel">
+            <button action="mesDiuZaoWeiJiuTanksDataGrid.create"/>
+            <button action="mesDiuZaoWeiJiuTanksDataGrid.edit"/>
+            <button action="mesDiuZaoWeiJiuTanksDataGrid.remove"/>
+        </hbox>
+        <dataGrid id="mesDiuZaoWeiJiuTanksDataGrid" dataContainer="mesDiuZaoWeiJiuTanksDc" width="100%" height="100%"
+                  minHeight="10em">
+            <actions>
+                <action id="create" type="list_create">
+                    <properties>
+                        <property name="openMode" value="DIALOG"/>
+                    </properties>
+                </action>
+                <action id="edit" type="list_edit">
+                    <properties>
+                        <property name="openMode" value="DIALOG"/>
+                    </properties>
+                </action>
+                <action id="remove" type="list_remove"/>
+            </actions>
+            <columns>
+                <column property="diuZaoWeiJiuTankCode"/>
+                <column property="createdBy"/>
+                <column property="createdDate"/>
+                <column property="lastModifiedBy"/>
+                <column property="lastModifiedDate"/>
+            </columns>
+        </dataGrid>
+        <hbox id="detailActions">
+            <button id="saveAndCloseBtn" action="saveAction"/>
+            <button id="closeBtn" action="closeAction"/>
+        </hbox>
+    </layout>
+</view>

@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view"
+      xmlns:c="http://jmix.io/schema/flowui/jpql-condition"
+      title="msg://mesTanliangjiListView.title"
+      focusComponent="mesTanliangjisDataGrid">
+    <data>
+        <collection id="mesTanliangjisDc"
+                    class="com.mom.winery.entity.MesTanliangji">
+            <fetchPlan extends="_base">
+                <property name="mesArea" fetchPlan="_base"/>
+                <property name="resourceZengguo" fetchPlan="_base"/>
+                <property name="currentZhuanyundou" fetchPlan="_base"/>
+                <property name="winccInputJiaochi" fetchPlan="_base"/>
+            </fetchPlan>
+            <loader id="mesTanliangjisDl" readOnly="true">
+                <query>
+                    <![CDATA[select e from MesTanliangji e]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+        <urlQueryParameters>
+            <genericFilter component="genericFilter"/>
+            <pagination component="pagination"/>
+        </urlQueryParameters>
+    </facets>
+    <actions>
+        <action id="selectAction" type="lookup_select"/>
+        <action id="discardAction" type="lookup_discard"/>
+    </actions>
+    <layout>
+        <genericFilter id="genericFilter"
+                       dataLoader="mesTanliangjisDl">
+            <properties include=".*"/>
+        </genericFilter>
+        <hbox id="buttonsPanel" classNames="buttons-panel">
+            <button id="bulkEditBtn" action="mesTanliangjisDataGrid.bulkEdit"/>
+            <button id="createBtn" action="mesTanliangjisDataGrid.create"/>
+            <button id="editBtn" action="mesTanliangjisDataGrid.edit"/>
+            <button id="excelExportBtn" action="mesTanliangjisDataGrid.excelExport"/>
+            <button id="jsonExportBtn" action="mesTanliangjisDataGrid.jsonExport"/>
+            <button id="refreshBtn" action="mesTanliangjisDataGrid.refresh"/>
+            <button id="removeBtn" action="mesTanliangjisDataGrid.remove"/>
+            <simplePagination id="pagination" dataLoader="mesTanliangjisDl"/>
+        </hbox>
+        <dataGrid id="mesTanliangjisDataGrid"
+                  width="100%"
+                  minHeight="20em"
+                  dataContainer="mesTanliangjisDc"
+                  columnReorderingAllowed="true"
+                  selectionMode="MULTI">
+            <actions>
+                <action id="bulkEdit" type="bulked_edit"/>
+                <action id="create" type="list_create"/>
+                <action id="edit" type="list_edit"/>
+                <action id="excelExport" type="grdexp_excelExport"/>
+                <action id="jsonExport" type="grdexp_jsonExport"/>
+                <action id="refresh" type="list_refresh"/>
+                <action id="remove" type="list_remove"/>
+            </actions>
+            <columns resizable="true">
+                <column property="mesArea.mesShopfloor"/>
+                <column property="mesArea"/>
+                <column property="tanliangjiCode"/>
+                <column property="resourceZengguo"/>
+                <column property="zengSequence"/>
+                <column property="winccZaopeiQty"/>
+                <column property="winccJiaquQty"/>
+                <column property="winccOutMaxTemp"/>
+                <column property="winccOutMinTemp"/>
+                <column property="winccOutAvgTemp"/>
+                <column property="winccStartTime"/>
+                <column property="winccEndTime"/>
+                <column property="winccDuration"/>
+                <column property="daokeAddQtyDown"/>
+                <column property="liangshiAddQtyDown"/>
+                <column property="zaopeiAddQtyDown"/>
+                <column property="daokeAddQtyUp"/>
+                <column property="liangshiAddQtyUp"/>
+                <column property="zaopeiAddQtyUp"/>
+                <column property="zhengliuDuration"/>
+                <column property="shangzengDuration"/>
+                <column property="zaopeiType"/>
+                <column property="shangzengTotalQty"/>
+                <column property="currentZhuanyundou"/>
+                <column property="winccJiaochiLayer"/>
+                <column property="winccChujiaoTime"/>
+                <column property="winccZaopeiType"/>
+                <column property="winccInputJiaochi"/>
+                <column property="lastModifiedDate"/>
+                <column property="winccStartId"/>
+                <column property="liangshuiAddQty"/>
+                <column property="winccUpdateTime"/>
+            </columns>
+        </dataGrid>
+        <hbox id="lookupActions" visible="false">
+            <button id="selectBtn" action="selectAction"/>
+            <button id="discardBtn" action="discardAction"/>
+        </hbox>
+    </layout>
+</view>
