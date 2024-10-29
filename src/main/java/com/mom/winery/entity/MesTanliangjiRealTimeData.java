@@ -24,15 +24,19 @@ public class MesTanliangjiRealTimeData {
     @Id
     private Long id;
 
+    @Comment("生产单元")
+    @JoinColumn(name = "MES_AREA_ID")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private MesArea mesArea;
+
     @Comment("发生时间")
     @Column(name = "WINCC_UPDATE_TIME")
     @Temporal(TemporalType.TIMESTAMP)
     private Date winccUpdateTime;
 
-    @Comment("生产单元")
-    @JoinColumn(name = "MES_AREA_ID")
-    @ManyToOne(fetch = FetchType.LAZY)
-    private MesArea mesArea;
+    @Comment("数据更新WinccId")
+    @Column(name = "WINCC_UPDATE_ID")
+    private Integer winccUpdateId;
 
     @NumberFormat(pattern = "#.##")
     @Comment("余重_1#摊晾给料机")
@@ -112,6 +116,14 @@ public class MesTanliangjiRealTimeData {
     @LastModifiedDate
     @Column(name = "LAST_MODIFIED_DATE")
     private OffsetDateTime lastModifiedDate;
+
+    public Integer getWinccUpdateId() {
+        return winccUpdateId;
+    }
+
+    public void setWinccUpdateId(Integer winccUpdateId) {
+        this.winccUpdateId = winccUpdateId;
+    }
 
     public Integer getWinccId() {
         return winccId;

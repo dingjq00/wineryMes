@@ -8,6 +8,8 @@
             <fetchPlan extends="_base">
                 <property name="runliangDurationQualifiedDown" fetchPlan="_base"/>
                 <property name="runliangDuarationQualifiedUp" fetchPlan="_base"/>
+                <property name="mesZengguo" fetchPlan="_base"/>
+                <property name="zengguoPhase" fetchPlan="_base"/>
             </fetchPlan>
             <loader id="mesZengguoRecordDl"/>
         </instance>
@@ -160,6 +162,24 @@
                 </actions>
             </entityPicker>
             <textField id="zhengliuDurationField" property="zhengliuDuration"/>
+            <dateTimePicker id="phaseEndTimeTotalField" property="phaseEndTimeTotal"/>
+            <dateTimePicker id="phaseStartTimeTotalField" property="phaseStartTimeTotal"/>
+            <textField id="phaseStartWinccIdField" property="phaseStartWinccId"/>
+            <textField id="phaseEndWinccIdField" property="phaseEndWinccId"/>
+            <dateTimePicker id="lastModifiedDateField" property="lastModifiedDate"/>
+            <textField id="phaseDurationField" property="phaseDuration"/>
+            <entityPicker id="mesZengguoField" property="mesZengguo">
+                <actions>
+                    <action id="entityLookup" type="entity_lookup"/>
+                    <action id="entityClear" type="entity_clear"/>
+                </actions>
+            </entityPicker>
+            <entityPicker id="zengguoPhaseField" property="zengguoPhase">
+                <actions>
+                    <action id="entityLookup" type="entity_lookup"/>
+                    <action id="entityClear" type="entity_clear"/>
+                </actions>
+            </entityPicker>
         </formLayout>
         <hbox id="detailActions">
             <button id="saveAndCloseBtn" action="saveAction"/>

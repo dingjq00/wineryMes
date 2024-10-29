@@ -1,6 +1,8 @@
 package com.mom.winery.entity;
 
 import io.jmix.core.entity.annotation.JmixGeneratedValue;
+import io.jmix.core.metamodel.annotation.Comment;
+import io.jmix.core.metamodel.annotation.InstanceName;
 import io.jmix.core.metamodel.annotation.JmixEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -25,8 +27,13 @@ public class MesZenggouPhaseConfig {
     @Column(name = "PHASE_NO")
     private Integer phaseNo;
 
+    @InstanceName
     @Column(name = "PHASE_NAME", length = 60)
     private String phaseName;
+
+    @Comment("甑锅主阶段")
+    @Column(name = "MAIN_PHASE")
+    private Integer mainPhase;
 
     @Column(name = "PHASE_DESCRIPTION")
     private String phaseDescription;
@@ -46,6 +53,14 @@ public class MesZenggouPhaseConfig {
     @LastModifiedDate
     @Column(name = "LAST_MODIFIED_DATE")
     private OffsetDateTime lastModifiedDate;
+
+    public EnumZengguoMainPhase getMainPhase() {
+        return mainPhase == null ? null : EnumZengguoMainPhase.fromId(mainPhase);
+    }
+
+    public void setMainPhase(EnumZengguoMainPhase mainPhase) {
+        this.mainPhase = mainPhase == null ? null : mainPhase.getId();
+    }
 
     public String getPhaseDescription() {
         return phaseDescription;

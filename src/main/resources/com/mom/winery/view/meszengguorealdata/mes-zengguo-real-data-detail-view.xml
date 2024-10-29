@@ -1,0 +1,366 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view"
+      title="msg://mesZengguoRealDataDetailView.title"
+      focusComponent="form">
+    <data>
+        <instance id="mesZengguoRealDataDc"
+                  class="com.mom.winery.entity.MesZengguoRealData">
+            <fetchPlan extends="_base"/>
+            <loader id="mesZengguoRealDataDl"/>
+        </instance>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+    </facets>
+    <actions>
+        <action id="saveAction" type="detail_saveClose"/>
+        <action id="closeAction" type="detail_close"/>
+    </actions>
+    <layout>
+        <formLayout id="form" dataContainer="mesZengguoRealDataDc" labelsPosition="ASIDE">
+            <formItem>
+                <textField id="zhengqiKaidu1Field" property="zhengqiKaidu1"/>
+            </formItem>
+            <formItem>
+                <textField id="zhengqiKaidu2Field" property="zhengqiKaidu2"/>
+            </formItem>
+            <formItem>
+                <textField id="zhengqiKaidu3Field" property="zhengqiKaidu3"/>
+            </formItem>
+            <formItem>
+                <textField id="zhengqiKaidu4Field" property="zhengqiKaidu4"/>
+            </formItem>
+            <formItem>
+                <textField id="zhengqiKaidu5Field" property="zhengqiKaidu5"/>
+            </formItem>
+            <formItem>
+                <textField id="zhengqiKaidu6Field" property="zhengqiKaidu6"/>
+            </formItem>
+            <formItem>
+                <textField id="zhengqiKaidu7Field" property="zhengqiKaidu7"/>
+            </formItem>
+            <formItem>
+                <textField id="zhengqiKaidu8Field" property="zhengqiKaidu8"/>
+            </formItem>
+            <formItem>
+                <textField id="zhengqiKaidu9Field" property="zhengqiKaidu9"/>
+            </formItem>
+            <formItem>
+                <textField id="zhengqiKaidu10Field" property="zhengqiKaidu10"/>
+            </formItem>
+            <formItem>
+                <textField id="zhengqiKaidu11Field" property="zhengqiKaidu11"/>
+            </formItem>
+            <formItem>
+                <textField id="zhengqiKaidu12Field" property="zhengqiKaidu12"/>
+            </formItem>
+            <formItem>
+                <textField id="lengningKaidu1Field" property="lengningKaidu1"/>
+            </formItem>
+            <formItem>
+                <textField id="lengningKaidu2Field" property="lengningKaidu2"/>
+            </formItem>
+            <formItem>
+                <textField id="lengningKaidu3Field" property="lengningKaidu3"/>
+            </formItem>
+            <formItem>
+                <textField id="lengningKaidu4Field" property="lengningKaidu4"/>
+            </formItem>
+            <formItem>
+                <textField id="lengningKaidu5Field" property="lengningKaidu5"/>
+            </formItem>
+            <formItem>
+                <textField id="lengningKaidu6Field" property="lengningKaidu6"/>
+            </formItem>
+            <formItem>
+                <textField id="lengningKaidu7Field" property="lengningKaidu7"/>
+            </formItem>
+            <formItem>
+                <textField id="lengningKaidu8Field" property="lengningKaidu8"/>
+            </formItem>
+            <formItem>
+                <textField id="lengningKaidu9Field" property="lengningKaidu9"/>
+            </formItem>
+            <formItem>
+                <textField id="lengningKaidu10Field" property="lengningKaidu10"/>
+            </formItem>
+            <formItem>
+                <textField id="lengningKaidu11Field" property="lengningKaidu11"/>
+            </formItem>
+            <formItem>
+                <textField id="lengningKaidu12Field" property="lengningKaidu12"/>
+            </formItem>
+            <formItem>
+                <textField id="zhengqiShunshiLiuliang1Field" property="zhengqiShunshiLiuliang1"/>
+            </formItem>
+            <formItem>
+                <textField id="zhengqiShunshiLiuliang2Field" property="zhengqiShunshiLiuliang2"/>
+            </formItem>
+            <formItem>
+                <textField id="zhengqiShunshiLiuliang3Field" property="zhengqiShunshiLiuliang3"/>
+            </formItem>
+            <formItem>
+                <textField id="zhengqiShunshiLiuliang4Field" property="zhengqiShunshiLiuliang4"/>
+            </formItem>
+            <formItem>
+                <textField id="zhengqiShunshiLiuliang5Field" property="zhengqiShunshiLiuliang5"/>
+            </formItem>
+            <formItem>
+                <textField id="zhengqiShunshiLiuliang6Field" property="zhengqiShunshiLiuliang6"/>
+            </formItem>
+            <formItem>
+                <textField id="zhengqiShunshiLiuliang7Field" property="zhengqiShunshiLiuliang7"/>
+            </formItem>
+            <formItem>
+                <textField id="zhengqiShunshiLiuliang8Field" property="zhengqiShunshiLiuliang8"/>
+            </formItem>
+            <formItem>
+                <textField id="zhengqiShunshiLiuliang9Field" property="zhengqiShunshiLiuliang9"/>
+            </formItem>
+            <formItem>
+                <textField id="zhengqiShunshiLiuliang10Field" property="zhengqiShunshiLiuliang10"/>
+            </formItem>
+            <formItem>
+                <textField id="zhengqiShunshiLiuliang11Field" property="zhengqiShunshiLiuliang11"/>
+            </formItem>
+            <formItem>
+                <textField id="zhengqiShunshiLiuliang12Field" property="zhengqiShunshiLiuliang12"/>
+            </formItem>
+            <formItem>
+                <textField id="zhengqiYali1Field" property="zhengqiYali1"/>
+            </formItem>
+            <formItem>
+                <textField id="zhengqiYali2Field" property="zhengqiYali2"/>
+            </formItem>
+            <formItem>
+                <textField id="zhengqiYali3Field" property="zhengqiYali3"/>
+            </formItem>
+            <formItem>
+                <textField id="zhengqiYali4Field" property="zhengqiYali4"/>
+            </formItem>
+            <formItem>
+                <textField id="zhengqiYali5Field" property="zhengqiYali5"/>
+            </formItem>
+            <formItem>
+                <textField id="zhengqiYali6Field" property="zhengqiYali6"/>
+            </formItem>
+            <formItem>
+                <textField id="zhengqiYali7Field" property="zhengqiYali7"/>
+            </formItem>
+            <formItem>
+                <textField id="zhengqiYali8Field" property="zhengqiYali8"/>
+            </formItem>
+            <formItem>
+                <textField id="zhengqiYali9Field" property="zhengqiYali9"/>
+            </formItem>
+            <formItem>
+                <textField id="zhengqiYali10Field" property="zhengqiYali10"/>
+            </formItem>
+            <formItem>
+                <textField id="zhengqiYali11Field" property="zhengqiYali11"/>
+            </formItem>
+            <formItem>
+                <textField id="zhengqiYali12Field" property="zhengqiYali12"/>
+            </formItem>
+            <formItem>
+                <textField id="guoniWendu1Field" property="guoniWendu1"/>
+            </formItem>
+            <formItem>
+                <textField id="guoniWendu2Field" property="guoniWendu2"/>
+            </formItem>
+            <formItem>
+                <textField id="guoniWendu3Field" property="guoniWendu3"/>
+            </formItem>
+            <formItem>
+                <textField id="guoniWendu4Field" property="guoniWendu4"/>
+            </formItem>
+            <formItem>
+                <textField id="guoniWendu5Field" property="guoniWendu5"/>
+            </formItem>
+            <formItem>
+                <textField id="guoniWendu6Field" property="guoniWendu6"/>
+            </formItem>
+            <formItem>
+                <textField id="guoniWendu7Field" property="guoniWendu7"/>
+            </formItem>
+            <formItem>
+                <textField id="guoniWendu8Field" property="guoniWendu8"/>
+            </formItem>
+            <formItem>
+                <textField id="guoniWendu9Field" property="guoniWendu9"/>
+            </formItem>
+            <formItem>
+                <textField id="guoniWendu10Field" property="guoniWendu10"/>
+            </formItem>
+            <formItem>
+                <textField id="guoniWendu11Field" property="guoniWendu11"/>
+            </formItem>
+            <formItem>
+                <textField id="guoniWendu12Field" property="guoniWendu12"/>
+            </formItem>
+            <formItem>
+                <textField id="zhenkongYali1Field" property="zhenkongYali1"/>
+            </formItem>
+            <formItem>
+                <textField id="zhenkongYali2Field" property="zhenkongYali2"/>
+            </formItem>
+            <formItem>
+                <textField id="zhenkongYali3Field" property="zhenkongYali3"/>
+            </formItem>
+            <formItem>
+                <textField id="zhenkongYali4Field" property="zhenkongYali4"/>
+            </formItem>
+            <formItem>
+                <textField id="zhenkongYali5Field" property="zhenkongYali5"/>
+            </formItem>
+            <formItem>
+                <textField id="zhenkongYali6Field" property="zhenkongYali6"/>
+            </formItem>
+            <formItem>
+                <textField id="zhenkongYali7Field" property="zhenkongYali7"/>
+            </formItem>
+            <formItem>
+                <textField id="zhenkongYali8Field" property="zhenkongYali8"/>
+            </formItem>
+            <formItem>
+                <textField id="zhenkongYali9Field" property="zhenkongYali9"/>
+            </formItem>
+            <formItem>
+                <textField id="zhenkongYali10Field" property="zhenkongYali10"/>
+            </formItem>
+            <formItem>
+                <textField id="zhenkongYali11Field" property="zhenkongYali11"/>
+            </formItem>
+            <formItem>
+                <textField id="zhenkongYali12Field" property="zhenkongYali12"/>
+            </formItem>
+            <formItem>
+                <textField id="diguoShuiwen1Field" property="diguoShuiwen1"/>
+            </formItem>
+            <formItem>
+                <textField id="diguoShuiwen2Field" property="diguoShuiwen2"/>
+            </formItem>
+            <formItem>
+                <textField id="diguoShuiwen3Field" property="diguoShuiwen3"/>
+            </formItem>
+            <formItem>
+                <textField id="diguoShuiwen4Field" property="diguoShuiwen4"/>
+            </formItem>
+            <formItem>
+                <textField id="diguoShuiwen5Field" property="diguoShuiwen5"/>
+            </formItem>
+            <formItem>
+                <textField id="diguoShuiwen6Field" property="diguoShuiwen6"/>
+            </formItem>
+            <formItem>
+                <textField id="diguoShuiwen7Field" property="diguoShuiwen7"/>
+            </formItem>
+            <formItem>
+                <textField id="diguoShuiwen8Field" property="diguoShuiwen8"/>
+            </formItem>
+            <formItem>
+                <textField id="diguoShuiwen9Field" property="diguoShuiwen9"/>
+            </formItem>
+            <formItem>
+                <textField id="diguoShuiwen10Field" property="diguoShuiwen10"/>
+            </formItem>
+            <formItem>
+                <textField id="diguoShuiwen11Field" property="diguoShuiwen11"/>
+            </formItem>
+            <formItem>
+                <textField id="diguoShuiwen12Field" property="diguoShuiwen12"/>
+            </formItem>
+            <formItem>
+                <textField id="chujiuWendu1Field" property="chujiuWendu1"/>
+            </formItem>
+            <formItem>
+                <textField id="chujiuWendu2Field" property="chujiuWendu2"/>
+            </formItem>
+            <formItem>
+                <textField id="chujiuWendu3Field" property="chujiuWendu3"/>
+            </formItem>
+            <formItem>
+                <textField id="chujiuWendu4Field" property="chujiuWendu4"/>
+            </formItem>
+            <formItem>
+                <textField id="chujiuWendu5Field" property="chujiuWendu5"/>
+            </formItem>
+            <formItem>
+                <textField id="chujiuWendu6Field" property="chujiuWendu6"/>
+            </formItem>
+            <formItem>
+                <textField id="chujiuWendu7Field" property="chujiuWendu7"/>
+            </formItem>
+            <formItem>
+                <textField id="chujiuWendu8Field" property="chujiuWendu8"/>
+            </formItem>
+            <formItem>
+                <textField id="chujiuWendu9Field" property="chujiuWendu9"/>
+            </formItem>
+            <formItem>
+                <textField id="chujiuWendu10Field" property="chujiuWendu10"/>
+            </formItem>
+            <formItem>
+                <textField id="chujiuWendu11Field" property="chujiuWendu11"/>
+            </formItem>
+            <formItem>
+                <textField id="chujiuWendu12Field" property="chujiuWendu12"/>
+            </formItem>
+            <formItem>
+                <textField id="huishuiWendu1Field" property="huishuiWendu1"/>
+            </formItem>
+            <formItem>
+                <textField id="huishuiWendu2Field" property="huishuiWendu2"/>
+            </formItem>
+            <formItem>
+                <textField id="huishuiWendu3Field" property="huishuiWendu3"/>
+            </formItem>
+            <formItem>
+                <textField id="huishuiWendu4Field" property="huishuiWendu4"/>
+            </formItem>
+            <formItem>
+                <textField id="huishuiWendu5Field" property="huishuiWendu5"/>
+            </formItem>
+            <formItem>
+                <textField id="huishuiWendu6Field" property="huishuiWendu6"/>
+            </formItem>
+            <formItem>
+                <textField id="huishuiWendu7Field" property="huishuiWendu7"/>
+            </formItem>
+            <formItem>
+                <textField id="huishuiWendu8Field" property="huishuiWendu8"/>
+            </formItem>
+            <formItem>
+                <textField id="huishuiWendu9Field" property="huishuiWendu9"/>
+            </formItem>
+            <formItem>
+                <textField id="huishuiWendu10Field" property="huishuiWendu10"/>
+            </formItem>
+            <formItem>
+                <textField id="huishuiWendu11Field" property="huishuiWendu11"/>
+            </formItem>
+            <formItem>
+                <textField id="huishuiWendu12Field" property="huishuiWendu12"/>
+            </formItem>
+            <formItem>
+                <textField id="liangshuiguanYeweiField" property="liangshuiguanYewei"/>
+            </formItem>
+            <formItem>
+                <textField id="weijiuguanYeweiField" property="weijiuguanYewei"/>
+            </formItem>
+            <formItem>
+                <textField id="huishouDiguoShuiweiField" property="huishouDiguoShuiwei"/>
+            </formItem>
+            <formItem>
+                <textField id="diuzaoWeijiuguanYeweiField" property="diuzaoWeijiuguanYewei"/>
+            </formItem>
+            <dateTimePicker id="winccUpdateTimeField" property="winccUpdateTime"/>
+            <textField id="winccUpdateIdField" property="winccUpdateId"/>
+            <dateTimePicker id="lastModifiedDateField" property="lastModifiedDate"/>
+        </formLayout>
+        <hbox id="detailActions">
+            <button id="saveAndCloseBtn" action="saveAction"/>
+            <button id="closeBtn" action="closeAction"/>
+        </hbox>
+    </layout>
+</view>

@@ -9,8 +9,6 @@ import org.quartz.DisallowConcurrentExecution;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.*;
@@ -254,7 +252,7 @@ public class RunliangJob implements Job {
                         record.setWinccStartID(mesRunliangdou.getWinccStartID());
                         record.setWinccUpdateTime(mesRunliangdou.getWinccUpdateTime());
                         record.setPreLocation(rawLocation);
-                        setPrerecordNormalInfo(record, mesRunliangdou.getLocation(), mesRunliangdou.getEmptyOrFull(), mesRunliangdou.getDiuZaoOrliangzao(), mesRunliangdou.getWaterQtyAdd(), mesRunliangdou.getRunliangDuration(), mesRunliangdou.getStartTime(), mesRunliangdou.getEndTime(), mesRunliangdou.getJiaochiLayer(), mesRunliangdou.getJiaochi(), mesRunliangdou.getJiaochiTime(), mesRunliangdou.getZaopeiType(), mesRunliangdou.getDaokeAddQty(), mesRunliangdou.getLiangshiAddQty(), mesRunliangdou.getZaopeiAddQty(), mesRunliangdou.getDurationQualified(), mesRunliangdou.getLiangshiType());
+                        setRecordNormalInfo(record, mesRunliangdou.getLocation(), mesRunliangdou.getEmptyOrFull(), mesRunliangdou.getDiuZaoOrliangzao(), mesRunliangdou.getWaterQtyAdd(), mesRunliangdou.getRunliangDuration(), mesRunliangdou.getStartTime(), mesRunliangdou.getEndTime(), mesRunliangdou.getJiaochiLayer(), mesRunliangdou.getJiaochi(), mesRunliangdou.getJiaochiTime(), mesRunliangdou.getZaopeiType(), mesRunliangdou.getDaokeAddQty(), mesRunliangdou.getLiangshiAddQty(), mesRunliangdou.getZaopeiAddQty(), mesRunliangdou.getDurationQualified(), mesRunliangdou.getLiangshiType());
                         mesRunliangdoudouRecordList.add(record);
 
                         MesRunliangdoudouRecord preRecord1 = mesRunliangdoudouRecordList.stream()
@@ -271,7 +269,7 @@ public class RunliangJob implements Job {
                             }
                             preRecord1.setWinccEndId(mesRunliangdou.getWinccStartID());
 
-                            setPrerecordNormalInfo(preRecord1, rawLocation, rawEmptyOrFull, rawDiuZaoOrliangzao, rawWaterQtyAdd, rawRunliangDuration, rawRunliangStartTime, rawRunliangEndTime, rawJiaochiLayer, rawJiaochi, rawJiaochiTime, rawZaopeiTypeEnum, rawDaokeAddQty, rawLiangshiAddQty, rawZaopeiAddQty, rawDurationQualified, rawLiangshiType);
+                            setRecordNormalInfo(preRecord1, rawLocation, rawEmptyOrFull, rawDiuZaoOrliangzao, rawWaterQtyAdd, rawRunliangDuration, rawRunliangStartTime, rawRunliangEndTime, rawJiaochiLayer, rawJiaochi, rawJiaochiTime, rawZaopeiTypeEnum, rawDaokeAddQty, rawLiangshiAddQty, rawZaopeiAddQty, rawDurationQualified, rawLiangshiType);
 
                             mesRunliangdoudouRecordList.add(preRecord1);
                         }else {
@@ -294,7 +292,7 @@ public class RunliangJob implements Job {
                                         preRecord.setPhaseDuration((float) (duration / 60000));
                                     }
                                     preRecord.setWinccEndId(mesRunliangdou.getWinccStartID());
-                                    setPrerecordNormalInfo(preRecord, rawLocation, rawEmptyOrFull, rawDiuZaoOrliangzao, rawWaterQtyAdd, rawRunliangDuration, rawRunliangStartTime, rawRunliangEndTime, rawJiaochiLayer, rawJiaochi, rawJiaochiTime, rawZaopeiTypeEnum, rawDaokeAddQty, rawLiangshiAddQty, rawZaopeiAddQty, rawDurationQualified, rawLiangshiType);
+                                    setRecordNormalInfo(preRecord, rawLocation, rawEmptyOrFull, rawDiuZaoOrliangzao, rawWaterQtyAdd, rawRunliangDuration, rawRunliangStartTime, rawRunliangEndTime, rawJiaochiLayer, rawJiaochi, rawJiaochiTime, rawZaopeiTypeEnum, rawDaokeAddQty, rawLiangshiAddQty, rawZaopeiAddQty, rawDurationQualified, rawLiangshiType);
                                     mesRunliangdoudouRecordList.add(preRecord);
                                 }
                             }
@@ -307,7 +305,7 @@ public class RunliangJob implements Job {
         }
     }
 
-    private static void setPrerecordNormalInfo(MesRunliangdoudouRecord preRecord1, MesWinccItemConfig rawLocation, MesWinccItemConfig rawEmptyOrFull, MesWinccItemConfig rawDiuZaoOrliangzao, float rawWaterQtyAdd, float rawRunliangDuration, Date rawRunliangStartTime, Date rawRunliangEndTime, Integer rawJiaochiLayer, MesJiaochi rawJiaochi, Date rawJiaochiTime, EnumZaopeiType rawZaopeiTypeEnum, Float rawDaokeAddQty, float rawLiangshiAddQty, float rawZaopeiAddQty, MesWinccItemConfig rawDurationQualified, EnumLiangshiType rawLiangshiType) {
+    private static void setRecordNormalInfo(MesRunliangdoudouRecord preRecord1, MesWinccItemConfig rawLocation, MesWinccItemConfig rawEmptyOrFull, MesWinccItemConfig rawDiuZaoOrliangzao, float rawWaterQtyAdd, float rawRunliangDuration, Date rawRunliangStartTime, Date rawRunliangEndTime, Integer rawJiaochiLayer, MesJiaochi rawJiaochi, Date rawJiaochiTime, EnumZaopeiType rawZaopeiTypeEnum, Float rawDaokeAddQty, float rawLiangshiAddQty, float rawZaopeiAddQty, MesWinccItemConfig rawDurationQualified, EnumLiangshiType rawLiangshiType) {
         preRecord1.setLocation(rawLocation);
         preRecord1.setEmptyOrFull(rawEmptyOrFull);
         preRecord1.setDiuZaoOrliangzao(rawDiuZaoOrliangzao);

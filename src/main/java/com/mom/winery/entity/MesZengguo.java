@@ -36,6 +36,11 @@ public class MesZengguo {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private MesArea mesArea;
 
+    @Comment("数据更新时间")
+    @Column(name = "WINCC_UPDATE_TIME")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date winccUpdateTime;
+
     @Column(name = "ZENGGUO_CODE")
     private Integer zengguoCode;
 
@@ -242,6 +247,10 @@ public class MesZengguo {
     @Column(name = "LIUJIU_ADD_ZHENGZHU_DURATION")
     private Float liujiuAddZhengzhuDuration;
 
+    @Comment("数据更新WinccId")
+    @Column(name = "WINCC_UPDAT_ID")
+    private Integer winccUpdatId;
+
     @CreatedBy
     @Column(name = "CREATED_BY")
     private String createdBy;
@@ -257,6 +266,22 @@ public class MesZengguo {
     @LastModifiedDate
     @Column(name = "LAST_MODIFIED_DATE")
     private OffsetDateTime lastModifiedDate;
+
+    public Integer getWinccUpdatId() {
+        return winccUpdatId;
+    }
+
+    public void setWinccUpdatId(Integer winccUpdatId) {
+        this.winccUpdatId = winccUpdatId;
+    }
+
+    public Date getWinccUpdateTime() {
+        return winccUpdateTime;
+    }
+
+    public void setWinccUpdateTime(Date winccUpdateTime) {
+        this.winccUpdateTime = winccUpdateTime;
+    }
 
     public void setZengguoCode(Integer zengguoCode) {
         this.zengguoCode = zengguoCode;

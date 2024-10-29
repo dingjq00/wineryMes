@@ -111,6 +111,8 @@
                 </actions>
             </entityPicker>
             <textField id="zhengliuDurationField" property="zhengliuDuration"/>
+            <dateTimePicker id="winccUpdateTimeField" property="winccUpdateTime"/>
+            <textField id="winccUpdatIdField" property="winccUpdatId"/>
         </formLayout>
         <hbox id="detailActions">
             <button id="saveAndCloseBtn" action="saveAction"/>

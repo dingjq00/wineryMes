@@ -35,6 +35,21 @@ public class MesZengguoRecord {
     @Column(name = "ZENG_SEQUENCE")
     private Integer zengSequence;
 
+    @Comment("阶段开始时间")
+    @Column(name = "MES_START_TIME_TOTAL")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date phaseStartTimeTotal;
+
+    @Comment("阶段结束时间")
+    @Column(name = "PHASE_END_TIME_TOTAL")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date phaseEndTimeTotal;
+
+    @Comment("阶段持续时长(min)")
+    @NumberFormat(pattern = "#.##")
+    @Column(name = "PHASE_DURATION")
+    private Float phaseDuration;
+
     @Column(name = "START_TIME_TOTAL")
     @Temporal(TemporalType.TIMESTAMP)
     private Date startTimeTotal;
@@ -231,6 +246,14 @@ public class MesZengguoRecord {
     @Column(name = "LIUJIU_ADD_ZHENGZHU_DURATION")
     private Float liujiuAddZhengzhuDuration;
 
+    @Comment("启动的wincc id")
+    @Column(name = "PHASE_START_WINCC_ID")
+    private Integer phaseStartWinccId;
+
+    @Comment("结束的wincc id")
+    @Column(name = "PHASE_END_WINCC_ID")
+    private Integer phaseEndWinccId;
+
     @CreatedBy
     @Column(name = "CREATED_BY")
     private String createdBy;
@@ -246,6 +269,46 @@ public class MesZengguoRecord {
     @LastModifiedDate
     @Column(name = "LAST_MODIFIED_DATE")
     private OffsetDateTime lastModifiedDate;
+
+    public Float getPhaseDuration() {
+        return phaseDuration;
+    }
+
+    public void setPhaseDuration(Float phaseDuration) {
+        this.phaseDuration = phaseDuration;
+    }
+
+    public Integer getPhaseEndWinccId() {
+        return phaseEndWinccId;
+    }
+
+    public void setPhaseEndWinccId(Integer phaseEndWinccId) {
+        this.phaseEndWinccId = phaseEndWinccId;
+    }
+
+    public Integer getPhaseStartWinccId() {
+        return phaseStartWinccId;
+    }
+
+    public void setPhaseStartWinccId(Integer phaseStartWinccId) {
+        this.phaseStartWinccId = phaseStartWinccId;
+    }
+
+    public Date getPhaseEndTimeTotal() {
+        return phaseEndTimeTotal;
+    }
+
+    public void setPhaseEndTimeTotal(Date phaseEndTimeTotal) {
+        this.phaseEndTimeTotal = phaseEndTimeTotal;
+    }
+
+    public Date getPhaseStartTimeTotal() {
+        return phaseStartTimeTotal;
+    }
+
+    public void setPhaseStartTimeTotal(Date mesStartTimeTotal) {
+        this.phaseStartTimeTotal = mesStartTimeTotal;
+    }
 
     public Float getZhengliuDuration() {
         return zhengliuDuration;

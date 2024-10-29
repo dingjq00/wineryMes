@@ -9,6 +9,8 @@
             <fetchPlan extends="_base">
                 <property name="runliangDurationQualifiedDown" fetchPlan="_base"/>
                 <property name="runliangDuarationQualifiedUp" fetchPlan="_base"/>
+                <property name="mesZengguo" fetchPlan="_base"/>
+                <property name="zengguoPhase" fetchPlan="_base"/>
             </fetchPlan>
             <loader id="mesZengguoRecordsDl" readOnly="true">
                 <query>
@@ -61,8 +63,17 @@
                 <action id="remove" type="list_remove"/>
             </actions>
             <columns resizable="true">
+                <column property="mesZengguo"/>
                 <column property="zengSequence"/>
+                <column property="zengguoPhase"/>
+                <column property="phaseStartTimeTotal"/>
+                <column property="phaseEndTimeTotal"/>
+
+                <column property="phaseDuration"/>
                 <column property="startTimeTotal"/>
+                <column property="endTimeTall"/>
+                <column property="shangzengLayer"/>
+                <column property="shangzengDuration"/>
                 <column property="startTimeDeviceShangZeng"/>
                 <column property="startTimeKagai"/>
                 <column property="endTimeLiujiu"/>
@@ -85,8 +96,7 @@
                 <column property="liangshiQtyUp"/>
                 <column property="liangshiTypUp"/>
                 <column property="zaopeiType"/>
-                <column property="shangzengLayer"/>
-                <column property="shangzengDuration"/>
+
                 <column property="shangzengHeight"/>
                 <column property="jiejiuDurationFirstClass"/>
                 <column property="jiejiuDurationSecondClass"/>
@@ -101,7 +111,6 @@
                 <column property="energyQiShangzeng"/>
                 <column property="energyQiZhengliu"/>
                 <column property="liujiuAddZhengzhuDuration"/>
-                <column property="endTimeTall"/>
                 <column property="shangzengTotalQty"/>
                 <column property="runliangStartTimeDown"/>
                 <column property="runliangEndTimeDown"/>
@@ -110,6 +119,9 @@
                 <column property="runliangStartTimeUp"/>
                 <column property="runliangDuarationQualifiedUp"/>
                 <column property="zhengliuDuration"/>
+                <column property="phaseStartWinccId"/>
+                <column property="phaseEndWinccId"/>
+                <column property="lastModifiedDate"/>
             </columns>
         </dataGrid>
         <hbox id="lookupActions" visible="false">

@@ -42,6 +42,8 @@
               title="msg://com.mom.winery.view.mestanliangjirecord/mesTanliangjiRecordListView.title"/>
         <item view="MesTanliangjiRealTimeData.list"
               title="msg://com.mom.winery.view.mestanliangjirealtimedata/mesTanliangjiRealTimeDataListView.title"/>
+        <item view="MesZengguoRealData.list"
+              title="msg://com.mom.winery.view.meszengguorealdata/mesZengguoRealDataListView.title"/>
 
 
     </menu>
