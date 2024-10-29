@@ -75,8 +75,8 @@ public class MesZhuanyundou {
         return zhuanyundouName;
     }
 
-    public void setZhuanyundouName(String zhuanyundouCode) {
-        this.zhuanyundouName = zhuanyundouCode;
+    public void setZhuanyundouName(String zhuanyundouName) {
+        this.zhuanyundouName = zhuanyundouName;
     }
 
     public OffsetDateTime getLastModifiedDate() {

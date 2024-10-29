@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view"
+      xmlns:c="http://jmix.io/schema/flowui/jpql-condition"
+      title="msg://mesRunliangRealtimeDataListView.title"
+      focusComponent="mesRunliangRealtimeDatasDataGrid">
+    <data>
+        <collection id="mesRunliangRealtimeDatasDc"
+                    class="com.mom.winery.entity.MesRunliangRealtimeData">
+            <fetchPlan extends="_base">
+                <property name="mesArea" fetchPlan="_base">
+                    <property name="mesShopfloor" fetchPlan="_base"/>
+                </property>
+            </fetchPlan>
+            <loader id="mesRunliangRealtimeDatasDl" readOnly="true">
+                <query>
+                    <![CDATA[select e from MesRunliangRealtimeData e]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+        <urlQueryParameters>
+            <genericFilter component="genericFilter"/>
+            <pagination component="pagination"/>
+        </urlQueryParameters>
+    </facets>
+    <actions>
+        <action id="selectAction" type="lookup_select"/>
+        <action id="discardAction" type="lookup_discard"/>
+    </actions>
+    <layout>
+        <genericFilter id="genericFilter"
+                       dataLoader="mesRunliangRealtimeDatasDl">
+            <properties include=".*"/>
+        </genericFilter>
+        <hbox id="buttonsPanel" classNames="buttons-panel">
+            <button id="bulkEditBtn" action="mesRunliangRealtimeDatasDataGrid.bulkEdit"/>
+            <button id="createBtn" action="mesRunliangRealtimeDatasDataGrid.create"/>
+            <button id="editBtn" action="mesRunliangRealtimeDatasDataGrid.edit"/>
+            <button id="excelExportBtn" action="mesRunliangRealtimeDatasDataGrid.excelExport"/>
+            <button id="jsonExportBtn" action="mesRunliangRealtimeDatasDataGrid.jsonExport"/>
+            <button id="readBtn" action="mesRunliangRealtimeDatasDataGrid.read"/>
+            <button id="refreshBtn" action="mesRunliangRealtimeDatasDataGrid.refresh"/>
+            <button id="removeBtn" action="mesRunliangRealtimeDatasDataGrid.remove"/>
+            <simplePagination id="pagination" dataLoader="mesRunliangRealtimeDatasDl"/>
+        </hbox>
+        <dataGrid id="mesRunliangRealtimeDatasDataGrid"
+                  width="100%"
+                  minHeight="20em"
+                  dataContainer="mesRunliangRealtimeDatasDc"
+                  columnReorderingAllowed="true"
+                  selectionMode="MULTI">
+            <actions>
+                <action id="bulkEdit" type="bulked_edit"/>
+                <action id="create" type="list_create"/>
+                <action id="edit" type="list_edit"/>
+                <action id="excelExport" type="grdexp_excelExport"/>
+                <action id="jsonExport" type="grdexp_jsonExport"/>
+                <action id="read" type="list_read"/>
+                <action id="refresh" type="list_refresh"/>
+                <action id="remove" type="list_remove"/>
+            </actions>
+            <columns resizable="true">
+                <column property="mesArea"/>
+                <column property="winccUdateTime"/>
+                <column property="winccUpdateId"/>
+                <column property="culiangZancuncangYuzhong"/>
+                <column property="xiliangZancuncangYuzhong"/>
+                <column property="culiangLiaodouYuzhong"/>
+                <column property="xiliangLiaodouYuzhong"/>
+                <column property="hongzaoGeiLiaojiYuzhong"/>
+                <column property="zhongshangGeiLiaojiYuzhong"/>
+                <column property="diZaoGeiLiaojiYuzhong"/>
+                <column property="daokeZancuncangYuzhong"/>
+                <column property="liusuCuliang"/>
+                <column property="liusuXiliang"/>
+                <column property="liusuHongzao"/>
+                <column property="liusuZhongshang"/>
+                <column property="liusuDiZao"/>
+                <column property="runliangShuiguanYew"/>
+                <column property="runliangGuanShuiwen"/>
+                <column property="liangshuiGuanShuiwen"/>
+            </columns>
+        </dataGrid>
+        <hbox id="lookupActions" visible="false">
+            <button id="selectBtn" action="selectAction"/>
+            <button id="discardBtn" action="discardAction"/>
+        </hbox>
+    </layout>
+</view>

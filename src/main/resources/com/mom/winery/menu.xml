@@ -44,6 +44,10 @@
               title="msg://com.mom.winery.view.mestanliangjirealtimedata/mesTanliangjiRealTimeDataListView.title"/>
         <item view="MesZengguoRealData.list"
               title="msg://com.mom.winery.view.meszengguorealdata/mesZengguoRealDataListView.title"/>
+        <item view="MesRunliangRealtimeData.list"
+              title="msg://com.mom.winery.view.mesrunliangrealtimedata/mesRunliangRealtimeDataListView.title"/>
+        <item view="MesGlobalRealData.list"
+              title="msg://com.mom.winery.view.mesglobalrealdata/mesGlobalRealDataListView.title"/>
 
 
     </menu>

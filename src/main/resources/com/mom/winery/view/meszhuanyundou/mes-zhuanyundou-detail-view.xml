@@ -18,7 +18,7 @@
     </actions>
     <layout>
         <formLayout id="form" dataContainer="mesZhuanyundouDc">
-            <textField id="zhuanyundouCodeField" property="zhuanyundouName"/>
+            <textField id="zhuanyundouNameField" property="zhuanyundouName"/>
             <textField id="zhuanyundouNoField" property="zhuanyundouNo"/>
         </formLayout>
         <hbox id="detailActions">

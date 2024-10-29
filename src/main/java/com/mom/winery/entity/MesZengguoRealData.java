@@ -38,6 +38,26 @@ public class MesZengguoRealData {
     @Column(name = "WINCC_UPDATE_ID")
     private Integer winccUpdateId;
 
+    @Comment("1#机器人接料斗余重")
+    @NumberFormat(pattern = "#.##")
+    @Column(name = "JIELIAODOU_YUZHONG1")
+    private Float jieliaodouYuzhong1;
+
+    @Comment("2#机器人接料斗余重")
+    @NumberFormat(pattern = "#.##")
+    @Column(name = "JIELIAODOU_YUZHONG2")
+    private Float jieliaodouYuzhong2;
+
+    @Comment("3#机器人接料斗余重")
+    @NumberFormat(pattern = "#.##")
+    @Column(name = "JIELIAODOU_YUZHONG3")
+    private Float jieliaodouYuzhong3;
+
+    @Comment("2#机器人接料斗余重")
+    @NumberFormat(pattern = "#.##")
+    @Column(name = "JIELIAODOU_YUZHONG4")
+    private Float jieliaodouYuzhong4;
+
     @Comment("1#蒸汽开度")
     @NumberFormat(pattern = "##.##")
     @Column(name = "ZHENGQI_KAIDU1")
@@ -613,6 +633,38 @@ public class MesZengguoRealData {
     @LastModifiedDate
     @Column(name = "LAST_MODIFIED_DATE")
     private OffsetDateTime lastModifiedDate;
+
+    public Float getJieliaodouYuzhong4() {
+        return jieliaodouYuzhong4;
+    }
+
+    public void setJieliaodouYuzhong4(Float jieliaodouYuzhong4) {
+        this.jieliaodouYuzhong4 = jieliaodouYuzhong4;
+    }
+
+    public Float getJieliaodouYuzhong3() {
+        return jieliaodouYuzhong3;
+    }
+
+    public void setJieliaodouYuzhong3(Float jieliaodouYuzhong3) {
+        this.jieliaodouYuzhong3 = jieliaodouYuzhong3;
+    }
+
+    public Float getJieliaodouYuzhong2() {
+        return jieliaodouYuzhong2;
+    }
+
+    public void setJieliaodouYuzhong2(Float jieliaodouYuzhong2) {
+        this.jieliaodouYuzhong2 = jieliaodouYuzhong2;
+    }
+
+    public Float getJieliaodouYuzhong1() {
+        return jieliaodouYuzhong1;
+    }
+
+    public void setJieliaodouYuzhong1(Float jieliaodouYuzhong1) {
+        this.jieliaodouYuzhong1 = jieliaodouYuzhong1;
+    }
 
     public Integer getWinccUpdateId() {
         return winccUpdateId;
@@ -1576,8 +1628,7 @@ public class MesZengguoRealData {
         return diuzaoWeijiuguanYewei;
     }
 
-    public Float getDiaoZaoWeijiuguanYewei() {return diuzaoWeijiuguanYewei;}
-    public void setDiaoZaoWeijiuguanYewei(Float diaozaoWeijiuguanYewei) {this.diuzaoWeijiuguanYewei = diaozaoWeijiuguanYewei;}
+    public void setDiuZaoWeijiuguanYewei(Float diuzaoWeijiuguanYewei) {this.diuzaoWeijiuguanYewei = diuzaoWeijiuguanYewei;}
 
 
 

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view"
+      title="msg://mesRunliangRealtimeDataDetailView.title"
+      focusComponent="form">
+    <data>
+        <instance id="mesRunliangRealtimeDataDc"
+                  class="com.mom.winery.entity.MesRunliangRealtimeData">
+            <fetchPlan extends="_base">
+                <property name="mesArea" fetchPlan="_base">
+                    <property name="mesShopfloor" fetchPlan="_base"/>
+                </property>
+            </fetchPlan>
+            <loader id="mesRunliangRealtimeDataDl"/>
+        </instance>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+    </facets>
+    <actions>
+        <action id="saveAction" type="detail_saveClose"/>
+        <action id="closeAction" type="detail_close"/>
+    </actions>
+    <layout>
+        <formLayout id="form" dataContainer="mesRunliangRealtimeDataDc" labelsPosition="ASIDE">
+            <formItem>
+                <entityPicker id="mesAreaField" property="mesArea">
+                    <actions>
+                        <action id="entityLookup" type="entity_lookup"/>
+                        <action id="entityClear" type="entity_clear"/>
+                    </actions>
+                </entityPicker>
+            </formItem>
+            <formItem>
+                <dateTimePicker id="winccUdateTimeField" property="winccUdateTime"/>
+            </formItem>
+            <formItem>
+                <textField id="winccUpdateIdField" property="winccUpdateId"/>
+            </formItem>
+            <formItem>
+                <textField id="culiangZancuncangYuzhongField" property="culiangZancuncangYuzhong"/>
+            </formItem>
+            <formItem>
+                <textField id="xiliangZancuncangYuzhongField" property="xiliangZancuncangYuzhong"/>
+            </formItem>
+            <formItem>
+                <textField id="culiangLiaodouYuzhongField" property="culiangLiaodouYuzhong"/>
+            </formItem>
+            <formItem>
+                <textField id="xiliangLiaodouYuzhongField" property="xiliangLiaodouYuzhong"/>
+            </formItem>
+            <formItem>
+                <textField id="hongzaoGeiLiaojiYuzhongField" property="hongzaoGeiLiaojiYuzhong"/>
+            </formItem>
+            <formItem>
+                <textField id="zhongshangGeiLiaojiYuzhongField" property="zhongshangGeiLiaojiYuzhong"/>
+            </formItem>
+            <formItem>
+                <textField id="diZaoGeiLiaojiYuzhongField" property="diZaoGeiLiaojiYuzhong"/>
+            </formItem>
+            <formItem>
+                <textField id="daokeZancuncangYuzhongField" property="daokeZancuncangYuzhong"/>
+            </formItem>
+            <formItem>
+                <textField id="liusuCuliangField" property="liusuCuliang"/>
+            </formItem>
+            <formItem>
+                <textField id="liusuXiliangField" property="liusuXiliang"/>
+            </formItem>
+            <formItem>
+                <textField id="liusuHongzaoField" property="liusuHongzao"/>
+            </formItem>
+            <formItem>
+                <textField id="liusuZhongshangField" property="liusuZhongshang"/>
+            </formItem>
+            <formItem>
+                <textField id="liusuDiZaoField" property="liusuDiZao"/>
+            </formItem>
+            <formItem>
+                <textField id="runliangShuiguanYewField" property="runliangShuiguanYew"/>
+            </formItem>
+            <formItem>
+                <textField id="runliangGuanShuiwenField" property="runliangGuanShuiwen"/>
+            </formItem>
+            <formItem>
+                <textField id="liangshuiGuanShuiwenField" property="liangshuiGuanShuiwen"/>
+            </formItem>
+        </formLayout>
+        <hbox id="detailActions">
+            <button id="saveAndCloseBtn" action="saveAction"/>
+            <button id="closeBtn" action="closeAction"/>
+        </hbox>
+    </layout>
+</view>

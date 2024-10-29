@@ -357,6 +357,10 @@
             <dateTimePicker id="winccUpdateTimeField" property="winccUpdateTime"/>
             <textField id="winccUpdateIdField" property="winccUpdateId"/>
             <dateTimePicker id="lastModifiedDateField" property="lastModifiedDate"/>
+            <textField id="jieliaodouYuzhong1Field" property="jieliaodouYuzhong1"/>
+            <textField id="jieliaodouYuzhong2Field" property="jieliaodouYuzhong2"/>
+            <textField id="jieliaodouYuzhong3Field" property="jieliaodouYuzhong3"/>
+            <textField id="jieliaodouYuzhong4Field" property="jieliaodouYuzhong4"/>
         </formLayout>
         <hbox id="detailActions">
             <button id="saveAndCloseBtn" action="saveAction"/>

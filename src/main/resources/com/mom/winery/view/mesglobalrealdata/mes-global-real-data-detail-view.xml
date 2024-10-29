@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view"
+      title="msg://mesGlobalRealDataDetailView.title"
+      focusComponent="form">
+    <data>
+        <instance id="mesGlobalRealDataDc"
+                  class="com.mom.winery.entity.MesGlobalRealData">
+            <fetchPlan extends="_base"/>
+            <loader id="mesGlobalRealDataDl"/>
+        </instance>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+    </facets>
+    <actions>
+        <action id="saveAction" type="detail_saveClose"/>
+        <action id="closeAction" type="detail_close"/>
+    </actions>
+    <layout>
+        <formLayout id="form" dataContainer="mesGlobalRealDataDc">
+            <dateTimePicker id="winccUpdateTimeField" property="winccUpdateTime"/>
+            <textField id="winccUpdateIdField" property="winccUpdateId"/>
+            <textField id="faqiLengningTiaojiefaKaiduField" property="faqiLengningTiaojiefaKaidu"/>
+            <textField id="qingxiShuiguanYewField" property="qingxiShuiguanYew"/>
+            <textField id="xunhuaShuiHuancunguanYewField" property="xunhuaShuiHuancunguanYew"/>
+            <textField id="qingxiShuiguanShuiwenField" property="qingxiShuiguanShuiwen"/>
+            <textField id="xunhuaShuiwenJinshuiField" property="xunhuaShuiwenJinshui"/>
+            <textField id="xunhuaShuiwenHuishuiField" property="xunhuaShuiwenHuishui"/>
+            <textField id="xunhuaJinshuiLiuliangField" property="xunhuaJinshuiLiuliang"/>
+            <textField id="xunhuaChushuiLiuliangField" property="xunhuaChushuiLiuliang"/>
+        </formLayout>
+        <hbox id="detailActions">
+            <button id="saveAndCloseBtn" action="saveAction"/>
+            <button id="closeBtn" action="closeAction"/>
+        </hbox>
+    </layout>
+</view>

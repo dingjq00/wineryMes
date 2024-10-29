@@ -101,7 +101,8 @@
                 <action id="remove" type="list_remove"/>
             </actions>
             <columns>
-                <column property="zhuanyundouCode"/>
+                <column property="zhuanyundouNo"/>
+                <column property="zhuanyundouName"/>
                 <column property="createdBy"/>
                 <column property="createdDate"/>
                 <column property="lastModifiedBy"/>
@@ -130,6 +131,7 @@
             </actions>
             <columns>
                 <column property="runliangdouCode"/>
+                <column property="runliangdouNo"/>
                 <column property="createdBy"/>
                 <column property="createdDate"/>
                 <column property="lastModifiedBy"/>
@@ -185,6 +187,7 @@
             </actions>
             <columns>
                 <column property="zengguoCode"/>
+                <column property="zengguoName"/>
                 <column property="createdBy"/>
                 <column property="createdDate"/>
                 <column property="lastModifiedBy"/>
