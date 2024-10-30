@@ -39,12 +39,16 @@ public class RunliangJob implements Job {
         List<MesJiaochi> mesJiaochiList = dataManager.load(MesJiaochi.class)
                 .query("select e from MesJiaochi e ")
                 .list();
-        List<MesRunliangdoudouRecord> mesRunliangdoudouRecordList = new ArrayList<>();
+
 
         for (JobConfig jobConfig : jobConfigList) {
             MesArea mesArea = jobConfig.getMesArea();
             Integer areaCode = mesArea.getAreaCode();
             Integer currentWinccId = jobConfig.getWinccId();
+
+            List<MesRunliangdoudouRecord> mesRunliangdoudouRecordList = new ArrayList<>();
+            List<MesRunliangdouOperation> mesRunliangdouOperationList = new ArrayList<>();
+
             /**
              * 获取每个单元的润粮斗
              */
@@ -253,8 +257,76 @@ public class RunliangJob implements Job {
                         record.setWinccUpdateTime(mesRunliangdou.getWinccUpdateTime());
                         record.setPreLocation(rawLocation);
                         setRecordNormalInfo(record, mesRunliangdou.getLocation(), mesRunliangdou.getEmptyOrFull(), mesRunliangdou.getDiuZaoOrliangzao(), mesRunliangdou.getWaterQtyAdd(), mesRunliangdou.getRunliangDuration(), mesRunliangdou.getStartTime(), mesRunliangdou.getEndTime(), mesRunliangdou.getJiaochiLayer(), mesRunliangdou.getJiaochi(), mesRunliangdou.getJiaochiTime(), mesRunliangdou.getZaopeiType(), mesRunliangdou.getDaokeAddQty(), mesRunliangdou.getLiangshiAddQty(), mesRunliangdou.getZaopeiAddQty(), mesRunliangdou.getDurationQualified(), mesRunliangdou.getLiangshiType());
+
                         mesRunliangdoudouRecordList.add(record);
 
+                        /**
+                         * 检查状态是否需要创建润粮斗操作记录
+                         * 33：320-接粮糟
+                         * 34：320-接丢糟
+                         * // 35：320-接壳
+                         */
+                        if(record.getLocation() !=null && (record.getLocation().getValueNo() == 33 || record.getLocation().getValueNo() == 34)){
+                            MesRunliangdouOperation operation = dataManager.create(MesRunliangdouOperation.class);
+                            operation.setMesRunliangdou(record.getMesRunliangdou());
+                            operation.setWinccUpdateTime(record.getWinccUpdateTime());
+                            operation.setWinccStartID(record.getWinccStartID());
+                            operation.setPreLocation(rawLocation);
+                            setOperationNormalInfo(operation, record);
+                            mesRunliangdouOperationList.add(operation);
+                        }
+                        /**
+                         * 根据状态结束操作信息
+                         * 31：提升机 && 满斗
+                         * 32：翻转卸料机  && 满斗
+                         */
+                        if(record.getLocation() != null && record.getLocation().getValueNo() == 32 && record.getEmptyOrFull().getValueNo() == 1) {
+                            MesRunliangdouOperation operation = mesRunliangdouOperationList.stream()
+                                    .filter(e -> e.getMesRunliangdou().equals(mesRunliangdou)
+                                            && e.getWinccUpdateTime().before(record.getWinccUpdateTime())
+                                            && (e.getLocation().getValueNo() == 33 || e.getLocation().getValueNo() == 34))
+                                    .max(Comparator.comparing(MesRunliangdouOperation::getWinccUpdateTime))
+                                    .orElse(null);
+                            if(operation != null) {
+                                operation.setWinccEndId(record.getWinccStartID());
+                                operation.setWinccEndTime(record.getWinccUpdateTime());
+                                if(operation.getWinccUpdateTime() != null && operation.getWinccEndTime() != null){
+                                    long duration = operation.getWinccEndTime().getTime() - operation.getWinccUpdateTime().getTime();
+                                    operation.setPhaseDuration((float) (duration/60000));
+                                }
+                                operation.setAfterLocation(record.getLocation());
+                                setOperationNormalInfo(operation, record);
+                                mesRunliangdouOperationList.add(operation);
+                            }else {
+                                if(rawWinccUpdateTime != null) {
+                                    List<MesRunliangdouOperation> preOperations = dataManager.load(MesRunliangdouOperation.class)
+                                            .query("select e from MesRunliangdouOperation e " +
+                                                    "where e.mesRunliangdou = :mesRunliangdou " +
+                                                    "and e.winccUpdateTime <= :winccUpdateTime " +
+                                                    "order by e.winccUpdateTime desc")
+                                            .parameter("mesRunliangdou", mesRunliangdou)
+                                            .parameter("winccUpdateTime", rawWinccUpdateTime)
+                                            .maxResults(1)
+                                            .list();
+                                    if (!preOperations.isEmpty()) {
+                                        MesRunliangdouOperation preOperation = preOperations.getFirst();
+                                        preOperation.setWinccEndId(record.getWinccStartID());
+                                        preOperation.setWinccEndTime(record.getWinccUpdateTime());
+                                        if (preOperation.getWinccUpdateTime() != null && preOperation.getWinccEndTime() != null) {
+                                            long duration = preOperation.getWinccEndTime().getTime() - preOperation.getWinccUpdateTime().getTime();
+                                            preOperation.setPhaseDuration((float) (duration / 60000));
+                                        }
+                                        preOperation.setAfterLocation(record.getLocation());
+                                        setOperationNormalInfo(preOperation, record);
+                                        mesRunliangdouOperationList.add(preOperation);
+                                    }
+                                }
+                            }
+                        }
+
+                        /**
+                         * 处理前面具体步骤的结束信息
+                         */
                         MesRunliangdoudouRecord preRecord1 = mesRunliangdoudouRecordList.stream()
                             .filter(e -> e.getMesRunliangdou().equals(mesRunliangdou)
                                     && e.getWinccUpdateTime().before(mesRunliangdou.getWinccUpdateTime()))
@@ -297,12 +369,34 @@ public class RunliangJob implements Job {
                                 }
                             }
                         }
+
+
                     }
                 }
             }
-            saveData(areaRunliangdouList, mesRunliangdoudouRecordList, jobConfig, maxWinccId);
+            saveData(areaRunliangdouList, mesRunliangdoudouRecordList,mesRunliangdouOperationList, jobConfig, maxWinccId);
+            mesRunliangdouOperationList.clear();
             mesRunliangdoudouRecordList.clear();
         }
+    }
+
+    private static void setOperationNormalInfo(MesRunliangdouOperation operation, MesRunliangdoudouRecord record) {
+        operation.setLocation(record.getLocation());
+        operation.setEmptyOrFull(record.getEmptyOrFull());
+        operation.setDiuZaoOrliangzao(record.getDiuZaoOrliangzao());
+        operation.setWaterQtyAdd(record.getWaterQtyAdd());
+        operation.setRunliangDuration(record.getRunliangDuration());
+        operation.setStartTime(record.getStartTime());
+        operation.setEndTime(record.getEndTime());
+        operation.setJiaochiLayer(record.getJiaochiLayer());
+        operation.setJiaochi(record.getJiaochi());
+        operation.setJiaochiTime(record.getJiaochiTime());
+        operation.setZaopeiType(record.getZaopeiType());
+        operation.setDaokeAddQty(record.getDaokeAddQty());
+        operation.setLiangshiAddQty(record.getLiangshiAddQty());
+        operation.setZaopeiAddQty(record.getZaopeiAddQty());
+        operation.setDurationQualified(record.getDurationQualified());
+        operation.setLiangshiType(record.getLiangshiType());
     }
 
     private static void setRecordNormalInfo(MesRunliangdoudouRecord preRecord1, MesWinccItemConfig rawLocation, MesWinccItemConfig rawEmptyOrFull, MesWinccItemConfig rawDiuZaoOrliangzao, float rawWaterQtyAdd, float rawRunliangDuration, Date rawRunliangStartTime, Date rawRunliangEndTime, Integer rawJiaochiLayer, MesJiaochi rawJiaochi, Date rawJiaochiTime, EnumZaopeiType rawZaopeiTypeEnum, Float rawDaokeAddQty, float rawLiangshiAddQty, float rawZaopeiAddQty, MesWinccItemConfig rawDurationQualified, EnumLiangshiType rawLiangshiType) {
@@ -403,9 +497,10 @@ public class RunliangJob implements Job {
     }
 
     @Transactional
-    public void saveData(List<MesRunliangdou> areaRunliangdouList, List<MesRunliangdoudouRecord> mesRunliangdoudouRecordList, JobConfig jobConfig, Integer maxWinccId) {
+    public void saveData(List<MesRunliangdou> areaRunliangdouList, List<MesRunliangdoudouRecord> mesRunliangdoudouRecordList,List<MesRunliangdouOperation> mesRunliangdouOperationList, JobConfig jobConfig, Integer maxWinccId) {
         dataManager.unconstrained().save(new SaveContext().setDiscardSaved(true).saving(areaRunliangdouList));
         dataManager.unconstrained().save(new SaveContext().setDiscardSaved(true).saving(mesRunliangdoudouRecordList));
+        dataManager.unconstrained().save(new SaveContext().setDiscardSaved(true).saving(mesRunliangdouOperationList));
         jobConfig.setWinccId(maxWinccId);
         dataManager.unconstrained().save(new SaveContext().setDiscardSaved(true).saving(jobConfig));
     }

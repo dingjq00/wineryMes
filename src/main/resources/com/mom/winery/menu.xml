@@ -48,6 +48,12 @@
               title="msg://com.mom.winery.view.mesrunliangrealtimedata/mesRunliangRealtimeDataListView.title"/>
         <item view="MesGlobalRealData.list"
               title="msg://com.mom.winery.view.mesglobalrealdata/mesGlobalRealDataListView.title"/>
+        <item view="MesRunliangdouOperation.list"
+              title="msg://com.mom.winery.view.mesrunliangdouoperation/mesRunliangdouOperationListView.title"/>
+        <item view="MesZengguoOperation.list"
+              title="msg://com.mom.winery.view.meszengguooperation/mesZengguoOperationListView.title"/>
+        <item view="MesZengguoUnitProcedure.list"
+              title="msg://com.mom.winery.view.meszengguounitprocedure/mesZengguoUnitProcedureListView.title"/>
 
 
     </menu>

@@ -91,6 +91,8 @@ public class ZengguoDeviceJob implements Job {
                     .max(Integer::compareTo)
                     .orElse(0);
             List<MesZengguoRecord> mesZengguoRecordList = new ArrayList<>();
+            List<MesZengguoOperation> mesZengguoOperationList = new ArrayList<>();
+            List<MesZengguoUnitProcedure> mesZengguoUnitProcedureList = new ArrayList<>();
             /**
              * 处理Wincc 甑锅设备待处理的数据
              */
@@ -287,6 +289,170 @@ public class ZengguoDeviceJob implements Job {
                         setNewRecordNormalInfo(record, mesZengguo);
                         mesZengguoRecordList.add(record);
 
+
+                        /**
+                         * 检查状态是否需要创建甑锅斗操作记录
+                         * 200：加底锅水Start——————甑锅任务开始
+                         *                         201：打黄水
+                         *                         202：打酒尾
+                         *                         203：打底锅回收水
+                         *                         204：打热水
+                         *                         205：加底锅水End
+                         *                         300：等待转位输送机到位
+                         *                         4**：上甑——————机器人上甑开始
+                         */
+                        if(record.getZengguoPhase() != null && record.getZengguoPhase().getPhaseNo() >= 200 && record.getZengguoPhase().getPhaseNo() < 300){
+                            createNewOperation(mesZengguoOperationList, mesZengguo, EnumZengguoMainPhase.DIGUOSHUI_ADD, record);
+                        }
+                        /**
+                         * 4**：上甑——————机器人上甑开始
+                         *             0、上甑启动
+                         *             1、"Home点",
+                         *             2、"Home点运行至接料点",
+                         *             3、"接料中",
+                         *             4、"接料点运行至待汽点",
+                         *             5、"待汽中",
+                         *             6、"内圈铺料中",
+                         *             7、"中圈铺料中",
+                         *             8、"外圈铺料中",
+                         *             9、"单层铺料完成回接料点",
+                         * （--------3...9循环，直至满甑--------）
+                         *            10、"清扫甑边",
+                         *            11、"装甑结束回Home点",
+                         * 499：等待转位输送机归零位
+                         * 500：馏酒Start————————卡盘馏酒开始
+                         */
+                        if(record.getZengguoPhase() != null && record.getZengguoPhase().getPhaseNo() >= 400 && record.getZengguoPhase().getPhaseNo() < 500){
+                            createNewOperation(mesZengguoOperationList, mesZengguo, EnumZengguoMainPhase.SHANGZENG, record);
+
+                            finishPreOperation(mesZengguoOperationList, mesZengguo,EnumZengguoMainPhase.DIGUOSHUI_ADD, record, rawStartTimeTotal, rawShangzengStartTime, rawKagaiTime, rawLiujiuEndTime, rawEndTimeTotal, rawJiaochiDown, rawJiaochiDownTime, rawJiaochiDownLayer, rawZaopeiTypeDown, rawRunliangWaterAddDown, rawRunliangDurationDown, rawZaopeiQtyDown, rawDaokeQtyDown, rawLiangshiQtyDown, rawLiangshiTypeDown, rawJiaochiUp, rawJiaochiUpTime, rawJiaochiUpLayer, rawZaopeiTypeUp, rawRunliangWaterAddUp, rawRunliangDurationUp, rawZaopeiQtyUp, rawDaokeQtyUp, rawLiangshiQtyUp, rawLiangshiTypeUp, rawPhase, rawZaopeiType, rawShangzengLayer, rawShangzengDuration, rawShangzengHeight, rawJiejiuFirstClassDuration, rawJiejiuSecondClassDuration, rawJiejiuThirdClassDuration, rawJiejiuDurationFeishui, rawJiejiuDurationJiuwei, rawLiangshuiAddQty, rawHuishoudiguoWaterAddQty, rawHotWaterAddQty, rawJiuweiAddQty, rawHuangshuiAddQty, rawZengSequence, rawEnergyQiShangzeng, rawEnergyQiZhengliu, rawLiujiuAddZhengzhuDuration);
+                        }
+
+                        /**
+                         * 500：馏酒Start————————卡盘馏酒开始
+                         * 510：馏酒-合盖
+                         * 520、馏酒（酒头）
+                         * 521、馏酒（一级）
+                         * 522、馏酒（二级）
+                         * 523、馏酒（三级）
+                         * 524、馏酒（酒尾）
+                         * 525、蒸煮（冲酸）——————馏酒结束
+                         */
+
+                        if(record.getZengguoPhase() != null && record.getZengguoPhase().getPhaseNo() >= 500 && record.getZengguoPhase().getPhaseNo() < 525){
+                            createNewOperation(mesZengguoOperationList, mesZengguo, EnumZengguoMainPhase.LIUJIU, record);
+
+                            finishPreOperation(mesZengguoOperationList, mesZengguo,EnumZengguoMainPhase.SHANGZENG, record, rawStartTimeTotal, rawShangzengStartTime, rawKagaiTime, rawLiujiuEndTime, rawEndTimeTotal, rawJiaochiDown, rawJiaochiDownTime, rawJiaochiDownLayer, rawZaopeiTypeDown, rawRunliangWaterAddDown, rawRunliangDurationDown, rawZaopeiQtyDown, rawDaokeQtyDown, rawLiangshiQtyDown, rawLiangshiTypeDown, rawJiaochiUp, rawJiaochiUpTime, rawJiaochiUpLayer, rawZaopeiTypeUp, rawRunliangWaterAddUp, rawRunliangDurationUp, rawZaopeiQtyUp, rawDaokeQtyUp, rawLiangshiQtyUp, rawLiangshiTypeUp, rawPhase, rawZaopeiType, rawShangzengLayer, rawShangzengDuration, rawShangzengHeight, rawJiejiuFirstClassDuration, rawJiejiuSecondClassDuration, rawJiejiuThirdClassDuration, rawJiejiuDurationFeishui, rawJiejiuDurationJiuwei, rawLiangshuiAddQty, rawHuishoudiguoWaterAddQty, rawHotWaterAddQty, rawJiuweiAddQty, rawHuangshuiAddQty, rawZengSequence, rawEnergyQiShangzeng, rawEnergyQiZhengliu, rawLiujiuAddZhengzhuDuration);
+                        }
+
+                        /**
+                         * 525、蒸煮（冲酸）——————馏酒结束
+                         * 526、打量水1（现有工艺取消）
+                         * 527、打量水2
+                         * 528、焖料
+                         * 529、圆气
+                         * 530：抽真空、降温
+                         */
+                        if(record.getZengguoPhase() != null && record.getZengguoPhase().getPhaseNo() >= 525 && record.getZengguoPhase().getPhaseNo() < 530) {
+                            createNewOperation(mesZengguoOperationList, mesZengguo, EnumZengguoMainPhase.ZHENGZHU_CHONGSUAN, record);
+
+                            finishPreOperation(mesZengguoOperationList, mesZengguo, EnumZengguoMainPhase.LIUJIU, record, rawStartTimeTotal, rawShangzengStartTime, rawKagaiTime, rawLiujiuEndTime, rawEndTimeTotal, rawJiaochiDown, rawJiaochiDownTime, rawJiaochiDownLayer, rawZaopeiTypeDown, rawRunliangWaterAddDown, rawRunliangDurationDown, rawZaopeiQtyDown, rawDaokeQtyDown, rawLiangshiQtyDown, rawLiangshiTypeDown, rawJiaochiUp, rawJiaochiUpTime, rawJiaochiUpLayer, rawZaopeiTypeUp, rawRunliangWaterAddUp, rawRunliangDurationUp, rawZaopeiQtyUp, rawDaokeQtyUp, rawLiangshiQtyUp, rawLiangshiTypeUp, rawPhase, rawZaopeiType, rawShangzengLayer, rawShangzengDuration, rawShangzengHeight, rawJiejiuFirstClassDuration, rawJiejiuSecondClassDuration, rawJiejiuThirdClassDuration, rawJiejiuDurationFeishui, rawJiejiuDurationJiuwei, rawLiangshuiAddQty, rawHuishoudiguoWaterAddQty, rawHotWaterAddQty, rawJiuweiAddQty, rawHuangshuiAddQty, rawZengSequence, rawEnergyQiShangzeng, rawEnergyQiZhengliu, rawLiujiuAddZhengzhuDuration);
+                        }
+
+                        /**
+                         * 530：抽真空、降温
+                         * 540：起盖
+                         * 549：待407到位
+                         * 550：倒桶
+                         * 560：蒸馏End
+                         * 600：甑桶回正
+                         * 700：End——————————甑任务结束
+                         * 0：空闲
+                         */
+                        if(record.getZengguoPhase() != null && record.getZengguoPhase().getPhaseNo() >= 530 && record.getZengguoPhase().getPhaseNo() < 700) {
+                            createNewOperation(mesZengguoOperationList, mesZengguo, EnumZengguoMainPhase.POST_DEAL, record);
+
+                            finishPreOperation(mesZengguoOperationList, mesZengguo, EnumZengguoMainPhase.ZHENGZHU_CHONGSUAN, record, rawStartTimeTotal, rawShangzengStartTime, rawKagaiTime, rawLiujiuEndTime, rawEndTimeTotal, rawJiaochiDown, rawJiaochiDownTime, rawJiaochiDownLayer, rawZaopeiTypeDown, rawRunliangWaterAddDown, rawRunliangDurationDown, rawZaopeiQtyDown, rawDaokeQtyDown, rawLiangshiQtyDown, rawLiangshiTypeDown, rawJiaochiUp, rawJiaochiUpTime, rawJiaochiUpLayer, rawZaopeiTypeUp, rawRunliangWaterAddUp, rawRunliangDurationUp, rawZaopeiQtyUp, rawDaokeQtyUp, rawLiangshiQtyUp, rawLiangshiTypeUp, rawPhase, rawZaopeiType, rawShangzengLayer, rawShangzengDuration, rawShangzengHeight, rawJiejiuFirstClassDuration, rawJiejiuSecondClassDuration, rawJiejiuThirdClassDuration, rawJiejiuDurationFeishui, rawJiejiuDurationJiuwei, rawLiangshuiAddQty, rawHuishoudiguoWaterAddQty, rawHotWaterAddQty, rawJiuweiAddQty, rawHuangshuiAddQty, rawZengSequence, rawEnergyQiShangzeng, rawEnergyQiZhengliu, rawLiujiuAddZhengzhuDuration);
+                        }
+
+                        /**
+                         * 700：End——————————甑任务结束
+                         * 0：空闲
+                         */
+                        if(record.getZengguoPhase() != null && (record.getZengguoPhase().getPhaseNo() == 700 || record.getZengguoPhase().getPhaseNo() == 0)) {
+                            finishPreOperation(mesZengguoOperationList, mesZengguo, EnumZengguoMainPhase.LIUJIU, record, rawStartTimeTotal, rawShangzengStartTime, rawKagaiTime, rawLiujiuEndTime, rawEndTimeTotal, rawJiaochiDown, rawJiaochiDownTime, rawJiaochiDownLayer, rawZaopeiTypeDown, rawRunliangWaterAddDown, rawRunliangDurationDown, rawZaopeiQtyDown, rawDaokeQtyDown, rawLiangshiQtyDown, rawLiangshiTypeDown, rawJiaochiUp, rawJiaochiUpTime, rawJiaochiUpLayer, rawZaopeiTypeUp, rawRunliangWaterAddUp, rawRunliangDurationUp, rawZaopeiQtyUp, rawDaokeQtyUp, rawLiangshiQtyUp, rawLiangshiTypeUp, rawPhase, rawZaopeiType, rawShangzengLayer, rawShangzengDuration, rawShangzengHeight, rawJiejiuFirstClassDuration, rawJiejiuSecondClassDuration, rawJiejiuThirdClassDuration, rawJiejiuDurationFeishui, rawJiejiuDurationJiuwei, rawLiangshuiAddQty, rawHuishoudiguoWaterAddQty, rawHotWaterAddQty, rawJiuweiAddQty, rawHuangshuiAddQty, rawZengSequence, rawEnergyQiShangzeng, rawEnergyQiZhengliu, rawLiujiuAddZhengzhuDuration);
+
+                            finishPreOperation(mesZengguoOperationList, mesZengguo, EnumZengguoMainPhase.POST_DEAL, record, rawStartTimeTotal, rawShangzengStartTime, rawKagaiTime, rawLiujiuEndTime, rawEndTimeTotal, rawJiaochiDown, rawJiaochiDownTime, rawJiaochiDownLayer, rawZaopeiTypeDown, rawRunliangWaterAddDown, rawRunliangDurationDown, rawZaopeiQtyDown, rawDaokeQtyDown, rawLiangshiQtyDown, rawLiangshiTypeDown, rawJiaochiUp, rawJiaochiUpTime, rawJiaochiUpLayer, rawZaopeiTypeUp, rawRunliangWaterAddUp, rawRunliangDurationUp, rawZaopeiQtyUp, rawDaokeQtyUp, rawLiangshiQtyUp, rawLiangshiTypeUp, rawPhase, rawZaopeiType, rawShangzengLayer, rawShangzengDuration, rawShangzengHeight, rawJiejiuFirstClassDuration, rawJiejiuSecondClassDuration, rawJiejiuThirdClassDuration, rawJiejiuDurationFeishui, rawJiejiuDurationJiuwei, rawLiangshuiAddQty, rawHuishoudiguoWaterAddQty, rawHotWaterAddQty, rawJiuweiAddQty, rawHuangshuiAddQty, rawZengSequence, rawEnergyQiShangzeng, rawEnergyQiZhengliu, rawLiujiuAddZhengzhuDuration);
+                        }
+
+                        /**
+                         * 创建甑锅主阶段
+                         *
+                         */
+                        if(record.getZengguoPhase() != null && record.getZengguoPhase().getPhaseNo() >= 200 && record.getZengguoPhase().getPhaseNo() <= 524){
+
+                            MesZengguoUnitProcedure mesZengguoUnitProcedure = mesZengguoUnitProcedureList.stream()
+                                    .filter(e -> e.getMesZengguo().equals(mesZengguo)
+                                            && e.getPhaseEndTimeTotal() == null)
+                                    .max(Comparator.comparing(MesZengguoUnitProcedure::getPhaseStartTimeTotal))
+                                    .orElse(null);
+                            if(mesZengguoUnitProcedure == null){
+                                List<MesZengguoUnitProcedure> mesZengguoUnitProcedureList1 = dataManager.load(MesZengguoUnitProcedure.class)
+                                        .query("select e from MesZengguoUnitProcedure e " +
+                                                "where e.mesZengguo = :mesZengguo " +
+                                                "and e.phaseEndTimeTotal is null " +
+                                                "order by e.phaseStartTimeTotal desc")
+                                        .parameter("mesZengguo", mesZengguo)
+                                        .maxResults(1)
+                                        .list();
+                                if(mesZengguoUnitProcedureList1.isEmpty()){
+                                    mesZengguoUnitProcedure = dataManager.create(MesZengguoUnitProcedure.class);
+                                    mesZengguoUnitProcedure.setMesZengguo(mesZengguo);
+                                    mesZengguoUnitProcedure.setPhaseStartTimeTotal(winccUpdateTime);
+                                    mesZengguoUnitProcedure.setPhaseStartWinccId(winccId);
+                                    setNewUnitProcedureNormalInfo(mesZengguoUnitProcedure, record);
+                                    mesZengguoUnitProcedureList.add(mesZengguoUnitProcedure);
+                                }
+                            }
+                        }
+
+                        /**
+                         * 结束主阶段
+                         */
+
+                        if(record.getZengguoPhase() != null && record.getZengguoPhase().getPhaseNo() == 0){
+                            MesZengguoUnitProcedure mesZengguoUnitProcedure = mesZengguoUnitProcedureList.stream()
+                                    .filter(e -> e.getMesZengguo().equals(mesZengguo)
+                                            && e.getPhaseEndTimeTotal() == null)
+                                    .max(Comparator.comparing(MesZengguoUnitProcedure::getPhaseStartTimeTotal))
+                                    .orElse(null);
+                            if(mesZengguoUnitProcedure == null){
+                                List<MesZengguoUnitProcedure> mesZengguoUnitProcedureList1 = dataManager.load(MesZengguoUnitProcedure.class)
+                                        .query("select e from MesZengguoUnitProcedure e " +
+                                                "where e.mesZengguo = :mesZengguo " +
+                                                "and e.phaseEndTimeTotal is null " +
+                                                "order by e.phaseStartTimeTotal desc")
+                                        .parameter("mesZengguo", mesZengguo)
+                                        .maxResults(1)
+                                        .list();
+                                if(!mesZengguoUnitProcedureList1.isEmpty()) {
+                                    mesZengguoUnitProcedure = mesZengguoUnitProcedureList1.getFirst();
+                                    mesZengguoUnitProcedureList.add(mesZengguoUnitProcedure);
+                                }
+                            }
+                            if(mesZengguoUnitProcedure != null){
+                                mesZengguoUnitProcedure.setMesZengguo(mesZengguo);
+                                mesZengguoUnitProcedure.setPhaseEndTimeTotal(winccUpdateTime);
+                                mesZengguoUnitProcedure.setPhaseEndWinccId(winccId);
+                                if(mesZengguoUnitProcedure.getPhaseStartTimeTotal() != null && mesZengguoUnitProcedure.getPhaseEndTimeTotal() != null){
+                                    long duration = mesZengguoUnitProcedure.getPhaseEndTimeTotal().getTime() - mesZengguoUnitProcedure.getPhaseStartTimeTotal().getTime();
+                                    mesZengguoUnitProcedure.setPhaseDuration((float)(duration/60000));
+                                }
+                                setUnitProcedureNormalInfo(mesZengguoUnitProcedure, rawStartTimeTotal, rawShangzengStartTime, rawKagaiTime, rawLiujiuEndTime, rawEndTimeTotal, rawJiaochiDown, rawJiaochiDownTime, rawJiaochiDownLayer, rawZaopeiTypeDown, rawRunliangWaterAddDown, rawRunliangDurationDown, rawZaopeiQtyDown, rawDaokeQtyDown, rawLiangshiQtyDown, rawLiangshiTypeDown, rawJiaochiUp, rawJiaochiUpTime, rawJiaochiUpLayer, rawZaopeiTypeUp, rawRunliangWaterAddUp, rawRunliangDurationUp, rawZaopeiQtyUp, rawDaokeQtyUp, rawLiangshiQtyUp, rawLiangshiTypeUp, rawPhase, rawZaopeiType, rawShangzengLayer, rawShangzengDuration, rawShangzengHeight, rawJiejiuFirstClassDuration, rawJiejiuSecondClassDuration, rawJiejiuThirdClassDuration, rawJiejiuDurationFeishui, rawJiejiuDurationJiuwei, rawLiangshuiAddQty, rawHuishoudiguoWaterAddQty, rawHotWaterAddQty, rawJiuweiAddQty, rawHuangshuiAddQty, rawZengSequence, rawEnergyQiShangzeng, rawEnergyQiZhengliu, rawLiujiuAddZhengzhuDuration);
+                            }
+                        }
+
+
                         // 设置 Record
                         MesZengguoRecord preRecord = mesZengguoRecordList.stream()
                                 .filter(e -> e.getMesZengguo().equals(mesZengguo)
@@ -332,13 +498,99 @@ public class ZengguoDeviceJob implements Job {
                     }
                 }
             }
-            saveData(jobConfig, areaZengguoList, mesZengguoRecordList, maxWinccId);
+            saveData(jobConfig, areaZengguoList, mesZengguoRecordList,mesZengguoOperationList,mesZengguoUnitProcedureList, maxWinccId);
         }
     }
+
+    private void finishPreOperation(List<MesZengguoOperation> mesZengguoOperationList, MesZengguo mesZengguo,EnumZengguoMainPhase mainPhase, MesZengguoRecord record,
+                                    Date rawStartTimeTotal, Date rawShangzengStartTime, Date rawKagaiTime, Date rawLiujiuEndTime, Date rawEndTimeTotal,
+                                    MesJiaochi rawJiaochiDown, Date rawJiaochiDownTime, Integer rawJiaochiDownLayer, EnumZaopeiType rawZaopeiTypeDown,
+                                    float rawRunliangWaterAddDown, float rawRunliangDurationDown, float rawZaopeiQtyDown, float rawDaokeQtyDown, float rawLiangshiQtyDown,
+                                    EnumLiangshiType rawLiangshiTypeDown, MesJiaochi rawJiaochiUp, Date rawJiaochiUpTime, Integer rawJiaochiUpLayer,
+                                    EnumZaopeiType rawZaopeiTypeUp, float rawRunliangWaterAddUp, float rawRunliangDurationUp, float rawZaopeiQtyUp, float rawDaokeQtyUp,
+                                    float rawLiangshiQtyUp, EnumLiangshiType rawLiangshiTypeUp, MesZenggouPhaseConfig rawPhase, EnumZaopeiType rawZaopeiType,
+                                    Integer rawShangzengLayer, float rawShangzengDuration, float rawShangzengHeight, float rawJiejiuFirstClassDuration,
+                                    float rawJiejiuSecondClassDuration, float rawJiejiuThirdClassDuration, float rawJiejiuDurationFeishui, float rawJiejiuDurationJiuwei,
+                                    float rawLiangshuiAddQty, float rawHuishoudiguoWaterAddQty, float rawHotWaterAddQty, float rawJiuweiAddQty, float rawHuangshuiAddQty,
+                                    Integer rawZengSequence, float rawEnergyQiShangzeng, float rawEnergyQiZhengliu, float rawLiujiuAddZhengzhuDuration) {
+        MesZengguoOperation mesZengguoOperation = mesZengguoOperationList.stream()
+                .filter(e -> e.getMesZengguo().equals(mesZengguo)
+                        && e.getMainPhase().equals(mainPhase)
+                        && e.getPhaseEndTimeTotal() == null)
+                .max(Comparator.comparing(MesZengguoOperation::getPhaseStartTimeTotal))
+                .orElse(null);
+        if(mesZengguoOperation != null){
+            setOperationEndInfo(record, mesZengguoOperation);
+            setOperationNormalInfo(mesZengguoOperation, rawStartTimeTotal, rawShangzengStartTime, rawKagaiTime, rawLiujiuEndTime, rawEndTimeTotal, rawJiaochiDown, rawJiaochiDownTime, rawJiaochiDownLayer, rawZaopeiTypeDown, rawRunliangWaterAddDown, rawRunliangDurationDown, rawZaopeiQtyDown, rawDaokeQtyDown, rawLiangshiQtyDown, rawLiangshiTypeDown, rawJiaochiUp, rawJiaochiUpTime, rawJiaochiUpLayer, rawZaopeiTypeUp, rawRunliangWaterAddUp, rawRunliangDurationUp, rawZaopeiQtyUp, rawDaokeQtyUp, rawLiangshiQtyUp, rawLiangshiTypeUp, rawPhase, rawZaopeiType, rawShangzengLayer, rawShangzengDuration, rawShangzengHeight, rawJiejiuFirstClassDuration, rawJiejiuSecondClassDuration, rawJiejiuThirdClassDuration, rawJiejiuDurationFeishui, rawJiejiuDurationJiuwei, rawLiangshuiAddQty, rawHuishoudiguoWaterAddQty, rawHotWaterAddQty, rawJiuweiAddQty, rawHuangshuiAddQty, rawZengSequence, rawEnergyQiShangzeng, rawEnergyQiZhengliu, rawLiujiuAddZhengzhuDuration);
+        }else {
+            List<MesZengguoOperation> mesZengguoOperationList1 = dataManager.load(MesZengguoOperation.class)
+                    .query("select e from MesZengguoOperation e " +
+                            "where e.mesZengguo = :mesZengguo " +
+                            "and e.mainPhase = :mainPhase " +
+                            "and e.phaseEndTimeTotal is null " +
+                            "order by e.phaseStartTimeTotal desc")
+                    .parameter("mesZengguo", mesZengguo)
+                    .parameter("mainPhase", mainPhase)
+                    .maxResults(1)
+                    .list();
+            if (!mesZengguoOperationList1.isEmpty()) {
+                mesZengguoOperation = mesZengguoOperationList1.getFirst();
+                setOperationEndInfo(record, mesZengguoOperation);
+                setOperationNormalInfo(mesZengguoOperation, rawStartTimeTotal, rawShangzengStartTime, rawKagaiTime, rawLiujiuEndTime, rawEndTimeTotal, rawJiaochiDown, rawJiaochiDownTime, rawJiaochiDownLayer, rawZaopeiTypeDown, rawRunliangWaterAddDown, rawRunliangDurationDown, rawZaopeiQtyDown, rawDaokeQtyDown, rawLiangshiQtyDown, rawLiangshiTypeDown, rawJiaochiUp, rawJiaochiUpTime, rawJiaochiUpLayer, rawZaopeiTypeUp, rawRunliangWaterAddUp, rawRunliangDurationUp, rawZaopeiQtyUp, rawDaokeQtyUp, rawLiangshiQtyUp, rawLiangshiTypeUp, rawPhase, rawZaopeiType, rawShangzengLayer, rawShangzengDuration, rawShangzengHeight, rawJiejiuFirstClassDuration, rawJiejiuSecondClassDuration, rawJiejiuThirdClassDuration, rawJiejiuDurationFeishui, rawJiejiuDurationJiuwei, rawLiangshuiAddQty, rawHuishoudiguoWaterAddQty, rawHotWaterAddQty, rawJiuweiAddQty, rawHuangshuiAddQty, rawZengSequence, rawEnergyQiShangzeng, rawEnergyQiZhengliu, rawLiujiuAddZhengzhuDuration);
+                mesZengguoOperationList.add(mesZengguoOperation);
+            }
+        }
+    }
+
+    private static void setOperationEndInfo(MesZengguoRecord record, MesZengguoOperation mesZengguoOperation) {
+        mesZengguoOperation.setPhaseEndTimeTotal(record.getPhaseStartTimeTotal());
+        mesZengguoOperation.setPhaseEndWinccId(record.getPhaseStartWinccId());
+        if (mesZengguoOperation.getPhaseStartTimeTotal() != null && mesZengguoOperation.getPhaseEndTimeTotal() != null) {
+            long duration = mesZengguoOperation.getPhaseEndTimeTotal().getTime() - mesZengguoOperation.getPhaseStartTimeTotal().getTime();
+            mesZengguoOperation.setPhaseDuration((float) (duration / 60000));
+        }
+    }
+
+    private void createNewOperation(List<MesZengguoOperation> mesZengguoOperationList, MesZengguo mesZengguo, EnumZengguoMainPhase mainPhase, MesZengguoRecord record) {
+        MesZengguoOperation zengguoOperation = mesZengguoOperationList.stream()
+                .filter(e -> e.getMesZengguo().equals(mesZengguo) && e.getMainPhase().equals(mainPhase)
+                        && e.getPhaseEndTimeTotal() == null)
+                .max(Comparator.comparing(MesZengguoOperation::getPhaseStartTimeTotal))
+                .orElse(null);
+        if (zengguoOperation == null) {
+            zengguoOperation = dataManager.load(MesZengguoOperation.class)
+                    .query("select e from MesZengguoOperation e " +
+                            "where e.mesZengguo = :mesZengguo " +
+                            "and e.mainPhase = :mainPhase " +
+                            "and e.phaseEndTimeTotal is null " +
+                            "order by e.phaseStartTimeTotal desc")
+                    .parameter("mainPhase", mainPhase)
+                    .parameter("mesZengguo", mesZengguo)
+                    .maxResults(1)
+                    .optional().orElse(null);
+        }
+        if (zengguoOperation == null) {
+            zengguoOperation = dataManager.create(MesZengguoOperation.class);
+            zengguoOperation.setMesZengguo(record.getMesZengguo());
+            zengguoOperation.setPhaseStartTimeTotal(record.getPhaseStartTimeTotal());
+            zengguoOperation.setPhaseStartWinccId(record.getPhaseStartWinccId());
+            zengguoOperation.setZengguoPhase(record.getZengguoPhase());
+            zengguoOperation.setMainPhase(mainPhase);
+            setNewOperationNormalInfo(zengguoOperation, record);
+            mesZengguoOperationList.add(zengguoOperation);
+        }
+    }
+
+    private void setNewOperationNormalInfo(MesZengguoOperation zengguoOperation, MesZengguoRecord record) {
+        setOperationNormalInfo(zengguoOperation, record.getStartTimeTotal(),record.getStartTimeDeviceShangZeng(),record.getStartTimeKagai(),record.getEndTimeLiujiu(),record.getEndTimeTall(),record.getJiaochiDown(),record.getJiaochiTimeDown(),record.getJiaochiLayerDown(),record.getZaopeiTypeDown(),record.getRunliangAddWaterDown(),record.getRunliangDurationDown(),record.getZaopeiQtyDown(),record.getDaokeQtyDown(),record.getLiangshiQtyDown(),record.getLiangshiTypeDown(),record.getJiaochiUp(),record.getJiaochiTimeUp(),record.getJiaochiLayerUp(),record.getZaopeiTypeUp(),record.getRunliangAddWaterUp(),record.getRunliangDurationUp(),record.getZaopeiQtyUp(),record.getDaokeQtyUp(),record.getLiangshiQtyUp(),record.getLiangshiTypUp(),record.getZengguoPhase(),record.getZaopeiType(),record.getShangzengLayer(),record.getShangzengDuration(),record.getShangzengHeight(),record.getJiejiuDurationFirstClass(),record.getJiejiuDurationSecondClass(),record.getJiejiuDurationThirdClass(),record.getJiejiuDurationFeishui(),record.getJiejiuDurationJiuwei(),record.getLiangshuiAddQty(),record.getHuishoudiguoWaterAddQty(),record.getHotWaterAddQty(),record.getJiuweiAddQty(),record.getHuangshuiAddQty(),record.getZengSequence(),record.getEnergyQiShangzeng(),record.getEnergyQiZhengliu(),record.getLiujiuAddZhengzhuDuration());
+    }
+
     @Transactional
-    public void saveData(JobConfig jobConfig, List<MesZengguo> areaZengguoList, List<MesZengguoRecord> mesZengguoRecordList, Integer maxWinccId) {
+    public void saveData(JobConfig jobConfig, List<MesZengguo> areaZengguoList, List<MesZengguoRecord> mesZengguoRecordList,List<MesZengguoOperation> mesZengguoOperationList,List<MesZengguoUnitProcedure> mesZengguoUnitProcedureList, Integer maxWinccId) {
         dataManager.unconstrained().save(new SaveContext().setDiscardSaved(true).saving(areaZengguoList));
         dataManager.unconstrained().save(new SaveContext().setDiscardSaved(true).saving(mesZengguoRecordList));
+        dataManager.unconstrained().save(new SaveContext().setDiscardSaved(true).saving(mesZengguoOperationList));
+        dataManager.unconstrained().save(new SaveContext().setDiscardSaved(true).saving(mesZengguoUnitProcedureList));
         jobConfig.setWinccId(maxWinccId);
         dataManager.unconstrained().save(new SaveContext().setDiscardSaved(true).saving(jobConfig));
     }
@@ -390,7 +642,112 @@ public class ZengguoDeviceJob implements Job {
         preRecord.setLiujiuAddZhengzhuDuration(rawLiujiuAddZhengzhuDuration);
     }
 
+
+
     private static void setNewRecordNormalInfo(MesZengguoRecord record, MesZengguo mesZengguo) {
         setPrerecordNormalInfo(record, mesZengguo.getStartTimeTotal(), mesZengguo.getStartTimeDeviceShangZeng(), mesZengguo.getStartTimeKagai(), mesZengguo.getEndTimeLiujiu(), mesZengguo.getEndTimeTall(), mesZengguo.getJiaochiDown(), mesZengguo.getJiaochiTimeDown(), mesZengguo.getJiaochiLayerDown(), mesZengguo.getZaopeiTypeDown(), mesZengguo.getRunliangAddWaterDown(), mesZengguo.getRunliangDurationDown(), mesZengguo.getZaopeiQtyDown(), mesZengguo.getDaokeQtyDown(), mesZengguo.getLiangshiQtyDown(), mesZengguo.getLiangshiTypeDown(), mesZengguo.getJiaochiUp(), mesZengguo.getJiaochiTimeUp(), mesZengguo.getJiaochiLayerUp(), mesZengguo.getZaopeiTypeUp(), mesZengguo.getRunliangAddWaterUp(), mesZengguo.getRunliangDurationUp(), mesZengguo.getZaopeiQtyUp(), mesZengguo.getDaokeQtyUp(), mesZengguo.getLiangshiQtyUp(), mesZengguo.getLiangshiTypUp(), mesZengguo.getZengguoPhase(), mesZengguo.getZaopeiType(), mesZengguo.getShangzengLayer(), mesZengguo.getShangzengDuration(), mesZengguo.getShangzengHeight(), mesZengguo.getJiejiuDurationFirstClass(), mesZengguo.getJiejiuDurationSecondClass(), mesZengguo.getJiejiuDurationThirdClass(), mesZengguo.getJiejiuDurationFeishui(), mesZengguo.getJiejiuDurationJiuwei(), mesZengguo.getLiangshuiAddQty(), mesZengguo.getHuishoudiguoWaterAddQty(), mesZengguo.getHotWaterAddQty(), mesZengguo.getJiuweiAddQty(), mesZengguo.getHuangshuiAddQty(), mesZengguo.getZengSequence(), mesZengguo.getEnergyQiShangzeng(), mesZengguo.getEnergyQiZhengliu(), mesZengguo.getLiujiuAddZhengzhuDuration());
     }
+
+    private static void setOperationNormalInfo(MesZengguoOperation operation,Date rawStartTimeTotal, Date rawShangzengStartTime, Date rawKagaiTime, Date rawLiujiuEndTime, Date rawEndTimeTotal, MesJiaochi rawJiaochiDown, Date rawJiaochiDownTime, Integer rawJiaochiDownLayer, EnumZaopeiType rawZaopeiTypeDown, float rawRunliangWaterAddDown, float rawRunliangDurationDown, float rawZaopeiQtyDown, float rawDaokeQtyDown, float rawLiangshiQtyDown, EnumLiangshiType rawLiangshiTypeDown, MesJiaochi rawJiaochiUp, Date rawJiaochiUpTime, Integer rawJiaochiUpLayer, EnumZaopeiType rawZaopeiTypeUp, float rawRunliangWaterAddUp, float rawRunliangDurationUp, float rawZaopeiQtyUp, float rawDaokeQtyUp, float rawLiangshiQtyUp, EnumLiangshiType rawLiangshiTypeUp, MesZenggouPhaseConfig rawPhase, EnumZaopeiType rawZaopeiType, Integer rawShangzengLayer, float rawShangzengDuration, float rawShangzengHeight, float rawJiejiuFirstClassDuration, float rawJiejiuSecondClassDuration, float rawJiejiuThirdClassDuration, float rawJiejiuDurationFeishui, float rawJiejiuDurationJiuwei, float rawLiangshuiAddQty, float rawHuishoudiguoWaterAddQty, float rawHotWaterAddQty, float rawJiuweiAddQty, float rawHuangshuiAddQty, Integer rawZengSequence, float rawEnergyQiShangzeng, float rawEnergyQiZhengliu, float rawLiujiuAddZhengzhuDuration) {
+        operation.setZengguoPhase(rawPhase);
+
+        operation.setStartTimeTotal(rawStartTimeTotal);
+        operation.setStartTimeDeviceShangZeng(rawShangzengStartTime);
+        operation.setStartTimeKagai(rawKagaiTime);
+        operation.setEndTimeLiujiu(rawLiujiuEndTime);
+        operation.setEndTimeTall(rawEndTimeTotal);
+        operation.setJiaochiDown(rawJiaochiDown);
+        operation.setJiaochiTimeDown(rawJiaochiDownTime);
+        operation.setJiaochiLayerDown(rawJiaochiDownLayer);
+        operation.setZaopeiTypeDown(rawZaopeiTypeDown);
+        operation.setRunliangAddWaterDown(rawRunliangWaterAddDown);
+        operation.setRunliangDurationDown(rawRunliangDurationDown);
+        operation.setZaopeiQtyDown(rawZaopeiQtyDown);
+        operation.setDaokeQtyDown(rawDaokeQtyDown);
+        operation.setLiangshiQtyDown(rawLiangshiQtyDown);
+        operation.setLiangshiTypeDown(rawLiangshiTypeDown);
+        operation.setJiaochiUp(rawJiaochiUp);
+        operation.setJiaochiTimeUp(rawJiaochiUpTime);
+        operation.setJiaochiLayerUp(rawJiaochiUpLayer);
+        operation.setZaopeiTypeUp(rawZaopeiTypeUp);
+        operation.setRunliangAddWaterUp(rawRunliangWaterAddUp);
+        operation.setRunliangDurationUp(rawRunliangDurationUp);
+        operation.setZaopeiQtyUp(rawZaopeiQtyUp);
+        operation.setDaokeQtyUp(rawDaokeQtyUp);
+        operation.setLiangshiQtyUp(rawLiangshiQtyUp);
+        operation.setLiangshiTypUp(rawLiangshiTypeUp);
+
+        operation.setZaopeiType(rawZaopeiType);
+        operation.setShangzengLayer(rawShangzengLayer);
+        operation.setShangzengDuration(rawShangzengDuration);
+        operation.setShangzengHeight(rawShangzengHeight);
+        operation.setJiejiuDurationFirstClass(rawJiejiuFirstClassDuration);
+        operation.setJiejiuDurationSecondClass(rawJiejiuSecondClassDuration);
+        operation.setJiejiuDurationThirdClass(rawJiejiuThirdClassDuration);
+        operation.setJiejiuDurationFeishui(rawJiejiuDurationFeishui);
+        operation.setJiejiuDurationJiuwei(rawJiejiuDurationJiuwei);
+        operation.setLiangshuiAddQty(rawLiangshuiAddQty);
+        operation.setHuishoudiguoWaterAddQty(rawHuishoudiguoWaterAddQty);
+        operation.setHotWaterAddQty(rawHotWaterAddQty);
+        operation.setJiuweiAddQty(rawJiuweiAddQty);
+        operation.setHuangshuiAddQty(rawHuangshuiAddQty);
+        operation.setZengSequence(rawZengSequence);
+        operation.setEnergyQiShangzeng(rawEnergyQiShangzeng);
+        operation.setEnergyQiZhengliu(rawEnergyQiZhengliu);
+        operation.setLiujiuAddZhengzhuDuration(rawLiujiuAddZhengzhuDuration);
+    }
+
+    private void setNewUnitProcedureNormalInfo(MesZengguoUnitProcedure unitProcedure, MesZengguoRecord record) {
+        setUnitProcedureNormalInfo(unitProcedure, record.getStartTimeTotal(),record.getStartTimeDeviceShangZeng(),record.getStartTimeKagai(),record.getEndTimeLiujiu(),record.getEndTimeTall(),record.getJiaochiDown(),record.getJiaochiTimeDown(),record.getJiaochiLayerDown(),record.getZaopeiTypeDown(),record.getRunliangAddWaterDown(),record.getRunliangDurationDown(),record.getZaopeiQtyDown(),record.getDaokeQtyDown(),record.getLiangshiQtyDown(),record.getLiangshiTypeDown(),record.getJiaochiUp(),record.getJiaochiTimeUp(),record.getJiaochiLayerUp(),record.getZaopeiTypeUp(),record.getRunliangAddWaterUp(),record.getRunliangDurationUp(),record.getZaopeiQtyUp(),record.getDaokeQtyUp(),record.getLiangshiQtyUp(),record.getLiangshiTypUp(),record.getZengguoPhase(),record.getZaopeiType(),record.getShangzengLayer(),record.getShangzengDuration(),record.getShangzengHeight(),record.getJiejiuDurationFirstClass(),record.getJiejiuDurationSecondClass(),record.getJiejiuDurationThirdClass(),record.getJiejiuDurationFeishui(),record.getJiejiuDurationJiuwei(),record.getLiangshuiAddQty(),record.getHuishoudiguoWaterAddQty(),record.getHotWaterAddQty(),record.getJiuweiAddQty(),record.getHuangshuiAddQty(),record.getZengSequence(),record.getEnergyQiShangzeng(),record.getEnergyQiZhengliu(),record.getLiujiuAddZhengzhuDuration());
+    }
+
+
+    private static void setUnitProcedureNormalInfo(MesZengguoUnitProcedure unitProcedure,Date rawStartTimeTotal, Date rawShangzengStartTime, Date rawKagaiTime, Date rawLiujiuEndTime, Date rawEndTimeTotal, MesJiaochi rawJiaochiDown, Date rawJiaochiDownTime, Integer rawJiaochiDownLayer, EnumZaopeiType rawZaopeiTypeDown, float rawRunliangWaterAddDown, float rawRunliangDurationDown, float rawZaopeiQtyDown, float rawDaokeQtyDown, float rawLiangshiQtyDown, EnumLiangshiType rawLiangshiTypeDown, MesJiaochi rawJiaochiUp, Date rawJiaochiUpTime, Integer rawJiaochiUpLayer, EnumZaopeiType rawZaopeiTypeUp, float rawRunliangWaterAddUp, float rawRunliangDurationUp, float rawZaopeiQtyUp, float rawDaokeQtyUp, float rawLiangshiQtyUp, EnumLiangshiType rawLiangshiTypeUp, MesZenggouPhaseConfig rawPhase, EnumZaopeiType rawZaopeiType, Integer rawShangzengLayer, float rawShangzengDuration, float rawShangzengHeight, float rawJiejiuFirstClassDuration, float rawJiejiuSecondClassDuration, float rawJiejiuThirdClassDuration, float rawJiejiuDurationFeishui, float rawJiejiuDurationJiuwei, float rawLiangshuiAddQty, float rawHuishoudiguoWaterAddQty, float rawHotWaterAddQty, float rawJiuweiAddQty, float rawHuangshuiAddQty, Integer rawZengSequence, float rawEnergyQiShangzeng, float rawEnergyQiZhengliu, float rawLiujiuAddZhengzhuDuration) {
+        unitProcedure.setZengguoPhase(rawPhase);
+        unitProcedure.setStartTimeTotal(rawStartTimeTotal);
+        unitProcedure.setStartTimeDeviceShangZeng(rawShangzengStartTime);
+        unitProcedure.setStartTimeKagai(rawKagaiTime);
+        unitProcedure.setEndTimeLiujiu(rawLiujiuEndTime);
+        unitProcedure.setEndTimeTall(rawEndTimeTotal);
+        unitProcedure.setJiaochiDown(rawJiaochiDown);
+        unitProcedure.setJiaochiTimeDown(rawJiaochiDownTime);
+        unitProcedure.setJiaochiLayerDown(rawJiaochiDownLayer);
+        unitProcedure.setZaopeiTypeDown(rawZaopeiTypeDown);
+        unitProcedure.setRunliangAddWaterDown(rawRunliangWaterAddDown);
+        unitProcedure.setRunliangDurationDown(rawRunliangDurationDown);
+        unitProcedure.setZaopeiQtyDown(rawZaopeiQtyDown);
+        unitProcedure.setDaokeQtyDown(rawDaokeQtyDown);
+        unitProcedure.setLiangshiQtyDown(rawLiangshiQtyDown);
+        unitProcedure.setLiangshiTypeDown(rawLiangshiTypeDown);
+        unitProcedure.setJiaochiUp(rawJiaochiUp);
+        unitProcedure.setJiaochiTimeUp(rawJiaochiUpTime);
+        unitProcedure.setJiaochiLayerUp(rawJiaochiUpLayer);
+        unitProcedure.setZaopeiTypeUp(rawZaopeiTypeUp);
+        unitProcedure.setRunliangAddWaterUp(rawRunliangWaterAddUp);
+        unitProcedure.setRunliangDurationUp(rawRunliangDurationUp);
+        unitProcedure.setZaopeiQtyUp(rawZaopeiQtyUp);
+        unitProcedure.setDaokeQtyUp(rawDaokeQtyUp);
+        unitProcedure.setLiangshiQtyUp(rawLiangshiQtyUp);
+        unitProcedure.setLiangshiTypUp(rawLiangshiTypeUp);
+
+        unitProcedure.setZaopeiType(rawZaopeiType);
+        unitProcedure.setShangzengLayer(rawShangzengLayer);
+        unitProcedure.setShangzengDuration(rawShangzengDuration);
+        unitProcedure.setShangzengHeight(rawShangzengHeight);
+        unitProcedure.setJiejiuDurationFirstClass(rawJiejiuFirstClassDuration);
+        unitProcedure.setJiejiuDurationSecondClass(rawJiejiuSecondClassDuration);
+        unitProcedure.setJiejiuDurationThirdClass(rawJiejiuThirdClassDuration);
+        unitProcedure.setJiejiuDurationFeishui(rawJiejiuDurationFeishui);
+        unitProcedure.setJiejiuDurationJiuwei(rawJiejiuDurationJiuwei);
+        unitProcedure.setLiangshuiAddQty(rawLiangshuiAddQty);
+        unitProcedure.setHuishoudiguoWaterAddQty(rawHuishoudiguoWaterAddQty);
+        unitProcedure.setHotWaterAddQty(rawHotWaterAddQty);
+        unitProcedure.setJiuweiAddQty(rawJiuweiAddQty);
+        unitProcedure.setHuangshuiAddQty(rawHuangshuiAddQty);
+        unitProcedure.setZengSequence(rawZengSequence);
+        unitProcedure.setEnergyQiShangzeng(rawEnergyQiShangzeng);
+        unitProcedure.setEnergyQiZhengliu(rawEnergyQiZhengliu);
+        unitProcedure.setLiujiuAddZhengzhuDuration(rawLiujiuAddZhengzhuDuration);
+    }
+
 }

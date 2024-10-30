@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view"
+      title="msg://mesZengguoOperationDetailView.title"
+      focusComponent="form">
+    <data>
+        <instance id="mesZengguoOperationDc"
+                  class="com.mom.winery.entity.MesZengguoOperation">
+            <fetchPlan extends="_base"/>
+            <loader id="mesZengguoOperationDl"/>
+        </instance>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+    </facets>
+    <actions>
+        <action id="saveAction" type="detail_saveClose"/>
+        <action id="closeAction" type="detail_close"/>
+    </actions>
+    <layout>
+        <formLayout id="form" dataContainer="mesZengguoOperationDc">
+            <textField id="zengSequenceField" property="zengSequence"/>
+            <dateTimePicker id="phaseStartTimeTotalField" property="phaseStartTimeTotal"/>
+            <dateTimePicker id="phaseEndTimeTotalField" property="phaseEndTimeTotal"/>
+            <textField id="phaseDurationField" property="phaseDuration"/>
+            <dateTimePicker id="startTimeTotalField" property="startTimeTotal"/>
+            <select id="mainPhaseField" property="mainPhase"/>
+            <dateTimePicker id="startTimeDeviceShangZengField" property="startTimeDeviceShangZeng"/>
+            <dateTimePicker id="startTimeKagaiField" property="startTimeKagai"/>
+            <dateTimePicker id="endTimeLiujiuField" property="endTimeLiujiu"/>
+            <dateTimePicker id="endTimeTallField" property="endTimeTall"/>
+            <textField id="jiaochiLayerDownField" property="jiaochiLayerDown"/>
+            <dateTimePicker id="jiaochiTimeDownField" property="jiaochiTimeDown"/>
+            <select id="zaopeiTypeDownField" property="zaopeiTypeDown"/>
+            <dateTimePicker id="runliangStartTimeDownField" property="runliangStartTimeDown"/>
+            <dateTimePicker id="runliangEndTimeDownField" property="runliangEndTimeDown"/>
+            <textField id="runliangAddWaterDownField" property="runliangAddWaterDown"/>
+            <textField id="runliangDurationDownField" property="runliangDurationDown"/>
+            <textField id="zaopeiQtyDownField" property="zaopeiQtyDown"/>
+            <textField id="daokeQtyDownField" property="daokeQtyDown"/>
+            <textField id="liangshiQtyDownField" property="liangshiQtyDown"/>
+            <select id="liangshiTypeDownField" property="liangshiTypeDown"/>
+            <dateTimePicker id="jiaochiTimeUpField" property="jiaochiTimeUp"/>
+            <textField id="jiaochiLayerUpField" property="jiaochiLayerUp"/>
+            <select id="zaopeiTypeUpField" property="zaopeiTypeUp"/>
+            <dateTimePicker id="runliangStartTimeUpField" property="runliangStartTimeUp"/>
+            <dateTimePicker id="runliangEndTimeUpField" property="runliangEndTimeUp"/>
+            <textField id="runliangAddWaterUpField" property="runliangAddWaterUp"/>
+            <textField id="runliangDurationUpField" property="runliangDurationUp"/>
+            <textField id="zaopeiQtyUpField" property="zaopeiQtyUp"/>
+            <textField id="daokeQtyUpField" property="daokeQtyUp"/>
+            <textField id="liangshiQtyUpField" property="liangshiQtyUp"/>
+            <select id="liangshiTypUpField" property="liangshiTypUp"/>
+            <select id="zaopeiTypeField" property="zaopeiType"/>
+            <textField id="shangzengLayerField" property="shangzengLayer"/>
+            <textField id="shangzengDurationField" property="shangzengDuration"/>
+            <textField id="shangzengHeightField" property="shangzengHeight"/>
+            <textField id="shangzengTotalQtyField" property="shangzengTotalQty"/>
+            <textField id="jiejiuDurationFirstClassField" property="jiejiuDurationFirstClass"/>
+            <textField id="jiejiuDurationSecondClassField" property="jiejiuDurationSecondClass"/>
+            <textField id="jiejiuDurationThirdClassField" property="jiejiuDurationThirdClass"/>
+            <textField id="jiejiuDurationFeishuiField" property="jiejiuDurationFeishui"/>
+            <textField id="jiejiuDurationJiuweiField" property="jiejiuDurationJiuwei"/>
+            <textField id="liangshuiAddQtyField" property="liangshuiAddQty"/>
+            <textField id="huishoudiguoWaterAddQtyField" property="huishoudiguoWaterAddQty"/>
+            <textField id="hotWaterAddQtyField" property="hotWaterAddQty"/>
+            <textField id="jiuweiAddQtyField" property="jiuweiAddQty"/>
+            <textField id="huangshuiAddQtyField" property="huangshuiAddQty"/>
+            <textField id="energyQiShangzengField" property="energyQiShangzeng"/>
+            <textField id="energyQiZhengliuField" property="energyQiZhengliu"/>
+            <textField id="zhengliuDurationField" property="zhengliuDuration"/>
+            <textField id="liujiuAddZhengzhuDurationField" property="liujiuAddZhengzhuDuration"/>
+            <textField id="phaseStartWinccIdField" property="phaseStartWinccId"/>
+            <textField id="phaseEndWinccIdField" property="phaseEndWinccId"/>
+        </formLayout>
+        <hbox id="detailActions">
+            <button id="saveAndCloseBtn" action="saveAction"/>
+            <button id="closeBtn" action="closeAction"/>
+        </hbox>
+    </layout>
+</view>
