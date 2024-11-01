@@ -15,7 +15,11 @@ import java.util.Date;
 
 @JmixEntity
 @Table(name = "MES_ZENGGUO_REAL_DATA", indexes = {
-        @Index(name = "IDX_MES_ZENGGUO_REAL_DATA_MES_AREA", columnList = "MES_AREA_ID")
+        @Index(name = "IDX_MES_ZENGGUO_REAL_DATA_MES_AREA", columnList = "MES_AREA_ID"),
+        @Index(name = "IDX_MES_ZENGGUO_REAL_DATA_MES_ZENGGUO", columnList = "MES_ZENGGUO_ID"),
+        @Index(name = "IDX_MES_ZENGGUO_REAL_DATA_MES_ZENGUO_RECORD", columnList = "MES_ZENGUO_RECORD_ID"),
+        @Index(name = "IDX_MES_ZENGGUO_REAL_DATA_MES_ZENGGUO_UNIT_PROCEDURE", columnList = "MES_ZENGGUO_UNIT_PROCEDURE_ID"),
+        @Index(name = "IDX_MES_ZENGGUO_REAL_DATA_MES_ZENGUO_OPERATION", columnList = "MES_ZENGUO_OPERATION_ID")
 })
 @Entity
 public class MesZengguoRealData {
@@ -618,6 +622,26 @@ public class MesZengguoRealData {
     @Column(name = "DIUZAO_WEIJIUGUAN_YEWEI")
     private Float diuzaoWeijiuguanYewei;
 
+    @Comment("甑锅，为画图准备")
+    @JoinColumn(name = "MES_ZENGGUO_ID")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private MesZengguo mesZengguo;
+
+    @Comment("甑锅执行记录,为画图做准备")
+    @JoinColumn(name = "MES_ZENGUO_RECORD_ID")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private MesZengguoRecord mesZenguoRecord;
+
+    @Comment("甑锅执行结果,为画图做准备")
+    @JoinColumn(name = "MES_ZENGGUO_UNIT_PROCEDURE_ID")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private MesZengguoUnitProcedure mesZengguoUnitProcedure;
+
+    @Comment("甑锅主阶段,为画图做准备")
+    @JoinColumn(name = "MES_ZENGUO_OPERATION_ID")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private MesZengguoOperation mesZenguoOperation;
+
     @CreatedBy
     @Column(name = "CREATED_BY")
     private String createdBy;
@@ -633,6 +657,38 @@ public class MesZengguoRealData {
     @LastModifiedDate
     @Column(name = "LAST_MODIFIED_DATE")
     private OffsetDateTime lastModifiedDate;
+
+    public MesZengguoOperation getMesZenguoOperation() {
+        return mesZenguoOperation;
+    }
+
+    public void setMesZenguoOperation(MesZengguoOperation mesZenguoOperation) {
+        this.mesZenguoOperation = mesZenguoOperation;
+    }
+
+    public MesZengguoUnitProcedure getMesZengguoUnitProcedure() {
+        return mesZengguoUnitProcedure;
+    }
+
+    public void setMesZengguoUnitProcedure(MesZengguoUnitProcedure mesZengguoUnitProcedure) {
+        this.mesZengguoUnitProcedure = mesZengguoUnitProcedure;
+    }
+
+    public MesZengguoRecord getMesZenguoRecord() {
+        return mesZenguoRecord;
+    }
+
+    public void setMesZenguoRecord(MesZengguoRecord mesZenguoRecord) {
+        this.mesZenguoRecord = mesZenguoRecord;
+    }
+
+    public MesZengguo getMesZengguo() {
+        return mesZengguo;
+    }
+
+    public void setMesZengguo(MesZengguo mesZengguo) {
+        this.mesZengguo = mesZengguo;
+    }
 
     public Float getJieliaodouYuzhong4() {
         return jieliaodouYuzhong4;

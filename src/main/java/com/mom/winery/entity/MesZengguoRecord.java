@@ -35,6 +35,10 @@ public class MesZengguoRecord {
     @Column(name = "ZENG_SEQUENCE")
     private Integer zengSequence;
 
+    @JoinColumn(name = "ZENGGUO_PHASE_ID")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private MesZenggouPhaseConfig zengguoPhase;
+
     @Comment("阶段开始时间")
     @Column(name = "MES_START_TIME_TOTAL")
     @Temporal(TemporalType.TIMESTAMP)
@@ -53,10 +57,6 @@ public class MesZengguoRecord {
     @Column(name = "START_TIME_TOTAL")
     @Temporal(TemporalType.TIMESTAMP)
     private Date startTimeTotal;
-
-    @JoinColumn(name = "ZENGGUO_PHASE_ID")
-    @ManyToOne(fetch = FetchType.LAZY)
-    private MesZenggouPhaseConfig zengguoPhase;
 
     @Column(name = "START_TIME_DEVICE_SHANG_ZENG")
     @Temporal(TemporalType.TIMESTAMP)

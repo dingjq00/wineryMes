@@ -8,6 +8,18 @@
             <fetchPlan extends="_base"/>
             <loader id="mesZengguoUnitProcedureDl"/>
         </instance>
+        <collection id="mesZengguoOperationsDc" class="com.mom.winery.entity.MesZengguoOperation">
+            <loader id="mesZengguoOperationsDl" readOnly="true">
+                <query>
+                    <![CDATA[select e from MesZengguoOperation e
+                    where e.mesZengguo = :mesZengguo1
+                    and e.zengSequence = :zengSequence1
+                    and e.phaseStartWinccId >= :phaseStartWinccId1
+                    and e.phaseStartWinccId < :phaseEndWinccId1]]>
+                </query>
+            </loader>
+            <fetchPlan extends="_base"/>
+        </collection>
     </data>
     <facets>
         <dataLoadCoordinator auto="true"/>
@@ -182,5 +194,74 @@
             <button id="saveAndCloseBtn" action="saveAction"/>
             <button id="closeBtn" action="closeAction"/>
         </hbox>
+        <dataGrid id="mesZengguoOperationsDataGrid" dataContainer="mesZengguoOperationsDc" minWidth="100px"
+                  width="100%" minHeight="40em" columnReorderingAllowed="true" detailsVisibleOnClick="true"
+                  multiSort="true" columnRendering="LAZY">
+            <actions>
+                <action id="create" type="list_create"/>
+                <action id="edit" type="list_edit"/>
+                <action id="excelExport" type="grdexp_excelExport"/>
+                <action id="read" type="list_read"/>
+                <action id="refresh" type="list_refresh"/>
+                <action id="remove" type="list_remove"/>
+            </actions>
+            <columns>
+                <column property="zengSequence" resizable="true" autoWidth="true"/>
+                <column property="mainPhase" resizable="true" autoWidth="true"/>
+                <column property="phaseStartTimeTotal" resizable="true" autoWidth="true"/>
+                <column property="phaseEndTimeTotal" resizable="true" autoWidth="true"/>
+                <column property="phaseDuration" resizable="true" autoWidth="true"/>
+                <column property="startTimeTotal" resizable="true" autoWidth="true"/>
+
+                <column property="startTimeDeviceShangZeng" resizable="true" autoWidth="true"/>
+                <column property="startTimeKagai" resizable="true" autoWidth="true"/>
+                <column property="endTimeLiujiu" resizable="true" autoWidth="true"/>
+                <column property="endTimeTall" resizable="true" autoWidth="true"/>
+                <column property="jiaochiLayerDown" resizable="true" autoWidth="true"/>
+                <column property="jiaochiTimeDown" resizable="true" autoWidth="true"/>
+                <column property="zaopeiTypeDown" resizable="true" autoWidth="true"/>
+                <column property="runliangStartTimeDown" resizable="true" autoWidth="true"/>
+                <column property="runliangEndTimeDown" resizable="true" autoWidth="true"/>
+                <column property="runliangAddWaterDown" resizable="true" autoWidth="true"/>
+                <column property="runliangDurationDown" resizable="true" autoWidth="true"/>
+                <column property="zaopeiQtyDown" resizable="true" autoWidth="true"/>
+                <column property="daokeQtyDown" resizable="true" autoWidth="true"/>
+                <column property="liangshiQtyDown" resizable="true" autoWidth="true"/>
+                <column property="liangshiTypeDown" resizable="true" autoWidth="true"/>
+                <column property="jiaochiTimeUp" resizable="true" autoWidth="true"/>
+                <column property="jiaochiLayerUp" resizable="true" autoWidth="true"/>
+                <column property="zaopeiTypeUp" resizable="true" autoWidth="true"/>
+                <column property="runliangStartTimeUp" resizable="true" autoWidth="true"/>
+                <column property="runliangEndTimeUp" resizable="true" autoWidth="true"/>
+                <column property="runliangAddWaterUp" resizable="true" autoWidth="true"/>
+                <column property="runliangDurationUp" resizable="true" autoWidth="true"/>
+                <column property="zaopeiQtyUp" resizable="true" autoWidth="true"/>
+                <column property="daokeQtyUp" resizable="true" autoWidth="true"/>
+                <column property="liangshiQtyUp" resizable="true" autoWidth="true"/>
+                <column property="liangshiTypUp" resizable="true" autoWidth="true"/>
+                <column property="zaopeiType" resizable="true" autoWidth="true"/>
+                <column property="shangzengLayer" resizable="true" autoWidth="true"/>
+                <column property="shangzengDuration" resizable="true" autoWidth="true"/>
+                <column property="shangzengHeight" resizable="true" autoWidth="true"/>
+                <column property="shangzengTotalQty" resizable="true" autoWidth="true"/>
+                <column property="jiejiuDurationFirstClass" resizable="true" autoWidth="true"/>
+                <column property="jiejiuDurationSecondClass" resizable="true" autoWidth="true"/>
+                <column property="jiejiuDurationThirdClass" resizable="true" autoWidth="true"/>
+                <column property="jiejiuDurationFeishui" resizable="true" autoWidth="true"/>
+                <column property="jiejiuDurationJiuwei" resizable="true" autoWidth="true"/>
+                <column property="liangshuiAddQty" resizable="true" autoWidth="true"/>
+                <column property="huishoudiguoWaterAddQty" resizable="true" autoWidth="true"/>
+                <column property="hotWaterAddQty" resizable="true" autoWidth="true"/>
+                <column property="jiuweiAddQty" resizable="true" autoWidth="true"/>
+                <column property="huangshuiAddQty" resizable="true" autoWidth="true"/>
+                <column property="energyQiShangzeng" resizable="true" autoWidth="true"/>
+                <column property="energyQiZhengliu" resizable="true" autoWidth="true"/>
+                <column property="zhengliuDuration" resizable="true" autoWidth="true"/>
+                <column property="liujiuAddZhengzhuDuration" resizable="true" autoWidth="true"/>
+                <column property="phaseStartWinccId" resizable="true" autoWidth="true"/>
+                <column property="phaseEndWinccId" resizable="true" autoWidth="true"/>
+            </columns>
+        </dataGrid>
+
     </layout>
 </view>

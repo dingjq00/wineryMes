@@ -1,26 +1,28 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<view xmlns="http://jmix.io/schema/flowui/view"
+<view xmlns="http://jmix.io/schema/flowui/view" xmlns:charts="http://jmix.io/schema/charts/ui"
       xmlns:c="http://jmix.io/schema/flowui/jpql-condition"
-      title="msg://mesZengguoUnitProcedureListView.title"
+      title="msg://mesZengguoMultiAnalysisView.title"
       focusComponent="mesZengguoUnitProceduresDataGrid">
     <data>
         <collection id="mesZengguoUnitProceduresDc"
                     class="com.mom.winery.entity.MesZengguoUnitProcedure">
             <fetchPlan extends="_base">
-                <property name="mesZengguo" fetchPlan="_base">
-                    <property name="mesArea" fetchPlan="_base">
-                        <property name="mesShopfloor" fetchPlan="_base"/>
-                    </property>
-                </property>
+                <property name="mesZengguo" fetchPlan="_base"/>
                 <property name="zengguoPhase" fetchPlan="_base"/>
                 <property name="jiaochiDown" fetchPlan="_base"/>
                 <property name="runliangDurationQualifiedDown" fetchPlan="_base"/>
                 <property name="jiaochiUp" fetchPlan="_base"/>
                 <property name="runliangDuarationQualifiedUp" fetchPlan="_base"/>
+                <property name="zengguoNameAndSequence"/>
+                <property name="liangshiTotal"/>
+                <property name="zaopeiTotal"/>
+                <property name="energyQiTotal"/>
             </fetchPlan>
             <loader id="mesZengguoUnitProceduresDl" readOnly="true">
                 <query>
-                    <![CDATA[select e from MesZengguoUnitProcedure e]]>
+                    <![CDATA[select e from MesZengguoUnitProcedure e
+                    where e.id in :unitProcedureIds
+                    order by e.id asc]]>
                 </query>
             </loader>
         </collection>
@@ -42,32 +44,18 @@
             <properties include=".*"/>
         </genericFilter>
         <hbox id="buttonsPanel" classNames="buttons-panel">
-            <button id="multiZengguoAnalysisi" text="多甑锅生产对比分析"/>
-            <button id="bulkEditBtn" action="mesZengguoUnitProceduresDataGrid.bulkEdit"/>
-            <button id="createBtn" action="mesZengguoUnitProceduresDataGrid.create"/>
-            <button id="editBtn" action="mesZengguoUnitProceduresDataGrid.edit"/>
             <button id="excelExportBtn" action="mesZengguoUnitProceduresDataGrid.excelExport"/>
-            <button id="jsonExportBtn" action="mesZengguoUnitProceduresDataGrid.jsonExport"/>
             <button id="readBtn" action="mesZengguoUnitProceduresDataGrid.read"/>
-            <button id="refreshBtn" action="mesZengguoUnitProceduresDataGrid.refresh"/>
-            <button id="removeBtn" action="mesZengguoUnitProceduresDataGrid.remove"/>
             <simplePagination id="pagination" dataLoader="mesZengguoUnitProceduresDl"/>
         </hbox>
         <dataGrid id="mesZengguoUnitProceduresDataGrid"
                   width="100%"
                   minHeight="20em"
                   dataContainer="mesZengguoUnitProceduresDc"
-                  columnReorderingAllowed="true"
-                  selectionMode="MULTI">
+                  columnReorderingAllowed="true">
             <actions>
-                <action id="bulkEdit" type="bulked_edit"/>
-                <action id="create" type="list_create"/>
-                <action id="edit" type="list_edit"/>
                 <action id="excelExport" type="grdexp_excelExport"/>
-                <action id="jsonExport" type="grdexp_jsonExport"/>
                 <action id="read" type="list_read"/>
-                <action id="refresh" type="list_refresh"/>
-                <action id="remove" type="list_remove"/>
             </actions>
             <columns resizable="true">
                 <column property="mesZengguo" autoWidth="true"/>
@@ -135,5 +123,122 @@
             <button id="selectBtn" action="selectAction"/>
             <button id="discardBtn" action="discardAction"/>
         </hbox>
+        <charts:chart minHeight="25em">
+            <charts:tooltip trigger="AXIS">
+                <charts:axisPointer type="SHADOW"/>
+            </charts:tooltip>
+            <charts:legend/>
+            <charts:xAxes>
+                <charts:xAxis/>
+            </charts:xAxes>
+            <charts:yAxes>
+                <charts:yAxis name="出酒量" position="LEFT" alignTicks="true">
+<!--                    <charts:axisLabel-->
+<!--                            formatterFunction="function(value){return value / 100;}"/>-->
+                </charts:yAxis>
+                <charts:yAxis name="资源投入量" position="RIGHT" alignTicks="true"/>
+            </charts:yAxes>
+
+            <charts:dataSet>
+                <charts:source dataContainer="mesZengguoUnitProceduresDc"
+                               categoryField="zengguoNameAndSequence"
+                               valueFields="jiejiuDurationFirstClass jiejiuDurationSecondClass
+                               jiejiuDurationThirdClass jiejiuDurationJiuwei zaopeiTotal liangshiTotal energyQiTotal"/>
+            </charts:dataSet>
+            <charts:series>
+                <charts:bar name="一级酒" stack="stack" yAxisIndex="0"/>
+                <charts:bar name="二级酒" stack="stack" yAxisIndex="0"/>
+                <charts:bar name="三级酒" stack="stack" yAxisIndex="0"/>
+                <charts:bar name="酒尾" stack="stack" yAxisIndex="0"/>
+<!--                <charts:bar name="废水" stack="stack" yAxisIndex="0"/>-->
+                <charts:bar name="糟醅量" yAxisIndex="1"/>
+                <charts:bar name="粮食耗用量" yAxisIndex="1"/>
+                <charts:bar name="耗气量" yAxisIndex="1"/>
+            </charts:series>
+        </charts:chart>
+
+        <charts:chart minHeight="25em">
+            <charts:tooltip trigger="AXIS">
+                <charts:axisPointer type="SHADOW"/>
+            </charts:tooltip>
+            <charts:legend/>
+            <charts:xAxes>
+                <charts:xAxis/>
+            </charts:xAxes>
+            <charts:yAxes>
+                <charts:yAxis name="糟醅量及粮食添加量" position="LEFT" alignTicks="true">
+                </charts:yAxis>
+                <charts:yAxis name="润粮时长" position="RIGHT" alignTicks="true"/>
+            </charts:yAxes>
+
+            <charts:dataSet>
+                <charts:source dataContainer="mesZengguoUnitProceduresDc"
+                               categoryField="zengguoNameAndSequence"
+                               valueFields="zaopeiQtyDown liangshiQtyDown runliangDurationDown  zaopeiQtyUp liangshiQtyUp runliangDurationUp"/>
+            </charts:dataSet>
+            <charts:series>
+                <charts:bar name="下层糟醅量" yAxisIndex="0"/>
+                <charts:bar name="下层粮食添加量" yAxisIndex="0"/>
+                <charts:bar name="下层润粮时长" yAxisIndex="1"/>
+                <charts:bar name="上层糟醅量" yAxisIndex="0"/>
+                <charts:bar name="上层粮食添加量" yAxisIndex="0"/>
+                <charts:bar name="上层润粮时长" yAxisIndex="1"/>
+            </charts:series>
+        </charts:chart>
+
+        <charts:chart minHeight="25em">
+            <charts:tooltip trigger="AXIS">
+                <charts:axisPointer type="SHADOW"/>
+            </charts:tooltip>
+            <charts:legend/>
+            <charts:xAxes>
+                <charts:xAxis/>
+            </charts:xAxes>
+            <charts:yAxes>
+                <charts:yAxis name="添加量" position="LEFT" alignTicks="true">
+                </charts:yAxis>
+            </charts:yAxes>
+
+            <charts:dataSet>
+                <charts:source dataContainer="mesZengguoUnitProceduresDc"
+                               categoryField="zengguoNameAndSequence"
+                               valueFields="jiuweiAddQty huangshuiAddQty huishoudiguoWaterAddQty hotWaterAddQty"/>
+            </charts:dataSet>
+            <charts:series>
+                <charts:bar name="酒尾添加量" yAxisIndex="0"/>
+                <charts:bar name="黄水添加量" yAxisIndex="0"/>
+                <charts:bar name="回收底锅水添加量" yAxisIndex="0"/>
+                <charts:bar name="热水添加量" yAxisIndex="0"/>
+            </charts:series>
+        </charts:chart>
+
+        <charts:chart minHeight="25em">
+            <charts:tooltip trigger="AXIS">
+                <charts:axisPointer type="SHADOW"/>
+            </charts:tooltip>
+            <charts:legend/>
+            <charts:xAxes>
+                <charts:xAxis/>
+            </charts:xAxes>
+            <charts:yAxes>
+                <charts:yAxis name="层数及时长" position="LEFT" alignTicks="true"/>
+                <charts:yAxis name="高度及上甑总重" position="RIGHT" alignTicks="true"/>
+            </charts:yAxes>
+
+            <charts:dataSet>
+                <charts:source dataContainer="mesZengguoUnitProceduresDc"
+                               categoryField="zengguoNameAndSequence"
+                               valueFields="shangzengLayer shangzengDuration shangzengHeight shangzengTotalQty"/>
+            </charts:dataSet>
+            <charts:series>
+                <charts:bar name="上甑层数" yAxisIndex="0"/>
+                <charts:bar name="上甑时长" yAxisIndex="0"/>
+                <charts:bar name="上甑高度" yAxisIndex="1"/>
+                <charts:bar name="上甑总量" yAxisIndex="1"/>
+            </charts:series>
+        </charts:chart>
+        <vbox id="shangzengRealDataVerticalLayout" minHeight="40em"/>
+
+
     </layout>
 </view>

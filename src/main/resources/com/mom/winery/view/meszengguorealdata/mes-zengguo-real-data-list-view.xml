@@ -58,125 +58,125 @@
                 <action id="remove" type="list_remove"/>
             </actions>
             <columns resizable="true">
-                <column property="zhengqiKaidu1"/>
-                <column property="zhengqiKaidu2"/>
-                <column property="zhengqiKaidu3"/>
-                <column property="zhengqiKaidu4"/>
-                <column property="zhengqiKaidu5"/>
-                <column property="zhengqiKaidu6"/>
-                <column property="zhengqiKaidu7"/>
-                <column property="zhengqiKaidu8"/>
-                <column property="zhengqiKaidu9"/>
-                <column property="zhengqiKaidu10"/>
-                <column property="zhengqiKaidu11"/>
-                <column property="zhengqiKaidu12"/>
-                <column property="lengningKaidu1"/>
-                <column property="lengningKaidu2"/>
-                <column property="lengningKaidu3"/>
-                <column property="lengningKaidu4"/>
-                <column property="lengningKaidu5"/>
-                <column property="lengningKaidu6"/>
-                <column property="lengningKaidu7"/>
-                <column property="lengningKaidu8"/>
-                <column property="lengningKaidu9"/>
-                <column property="lengningKaidu10"/>
-                <column property="lengningKaidu11"/>
-                <column property="lengningKaidu12"/>
-                <column property="zhengqiShunshiLiuliang1"/>
-                <column property="zhengqiShunshiLiuliang2"/>
-                <column property="zhengqiShunshiLiuliang3"/>
-                <column property="zhengqiShunshiLiuliang4"/>
-                <column property="zhengqiShunshiLiuliang5"/>
-                <column property="zhengqiShunshiLiuliang6"/>
-                <column property="zhengqiShunshiLiuliang7"/>
-                <column property="zhengqiShunshiLiuliang8"/>
-                <column property="zhengqiShunshiLiuliang9"/>
-                <column property="zhengqiShunshiLiuliang10"/>
-                <column property="zhengqiShunshiLiuliang11"/>
-                <column property="zhengqiShunshiLiuliang12"/>
-                <column property="zhengqiYali1"/>
-                <column property="zhengqiYali2"/>
-                <column property="zhengqiYali3"/>
-                <column property="zhengqiYali4"/>
-                <column property="zhengqiYali5"/>
-                <column property="zhengqiYali6"/>
-                <column property="zhengqiYali7"/>
-                <column property="zhengqiYali8"/>
-                <column property="zhengqiYali9"/>
-                <column property="zhengqiYali10"/>
-                <column property="zhengqiYali11"/>
-                <column property="zhengqiYali12"/>
-                <column property="guoniWendu1"/>
-                <column property="guoniWendu2"/>
-                <column property="guoniWendu3"/>
-                <column property="guoniWendu4"/>
-                <column property="guoniWendu5"/>
-                <column property="guoniWendu6"/>
-                <column property="guoniWendu7"/>
-                <column property="guoniWendu8"/>
-                <column property="guoniWendu9"/>
-                <column property="guoniWendu10"/>
-                <column property="guoniWendu11"/>
-                <column property="guoniWendu12"/>
-                <column property="zhenkongYali1"/>
-                <column property="zhenkongYali2"/>
-                <column property="zhenkongYali3"/>
-                <column property="zhenkongYali4"/>
-                <column property="zhenkongYali5"/>
-                <column property="zhenkongYali6"/>
-                <column property="zhenkongYali7"/>
-                <column property="zhenkongYali8"/>
-                <column property="zhenkongYali9"/>
-                <column property="zhenkongYali10"/>
-                <column property="zhenkongYali11"/>
-                <column property="zhenkongYali12"/>
-                <column property="diguoShuiwen1"/>
-                <column property="diguoShuiwen2"/>
-                <column property="diguoShuiwen3"/>
-                <column property="diguoShuiwen4"/>
-                <column property="diguoShuiwen5"/>
-                <column property="diguoShuiwen6"/>
-                <column property="diguoShuiwen7"/>
-                <column property="diguoShuiwen8"/>
-                <column property="diguoShuiwen9"/>
-                <column property="diguoShuiwen10"/>
-                <column property="diguoShuiwen11"/>
-                <column property="diguoShuiwen12"/>
-                <column property="chujiuWendu1"/>
-                <column property="chujiuWendu2"/>
-                <column property="chujiuWendu3"/>
-                <column property="chujiuWendu4"/>
-                <column property="chujiuWendu5"/>
-                <column property="chujiuWendu6"/>
-                <column property="chujiuWendu7"/>
-                <column property="chujiuWendu8"/>
-                <column property="chujiuWendu9"/>
-                <column property="chujiuWendu10"/>
-                <column property="chujiuWendu11"/>
-                <column property="chujiuWendu12"/>
-                <column property="huishuiWendu1"/>
-                <column property="huishuiWendu2"/>
-                <column property="huishuiWendu3"/>
-                <column property="huishuiWendu4"/>
-                <column property="huishuiWendu5"/>
-                <column property="huishuiWendu6"/>
-                <column property="huishuiWendu7"/>
-                <column property="huishuiWendu8"/>
-                <column property="huishuiWendu9"/>
-                <column property="huishuiWendu10"/>
-                <column property="huishuiWendu11"/>
-                <column property="huishuiWendu12"/>
-                <column property="liangshuiguanYewei"/>
-                <column property="weijiuguanYewei"/>
-                <column property="huishouDiguoShuiwei"/>
-                <column property="diuzaoWeijiuguanYewei"/>
-                <column property="winccUpdateTime"/>
-                <column property="winccUpdateId"/>
-                <column property="lastModifiedDate"/>
-                <column property="jieliaodouYuzhong1"/>
-                <column property="jieliaodouYuzhong2"/>
-                <column property="jieliaodouYuzhong3"/>
-                <column property="jieliaodouYuzhong4"/>
+                <column property="zhengqiKaidu1" autoWidth="true"/>
+                <column property="zhengqiKaidu2" autoWidth="true"/>
+                <column property="zhengqiKaidu3" autoWidth="true"/>
+                <column property="zhengqiKaidu4" autoWidth="true"/>
+                <column property="zhengqiKaidu5" autoWidth="true"/>
+                <column property="zhengqiKaidu6" autoWidth="true"/>
+                <column property="zhengqiKaidu7" autoWidth="true"/>
+                <column property="zhengqiKaidu8" autoWidth="true"/>
+                <column property="zhengqiKaidu9" autoWidth="true"/>
+                <column property="zhengqiKaidu10" autoWidth="true"/>
+                <column property="zhengqiKaidu11" autoWidth="true"/>
+                <column property="zhengqiKaidu12" autoWidth="true"/>
+                <column property="lengningKaidu1" autoWidth="true"/>
+                <column property="lengningKaidu2" autoWidth="true"/>
+                <column property="lengningKaidu3" autoWidth="true"/>
+                <column property="lengningKaidu4" autoWidth="true"/>
+                <column property="lengningKaidu5" autoWidth="true"/>
+                <column property="lengningKaidu6" autoWidth="true"/>
+                <column property="lengningKaidu7" autoWidth="true"/>
+                <column property="lengningKaidu8" autoWidth="true"/>
+                <column property="lengningKaidu9" autoWidth="true"/>
+                <column property="lengningKaidu10" autoWidth="true"/>
+                <column property="lengningKaidu11" autoWidth="true"/>
+                <column property="lengningKaidu12" autoWidth="true"/>
+                <column property="zhengqiShunshiLiuliang1" autoWidth="true"/>
+                <column property="zhengqiShunshiLiuliang2" autoWidth="true"/>
+                <column property="zhengqiShunshiLiuliang3" autoWidth="true"/>
+                <column property="zhengqiShunshiLiuliang4" autoWidth="true"/>
+                <column property="zhengqiShunshiLiuliang5" autoWidth="true"/>
+                <column property="zhengqiShunshiLiuliang6" autoWidth="true"/>
+                <column property="zhengqiShunshiLiuliang7" autoWidth="true"/>
+                <column property="zhengqiShunshiLiuliang8" autoWidth="true"/>
+                <column property="zhengqiShunshiLiuliang9" autoWidth="true"/>
+                <column property="zhengqiShunshiLiuliang10" autoWidth="true"/>
+                <column property="zhengqiShunshiLiuliang11" autoWidth="true"/>
+                <column property="zhengqiShunshiLiuliang12" autoWidth="true"/>
+                <column property="zhengqiYali1" autoWidth="true"/>
+                <column property="zhengqiYali2" autoWidth="true"/>
+                <column property="zhengqiYali3" autoWidth="true"/>
+                <column property="zhengqiYali4" autoWidth="true"/>
+                <column property="zhengqiYali5" autoWidth="true"/>
+                <column property="zhengqiYali6" autoWidth="true"/>
+                <column property="zhengqiYali7" autoWidth="true"/>
+                <column property="zhengqiYali8" autoWidth="true"/>
+                <column property="zhengqiYali9" autoWidth="true"/>
+                <column property="zhengqiYali10" autoWidth="true"/>
+                <column property="zhengqiYali11" autoWidth="true"/>
+                <column property="zhengqiYali12" autoWidth="true"/>
+                <column property="guoniWendu1" autoWidth="true"/>
+                <column property="guoniWendu2" autoWidth="true"/>
+                <column property="guoniWendu3" autoWidth="true"/>
+                <column property="guoniWendu4" autoWidth="true"/>
+                <column property="guoniWendu5" autoWidth="true"/>
+                <column property="guoniWendu6" autoWidth="true"/>
+                <column property="guoniWendu7" autoWidth="true"/>
+                <column property="guoniWendu8" autoWidth="true"/>
+                <column property="guoniWendu9" autoWidth="true"/>
+                <column property="guoniWendu10" autoWidth="true"/>
+                <column property="guoniWendu11" autoWidth="true"/>
+                <column property="guoniWendu12" autoWidth="true"/>
+                <column property="zhenkongYali1" autoWidth="true"/>
+                <column property="zhenkongYali2" autoWidth="true"/>
+                <column property="zhenkongYali3" autoWidth="true"/>
+                <column property="zhenkongYali4" autoWidth="true"/>
+                <column property="zhenkongYali5" autoWidth="true"/>
+                <column property="zhenkongYali6" autoWidth="true"/>
+                <column property="zhenkongYali7" autoWidth="true"/>
+                <column property="zhenkongYali8" autoWidth="true"/>
+                <column property="zhenkongYali9" autoWidth="true"/>
+                <column property="zhenkongYali10" autoWidth="true"/>
+                <column property="zhenkongYali11" autoWidth="true"/>
+                <column property="zhenkongYali12" autoWidth="true"/>
+                <column property="diguoShuiwen1" autoWidth="true"/>
+                <column property="diguoShuiwen2" autoWidth="true"/>
+                <column property="diguoShuiwen3" autoWidth="true"/>
+                <column property="diguoShuiwen4" autoWidth="true"/>
+                <column property="diguoShuiwen5" autoWidth="true"/>
+                <column property="diguoShuiwen6" autoWidth="true"/>
+                <column property="diguoShuiwen7" autoWidth="true"/>
+                <column property="diguoShuiwen8" autoWidth="true"/>
+                <column property="diguoShuiwen9" autoWidth="true"/>
+                <column property="diguoShuiwen10" autoWidth="true"/>
+                <column property="diguoShuiwen11" autoWidth="true"/>
+                <column property="diguoShuiwen12" autoWidth="true"/>
+                <column property="chujiuWendu1" autoWidth="true"/>
+                <column property="chujiuWendu2" autoWidth="true"/>
+                <column property="chujiuWendu3" autoWidth="true"/>
+                <column property="chujiuWendu4" autoWidth="true"/>
+                <column property="chujiuWendu5" autoWidth="true"/>
+                <column property="chujiuWendu6" autoWidth="true"/>
+                <column property="chujiuWendu7" autoWidth="true"/>
+                <column property="chujiuWendu8" autoWidth="true"/>
+                <column property="chujiuWendu9" autoWidth="true"/>
+                <column property="chujiuWendu10" autoWidth="true"/>
+                <column property="chujiuWendu11" autoWidth="true"/>
+                <column property="chujiuWendu12" autoWidth="true"/>
+                <column property="huishuiWendu1" autoWidth="true"/>
+                <column property="huishuiWendu2" autoWidth="true"/>
+                <column property="huishuiWendu3" autoWidth="true"/>
+                <column property="huishuiWendu4" autoWidth="true"/>
+                <column property="huishuiWendu5" autoWidth="true"/>
+                <column property="huishuiWendu6" autoWidth="true"/>
+                <column property="huishuiWendu7" autoWidth="true"/>
+                <column property="huishuiWendu8" autoWidth="true"/>
+                <column property="huishuiWendu9" autoWidth="true"/>
+                <column property="huishuiWendu10" autoWidth="true"/>
+                <column property="huishuiWendu11" autoWidth="true"/>
+                <column property="huishuiWendu12" autoWidth="true"/>
+                <column property="liangshuiguanYewei" autoWidth="true"/>
+                <column property="weijiuguanYewei" autoWidth="true"/>
+                <column property="huishouDiguoShuiwei" autoWidth="true"/>
+                <column property="diuzaoWeijiuguanYewei" autoWidth="true"/>
+                <column property="winccUpdateTime" autoWidth="true"/>
+                <column property="winccUpdateId" autoWidth="true"/>
+                <column property="lastModifiedDate" autoWidth="true"/>
+                <column property="jieliaodouYuzhong1" autoWidth="true"/>
+                <column property="jieliaodouYuzhong2" autoWidth="true"/>
+                <column property="jieliaodouYuzhong3" autoWidth="true"/>
+                <column property="jieliaodouYuzhong4" autoWidth="true"/>
             </columns>
         </dataGrid>
         <hbox id="lookupActions" visible="false">

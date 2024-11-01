@@ -1,12 +1,15 @@
 package com.mom.winery.view.meszengguounitprocedure;
 
+import com.mom.winery.entity.MesZengguo;
+import com.mom.winery.entity.MesZengguoOperation;
 import com.mom.winery.entity.MesZengguoUnitProcedure;
 import com.mom.winery.view.main.MainView;
 import com.vaadin.flow.router.Route;
-import io.jmix.flowui.view.EditedEntityContainer;
-import io.jmix.flowui.view.StandardDetailView;
-import io.jmix.flowui.view.ViewController;
-import io.jmix.flowui.view.ViewDescriptor;
+import io.jmix.flowui.model.CollectionLoader;
+import io.jmix.flowui.view.*;
+
+import java.util.HashMap;
+import java.util.Map;
 
 
 /**
@@ -20,4 +23,26 @@ import io.jmix.flowui.view.ViewDescriptor;
 @ViewDescriptor("mes-zengguo-unit-procedure-detail-view.xml")
 @EditedEntityContainer("mesZengguoUnitProcedureDc")
 public class MesZengguoUnitProcedureDetailView extends StandardDetailView<MesZengguoUnitProcedure> {
+    @ViewComponent
+    private CollectionLoader<MesZengguoOperation> mesZengguoOperationsDl;
+
+
+    @Subscribe
+    public void onBeforeShow(final BeforeShowEvent event) {
+        MesZengguoUnitProcedure unitProcedure =  getEditedEntity();
+        MesZengguo mesZengguo = unitProcedure.getMesZengguo();
+        Map<String,Object> mesZengguoOperationsDlParams = new HashMap<>();
+        mesZengguoOperationsDlParams.put("mesZengguo1", mesZengguo);
+        mesZengguoOperationsDlParams.put("phaseStartWinccId1", unitProcedure.getPhaseStartWinccId());
+        mesZengguoOperationsDlParams.put("zengSequence1",unitProcedure.getZengSequence());
+        if(unitProcedure.getPhaseEndWinccId() != null){
+            mesZengguoOperationsDlParams.put("phaseEndWinccId1", unitProcedure.getPhaseEndWinccId());
+        }else {
+            mesZengguoOperationsDlParams.put("phaseEndWinccId1", 999999999);
+        }
+        mesZengguoOperationsDl.setParameters(mesZengguoOperationsDlParams);
+        mesZengguoOperationsDl.load();
+    }
+
+
 }

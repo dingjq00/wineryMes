@@ -420,7 +420,7 @@ public class ZengguoDeviceJob implements Job {
                          * 结束主阶段
                          */
 
-                        if(record.getZengguoPhase() != null && record.getZengguoPhase().getPhaseNo() == 0){
+                        if(record.getZengguoPhase() != null && (record.getZengguoPhase().getPhaseNo() == 700 ||record.getZengguoPhase().getPhaseNo() == 0)){
                             MesZengguoUnitProcedure mesZengguoUnitProcedure = mesZengguoUnitProcedureList.stream()
                                     .filter(e -> e.getMesZengguo().equals(mesZengguo)
                                             && e.getPhaseEndTimeTotal() == null)
@@ -451,7 +451,6 @@ public class ZengguoDeviceJob implements Job {
                                 setUnitProcedureNormalInfo(mesZengguoUnitProcedure, rawStartTimeTotal, rawShangzengStartTime, rawKagaiTime, rawLiujiuEndTime, rawEndTimeTotal, rawJiaochiDown, rawJiaochiDownTime, rawJiaochiDownLayer, rawZaopeiTypeDown, rawRunliangWaterAddDown, rawRunliangDurationDown, rawZaopeiQtyDown, rawDaokeQtyDown, rawLiangshiQtyDown, rawLiangshiTypeDown, rawJiaochiUp, rawJiaochiUpTime, rawJiaochiUpLayer, rawZaopeiTypeUp, rawRunliangWaterAddUp, rawRunliangDurationUp, rawZaopeiQtyUp, rawDaokeQtyUp, rawLiangshiQtyUp, rawLiangshiTypeUp, rawPhase, rawZaopeiType, rawShangzengLayer, rawShangzengDuration, rawShangzengHeight, rawJiejiuFirstClassDuration, rawJiejiuSecondClassDuration, rawJiejiuThirdClassDuration, rawJiejiuDurationFeishui, rawJiejiuDurationJiuwei, rawLiangshuiAddQty, rawHuishoudiguoWaterAddQty, rawHotWaterAddQty, rawJiuweiAddQty, rawHuangshuiAddQty, rawZengSequence, rawEnergyQiShangzeng, rawEnergyQiZhengliu, rawLiujiuAddZhengzhuDuration);
                             }
                         }
-
 
                         // 设置 Record
                         MesZengguoRecord preRecord = mesZengguoRecordList.stream()

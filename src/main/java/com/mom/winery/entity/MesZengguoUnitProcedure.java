@@ -1,9 +1,7 @@
 package com.mom.winery.entity;
 
 import io.jmix.core.entity.annotation.JmixGeneratedValue;
-import io.jmix.core.metamodel.annotation.Comment;
-import io.jmix.core.metamodel.annotation.JmixEntity;
-import io.jmix.core.metamodel.annotation.NumberFormat;
+import io.jmix.core.metamodel.annotation.*;
 import jakarta.persistence.*;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
@@ -785,5 +783,31 @@ public class MesZengguoUnitProcedure {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    @JmixProperty
+    @DependsOnProperties({"mesZengguo", "zengSequence"})
+    public String getZengguoNameAndSequence() {
+        return getMesZengguo().getZengguoName() + " " + getZengSequence();
+    }
+
+    @JmixProperty
+    @DependsOnProperties({"liangshiQtyUp", "liangshiQtyDown"})
+    public Float getLiangshiTotal(){
+        return getLiangshiQtyUp() + getLiangshiQtyDown();
+    }
+
+    @JmixProperty
+    @DependsOnProperties({"zaopeiQtyDown", "zaopeiQtyUp"})
+    public Float getZaopeiTotal(){
+        return getZaopeiQtyDown() + getZaopeiQtyUp();
+    }
+
+    @JmixProperty
+    @DependsOnProperties({"energyQiShangzeng", "energyQiShangzeng"})
+    public Float getEnergyQiTotal(){
+        return getEnergyQiShangzeng() + getEnergyQiShangzeng();
+
+
     }
 }

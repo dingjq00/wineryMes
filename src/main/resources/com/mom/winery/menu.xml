@@ -54,7 +54,8 @@
               title="msg://com.mom.winery.view.meszengguooperation/mesZengguoOperationListView.title"/>
         <item view="MesZengguoUnitProcedure.list"
               title="msg://com.mom.winery.view.meszengguounitprocedure/mesZengguoUnitProcedureListView.title"/>
-
+        <item view="MesZengguoMultiAnalysisi.list"
+              title="msg://com.mom.winery.view.meszengguounitprocedure/mesZengguoMultiAnalysisView.title"/>
 
     </menu>
     <menu id="winccRawData" title="msg://com.mom.winery/menu.winccRawData.title" opened="true">
