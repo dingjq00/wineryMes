@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view"
+      title="msg://mesZengguoRealDataV2DetailView.title"
+      focusComponent="form">
+    <data>
+        <instance id="mesZengguoRealDataV2Dc"
+                  class="com.mom.winery.entity.MesZengguoRealDataV2">
+            <fetchPlan extends="_base">
+                <property name="mesZengguoMiniRecord" fetchPlan="_base"/>
+            </fetchPlan>
+            <loader id="mesZengguoRealDataV2Dl"/>
+        </instance>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+    </facets>
+    <actions>
+        <action id="saveAction" type="detail_saveClose"/>
+        <action id="closeAction" type="detail_close"/>
+    </actions>
+    <layout>
+        <formLayout id="form" dataContainer="mesZengguoRealDataV2Dc" labelsPosition="ASIDE">
+            <formItem>
+                <textField id="winccUpdateIdField" property="winccUpdateId"/>
+            </formItem>
+            <formItem>
+                <dateTimePicker id="winccUpdateTimeField" property="winccUpdateTime"/>
+            </formItem>
+            <formItem>
+                <textField id="zhengqiKaiduField" property="zhengqiKaidu"/>
+            </formItem>
+            <formItem>
+                <textField id="lengningKaiduField" property="lengningKaidu"/>
+            </formItem>
+            <formItem>
+                <textField id="zhengqiShunshiLiuliangField" property="zhengqiShunshiLiuliang"/>
+            </formItem>
+            <formItem>
+                <textField id="zhengqiYaliField" property="zhengqiYali"/>
+            </formItem>
+            <formItem>
+                <textField id="guoniWenduField" property="guoniWendu"/>
+            </formItem>
+            <formItem>
+                <textField id="zhenkongYaliField" property="zhenkongYali"/>
+            </formItem>
+            <formItem>
+                <textField id="diguoShuiwenField" property="diguoShuiwen"/>
+            </formItem>
+            <formItem>
+                <textField id="chujiuWenduField" property="chujiuWendu"/>
+            </formItem>
+            <formItem>
+                <textField id="huishuiWenduField" property="huishuiWendu"/>
+            </formItem>
+            <formItem>
+                <textField id="tempIndexField" property="tempIndex"/>
+            </formItem>
+            <entityPicker id="mesZengguoMiniRecordField" property="mesZengguoMiniRecord">
+                <actions>
+                    <action id="entityLookup" type="entity_lookup"/>
+                    <action id="entityClear" type="entity_clear"/>
+                </actions>
+            </entityPicker>
+        </formLayout>
+        <hbox id="detailActions">
+            <button id="saveAndCloseBtn" action="saveAction"/>
+            <button id="closeBtn" action="closeAction"/>
+        </hbox>
+    </layout>
+</view>

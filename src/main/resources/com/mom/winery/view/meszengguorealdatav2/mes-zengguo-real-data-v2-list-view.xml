@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view"
+      xmlns:c="http://jmix.io/schema/flowui/jpql-condition"
+      title="msg://mesZengguoRealDataV2ListView.title"
+      focusComponent="mesZengguoRealDataV2sDataGrid">
+    <data>
+        <collection id="mesZengguoRealDataV2sDc"
+                    class="com.mom.winery.entity.MesZengguoRealDataV2">
+            <fetchPlan extends="_base">
+                <property name="mesArea" fetchPlan="_base">
+                    <property name="mesShopfloor" fetchPlan="_base"/>
+                </property>
+                <property name="mesZengguo" fetchPlan="_base"/>
+                <property name="mesZengguoUnitProcedure" fetchPlan="_base"/>
+                <property name="mesZengguoOperation" fetchPlan="_base"/>
+                <property name="mesZengguoRecord" fetchPlan="_base"/>
+                <property name="mesZengguoMiniRecord" fetchPlan="_base"/>
+            </fetchPlan>
+            <loader id="mesZengguoRealDataV2sDl" readOnly="true">
+                <query>
+                    <![CDATA[select e from MesZengguoRealDataV2 e]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+        <urlQueryParameters>
+            <genericFilter component="genericFilter"/>
+            <pagination component="pagination"/>
+        </urlQueryParameters>
+    </facets>
+    <actions>
+        <action id="selectAction" type="lookup_select"/>
+        <action id="discardAction" type="lookup_discard"/>
+    </actions>
+    <layout>
+        <genericFilter id="genericFilter"
+                       dataLoader="mesZengguoRealDataV2sDl">
+            <properties include=".*"/>
+        </genericFilter>
+        <hbox id="buttonsPanel" classNames="buttons-panel">
+            <button id="bulkEditBtn" action="mesZengguoRealDataV2sDataGrid.bulkEdit"/>
+            <button id="createBtn" action="mesZengguoRealDataV2sDataGrid.create"/>
+            <button id="editBtn" action="mesZengguoRealDataV2sDataGrid.edit"/>
+            <button id="excelExportBtn" action="mesZengguoRealDataV2sDataGrid.excelExport"/>
+            <button id="readBtn" action="mesZengguoRealDataV2sDataGrid.read"/>
+            <button id="refreshBtn" action="mesZengguoRealDataV2sDataGrid.refresh"/>
+            <button id="removeBtn" action="mesZengguoRealDataV2sDataGrid.remove"/>
+            <simplePagination id="pagination" dataLoader="mesZengguoRealDataV2sDl"/>
+        </hbox>
+        <dataGrid id="mesZengguoRealDataV2sDataGrid"
+                  width="100%"
+                  minHeight="20em"
+                  dataContainer="mesZengguoRealDataV2sDc"
+                  columnReorderingAllowed="true"
+                  selectionMode="MULTI">
+            <actions>
+                <action id="bulkEdit" type="bulked_edit"/>
+                <action id="create" type="list_create"/>
+                <action id="edit" type="list_edit"/>
+                <action id="excelExport" type="grdexp_excelExport"/>
+                <action id="read" type="list_read"/>
+                <action id="refresh" type="list_refresh"/>
+                <action id="remove" type="list_remove"/>
+            </actions>
+            <columns resizable="true">
+                <column property="mesArea" autoWidth="true"/>
+                <column property="mesZengguo" autoWidth="true"/>
+                <column property="winccUpdateId" autoWidth="true"/>
+                <column property="winccUpdateTime" autoWidth="true"/>
+                <column property="zhengqiKaidu" autoWidth="true"/>
+                <column property="lengningKaidu" autoWidth="true"/>
+                <column property="zhengqiShunshiLiuliang" autoWidth="true"/>
+                <column property="zhengqiYali" autoWidth="true"/>
+                <column property="guoniWendu" autoWidth="true"/>
+                <column property="zhenkongYali" autoWidth="true"/>
+                <column property="diguoShuiwen" autoWidth="true"/>
+                <column property="chujiuWendu" autoWidth="true"/>
+                <column property="huishuiWendu" autoWidth="true"/>
+                <column property="mesZengguoUnitProcedure" autoWidth="true"/>
+                <column property="mesZengguoOperation" autoWidth="true"/>
+                <column property="mesZengguoRecord" autoWidth="true"/>
+                <column property="tempIndex" autoWidth="true"/>
+                <column property="mesZengguoMiniRecord"/>
+            </columns>
+        </dataGrid>
+        <hbox id="lookupActions" visible="false">
+            <button id="selectBtn" action="selectAction"/>
+            <button id="discardBtn" action="discardAction"/>
+        </hbox>
+    </layout>
+</view>

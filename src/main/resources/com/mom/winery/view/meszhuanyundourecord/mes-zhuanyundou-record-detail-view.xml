@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view"
+      title="msg://mesZhuanyundouRecordDetailView.title"
+      focusComponent="form">
+    <data>
+        <instance id="mesZhuanyundouRecordDc"
+                  class="com.mom.winery.entity.MesZhuanyundouRecord">
+            <fetchPlan extends="_base">
+                <property name="preLocation" fetchPlan="_base"/>
+                <property name="afterLocation" fetchPlan="_base"/>
+            </fetchPlan>
+            <loader id="mesZhuanyundouRecordDl"/>
+        </instance>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+    </facets>
+    <actions>
+        <action id="saveAction" type="detail_saveClose"/>
+        <action id="closeAction" type="detail_close"/>
+    </actions>
+    <layout>
+        <formLayout id="form" dataContainer="mesZhuanyundouRecordDc" labelsPosition="ASIDE">
+            <formItem>
+                <textField id="phaseStartIdField" property="phaseStartId"/>
+            </formItem>
+            <formItem>
+                <dateTimePicker id="phaseStartTimeField" property="phaseStartTime"/>
+            </formItem>
+            <formItem>
+                <textField id="phaseEndIdField" property="phaseEndId"/>
+            </formItem>
+            <formItem>
+                <dateTimePicker id="phaseEndTimeField" property="phaseEndTime"/>
+            </formItem>
+            <formItem>
+                <textField id="wincc_NoField" property="wincc_No"/>
+            </formItem>
+            <formItem>
+                <textField id="huijiaoTanliangDurationField" property="huijiaoTanliangDuration"/>
+            </formItem>
+            <formItem>
+                <textField id="huijiaoJiaochiLayerField" property="huijiaoJiaochiLayer"/>
+            </formItem>
+            <formItem>
+                <dateTimePicker id="huijiaoChujiaoTimeField" property="huijiaoChujiaoTime"/>
+            </formItem>
+            <formItem>
+                <select id="huijiaoZaopeiTypeField" property="huijiaoZaopeiType"/>
+            </formItem>
+            <formItem>
+                <textField id="huijiaoQufeiQtyField" property="huijiaoQufeiQty"/>
+            </formItem>
+            <formItem>
+                <textField id="huijiaoZaopeiQtyField" property="huijiaoZaopeiQty"/>
+            </formItem>
+            <formItem>
+                <textField id="huijiaoChukouMaxTempField" property="huijiaoChukouMaxTemp"/>
+            </formItem>
+            <formItem>
+                <textField id="huijiaoChukouMinTempField" property="huijiaoChukouMinTemp"/>
+            </formItem>
+            <formItem>
+                <dateTimePicker id="huijiaoTanliangStartTimeField" property="huijiaoTanliangStartTime"/>
+            </formItem>
+            <formItem>
+                <textField id="huijiaoChukouAvgTempField" property="huijiaoChukouAvgTemp"/>
+            </formItem>
+            <formItem>
+                <textField id="chujiaoJiaochiLayerField" property="chujiaoJiaochiLayer"/>
+            </formItem>
+            <formItem>
+                <dateTimePicker id="chujiaoTimeField" property="chujiaoTime"/>
+            </formItem>
+            <formItem>
+                <select id="chujiaoZaopeiTypeField" property="chujiaoZaopeiType"/>
+            </formItem>
+            <entityPicker id="preLocationField" property="preLocation">
+                <actions>
+                    <action id="entityLookup" type="entity_lookup"/>
+                    <action id="entityClear" type="entity_clear"/>
+                </actions>
+            </entityPicker>
+            <entityPicker id="afterLocationField" property="afterLocation">
+                <actions>
+                    <action id="entityLookup" type="entity_lookup"/>
+                    <action id="entityClear" type="entity_clear"/>
+                </actions>
+            </entityPicker>
+            <textField id="phaseDurationField" property="phaseDuration"/>
+        </formLayout>
+        <hbox id="detailActions">
+            <button id="saveAndCloseBtn" action="saveAction"/>
+            <button id="closeBtn" action="closeAction"/>
+        </hbox>
+    </layout>
+</view>

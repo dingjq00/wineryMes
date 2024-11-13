@@ -63,28 +63,28 @@
                 <action id="remove" type="list_remove"/>
             </actions>
             <columns resizable="true">
-                <column property="mesArea.mesShopfloor"/>
-                <column property="mesArea"/>
-                <column property="runliangdouCode"/>
-                <column property="runliangdouNo"/>
-                <column property="location"/>
-                <column property="emptyOrFull"/>
-                <column property="diuZaoOrliangzao"/>
-                <column property="waterQtyAdd"/>
-                <column property="runliangDuration"/>
-                <column property="startTime"/>
-                <column property="endTime"/>
-                <column property="jiaochi"/>
-                <column property="jiaochiLayer"/>
-                <column property="jiaochiTime"/>
-                <column property="zaopeiType"/>
-                <column property="daokeAddQty"/>
-                <column property="liangshiAddQty"/>
-                <column property="zaopeiAddQty"/>
-                <column property="durationQualified"/>
-                <column property="liangshiType"/>
-                <column property="winccUpdateTime"/>
-                <column property="winccStartID"/>
+                <column property="mesArea.mesShopfloor" autoWidth="true"/>
+                <column property="mesArea" autoWidth="true"/>
+                <column property="runliangdouCode" autoWidth="true"/>
+                <column property="runliangdouNo" autoWidth="true"/>
+                <column property="location" autoWidth="true"/>
+                <column property="emptyOrFull" autoWidth="true"/>
+                <column property="diuZaoOrliangzao" autoWidth="true"/>
+                <column property="waterQtyAdd" autoWidth="true"/>
+                <column property="runliangDuration" autoWidth="true"/>
+                <column property="startTime" autoWidth="true"/>
+                <column property="endTime" autoWidth="true"/>
+                <column property="jiaochi" autoWidth="true"/>
+                <column property="jiaochiLayer" autoWidth="true"/>
+                <column property="jiaochiTime" autoWidth="true"/>
+                <column property="zaopeiType" autoWidth="true"/>
+                <column property="daokeAddQty" autoWidth="true"/>
+                <column property="liangshiAddQty" autoWidth="true"/>
+                <column property="zaopeiAddQty" autoWidth="true"/>
+                <column property="durationQualified" autoWidth="true"/>
+                <column property="liangshiType" autoWidth="true"/>
+                <column property="winccUpdateTime" autoWidth="true"/>
+                <column property="winccStartID" autoWidth="true"/>
             </columns>
         </dataGrid>
         <hbox id="lookupActions" visible="false">

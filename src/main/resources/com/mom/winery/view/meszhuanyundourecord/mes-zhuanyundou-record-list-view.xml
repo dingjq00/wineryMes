@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view"
+      xmlns:c="http://jmix.io/schema/flowui/jpql-condition"
+      title="msg://mesZhuanyundouRecordListView.title"
+      focusComponent="mesZhuanyundouRecordsDataGrid">
+    <data>
+        <collection id="mesZhuanyundouRecordsDc"
+                    class="com.mom.winery.entity.MesZhuanyundouRecord">
+            <fetchPlan extends="_base">
+                <property name="mesZhuanyundou" fetchPlan="_base"/>
+                <property name="currentLocation" fetchPlan="_base"/>
+                <property name="fullOrEmpty" fetchPlan="_base"/>
+                <property name="chujiaozaoOrHuijiaoZao" fetchPlan="_base"/>
+                <property name="huijiaoJiaochi" fetchPlan="_base"/>
+                <property name="chujiaoJiaochi" fetchPlan="_base"/>
+                <property name="preLocation" fetchPlan="_base"/>
+                <property name="afterLocation" fetchPlan="_base"/>
+            </fetchPlan>
+            <loader id="mesZhuanyundouRecordsDl" readOnly="true">
+                <query>
+                    <![CDATA[select e from MesZhuanyundouRecord e]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+        <urlQueryParameters>
+            <genericFilter component="genericFilter"/>
+            <pagination component="pagination"/>
+        </urlQueryParameters>
+    </facets>
+    <actions>
+        <action id="selectAction" type="lookup_select"/>
+        <action id="discardAction" type="lookup_discard"/>
+    </actions>
+    <layout>
+        <genericFilter id="genericFilter"
+                       dataLoader="mesZhuanyundouRecordsDl">
+            <properties include=".*"/>
+        </genericFilter>
+        <hbox id="buttonsPanel" classNames="buttons-panel">
+            <button id="bulkEditBtn" action="mesZhuanyundouRecordsDataGrid.bulkEdit"/>
+            <button id="createBtn" action="mesZhuanyundouRecordsDataGrid.create"/>
+            <button id="editBtn" action="mesZhuanyundouRecordsDataGrid.edit"/>
+            <button id="excelExportBtn" action="mesZhuanyundouRecordsDataGrid.excelExport"/>
+            <button id="readBtn" action="mesZhuanyundouRecordsDataGrid.read"/>
+            <button id="refreshBtn" action="mesZhuanyundouRecordsDataGrid.refresh"/>
+            <simplePagination id="pagination" dataLoader="mesZhuanyundouRecordsDl"/>
+        </hbox>
+        <dataGrid id="mesZhuanyundouRecordsDataGrid"
+                  width="100%"
+                  minHeight="20em"
+                  dataContainer="mesZhuanyundouRecordsDc"
+                  columnReorderingAllowed="true"
+                  selectionMode="MULTI">
+            <actions>
+                <action id="bulkEdit" type="bulked_edit"/>
+                <action id="create" type="list_create"/>
+                <action id="edit" type="list_edit"/>
+                <action id="excelExport" type="grdexp_excelExport"/>
+                <action id="read" type="list_read"/>
+                <action id="refresh" type="list_refresh"/>
+            </actions>
+            <columns resizable="true">
+                <column property="phaseStartId" autoWidth="true"/>
+                <column property="phaseStartTime" autoWidth="true"/>
+                <column property="phaseEndId" autoWidth="true"/>
+                <column property="phaseEndTime" autoWidth="true"/>
+                <column property="mesZhuanyundou" autoWidth="true"/>
+                <column property="wincc_No" autoWidth="true"/>
+                <column property="currentLocation" autoWidth="true"/>
+                <column property="fullOrEmpty" autoWidth="true"/>
+                <column property="chujiaozaoOrHuijiaoZao" autoWidth="true"/>
+                <column property="huijiaoTanliangDuration" autoWidth="true"/>
+                <column property="huijiaoJiaochiLayer" autoWidth="true"/>
+                <column property="huijiaoJiaochi" autoWidth="true"/>
+                <column property="huijiaoChujiaoTime" autoWidth="true"/>
+                <column property="huijiaoZaopeiType" autoWidth="true"/>
+                <column property="huijiaoQufeiQty" autoWidth="true"/>
+                <column property="huijiaoZaopeiQty" autoWidth="true"/>
+                <column property="huijiaoChukouMaxTemp" autoWidth="true"/>
+                <column property="huijiaoChukouMinTemp" autoWidth="true"/>
+                <column property="huijiaoTanliangStartTime" autoWidth="true"/>
+                <column property="huijiaoChukouAvgTemp" autoWidth="true"/>
+                <column property="chujiaoJiaochiLayer" autoWidth="true"/>
+                <column property="chujiaoJiaochi" autoWidth="true"/>
+                <column property="chujiaoTime" autoWidth="true"/>
+                <column property="chujiaoZaopeiType" autoWidth="true"/>
+                <column property="preLocation" autoWidth="true"/>
+                <column property="afterLocation" autoWidth="true"/>
+                <column property="phaseDuration" autoWidth="true"/>
+            </columns>
+        </dataGrid>
+        <hbox id="lookupActions" visible="false">
+            <button id="selectBtn" action="selectAction"/>
+            <button id="discardBtn" action="discardAction"/>
+        </hbox>
+    </layout>
+</view>

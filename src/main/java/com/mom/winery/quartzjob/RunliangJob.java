@@ -19,6 +19,8 @@ public class RunliangJob implements Job {
     private DataManager dataManager;
     @Autowired
     private WinccDataDealCommons winccDataDealCommons;
+    @Autowired
+    private JobSaveDataService jobSaveDataService;
 
     @Authenticated
     @Override
@@ -103,6 +105,7 @@ public class RunliangJob implements Job {
                             "order by e.winccId")
                     .parameter("areaCode", areaCode)
                     .parameter("currentWinccId", currentWinccId)
+                    .maxResults(1000)
                     .list();
             if(winccRunliangdouList.isEmpty()) {
                 continue;
@@ -329,7 +332,8 @@ public class RunliangJob implements Job {
                          */
                         MesRunliangdoudouRecord preRecord1 = mesRunliangdoudouRecordList.stream()
                             .filter(e -> e.getMesRunliangdou().equals(mesRunliangdou)
-                                    && e.getWinccUpdateTime().before(mesRunliangdou.getWinccUpdateTime()))
+                                    && e.getWinccUpdateTime().before(mesRunliangdou.getWinccUpdateTime())
+                                    && e.getWinccEndTime() == null )
                             .max(Comparator.comparing(MesRunliangdoudouRecord::getWinccUpdateTime))
                             .orElse(null);
                         if (preRecord1 != null) {
@@ -350,6 +354,7 @@ public class RunliangJob implements Job {
                                         .query("select e from MesRunliangdoudouRecord e " +
                                                 "where e.mesRunliangdou = :mesRunliangdou " +
                                                 "and e.winccUpdateTime <= :winccUpdateTime " +
+                                                "and e.winccEndTime is null " +
                                                 "order by e.winccUpdateTime desc")
                                         .parameter("mesRunliangdou", mesRunliangdou)
                                         .parameter("winccUpdateTime", rawWinccUpdateTime)
@@ -369,12 +374,12 @@ public class RunliangJob implements Job {
                                 }
                             }
                         }
-
-
                     }
                 }
             }
-            saveData(areaRunliangdouList, mesRunliangdoudouRecordList,mesRunliangdouOperationList, jobConfig, maxWinccId);
+
+            jobSaveDataService.saveRunliangData(areaRunliangdouList, mesRunliangdoudouRecordList,mesRunliangdouOperationList, jobConfig, maxWinccId);
+
             mesRunliangdouOperationList.clear();
             mesRunliangdoudouRecordList.clear();
         }
@@ -496,14 +501,7 @@ public class RunliangJob implements Job {
         }
     }
 
-    @Transactional
-    public void saveData(List<MesRunliangdou> areaRunliangdouList, List<MesRunliangdoudouRecord> mesRunliangdoudouRecordList,List<MesRunliangdouOperation> mesRunliangdouOperationList, JobConfig jobConfig, Integer maxWinccId) {
-        dataManager.unconstrained().save(new SaveContext().setDiscardSaved(true).saving(areaRunliangdouList));
-        dataManager.unconstrained().save(new SaveContext().setDiscardSaved(true).saving(mesRunliangdoudouRecordList));
-        dataManager.unconstrained().save(new SaveContext().setDiscardSaved(true).saving(mesRunliangdouOperationList));
-        jobConfig.setWinccId(maxWinccId);
-        dataManager.unconstrained().save(new SaveContext().setDiscardSaved(true).saving(jobConfig));
-    }
+
 
     private void clearRunliangdouProperties(List<MesRunliangdou> areaRunliangdouList, MesArea mesArea) {
         List<MesRunliangdoudouRecord> preMesRunliangdoudouRecordList = dataManager.load(MesRunliangdoudouRecord.class)

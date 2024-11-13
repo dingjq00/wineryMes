@@ -29,34 +29,45 @@
               title="msg://com.mom.winery.view.mesrecyclingbottomwatertank/mesRecyclingBottomWaterTankListView.title"/>
         <item view="MesDiuZaoWeiJiuTank.list"
               title="msg://com.mom.winery.view.mesdiuzaoweijiutank/mesDiuZaoWeiJiuTankListView.title"/>
-        <item view="MesWinccItemConfig.list"
-              title="msg://com.mom.winery.view.meswinccitemconfig/mesWinccItemConfigListView.title"/>
-        <item view="JobConfig.list" title="msg://com.mom.winery.view.jobconfig/jobConfigListView.title"/>
+        <item view="MesZhuanyundouRecord.list"
+              title="msg://com.mom.winery.view.meszhuanyundourecord/mesZhuanyundouRecordListView.title"/>
+
+
+
+    </menu>
+    <menu id="executeRecords" title="msg://com.mom.winery/menu.executeRecords.title" opened="true">
+        <item view="MesRunliangdouOperation.list"
+              title="msg://com.mom.winery.view.mesrunliangdouoperation/mesRunliangdouOperationListView.title"/>
         <item view="MesRunliangdoudouRecord.list"
               title="msg://com.mom.winery.view.mesrunliangdoudourecord/mesRunliangdoudouRecordListView.title"/>
-        <item view="MesZenggouPhaseConfig.list"
-              title="msg://com.mom.winery.view.meszenggouphaseconfig/mesZenggouPhaseConfigListView.title"/>
+<!--        <item view="MesZengguoRecordAnalysisi.list"-->
+<!--              title="msg://com.mom.winery.view.meszengguorecord/mesZengguoRecordAnalysisiListView.title" />-->
+<!--        <item view="MesZengguoUnitProcedure.list"-->
+<!--              title="msg://com.mom.winery.view.meszengguounitprocedure/mesZengguoUnitProcedureListView.title"/>-->
+<!--        <item view="MesZengguoOperation.list"-->
+<!--              title="msg://com.mom.winery.view.meszengguooperation/mesZengguoOperationListView.title"/>-->
+        <item view="MesZengguoRecordAnalysis.list"
+              title="msg://com.mom.winery.view.meszengguorecord/mesZengguoRecordAnalysisListView.title"/>
         <item view="MesZengguoRecord.list"
               title="msg://com.mom.winery.view.meszengguorecord/mesZengguoRecordListView.title"/>
+<!--        <item view="MesZengguoMultiAnalysisi.list"-->
+<!--              title="msg://com.mom.winery.view.meszengguounitprocedure/mesZengguoMultiAnalysisView.title"/>-->
         <item view="MesTanliangjiRecord.list"
               title="msg://com.mom.winery.view.mestanliangjirecord/mesTanliangjiRecordListView.title"/>
-        <item view="MesTanliangjiRealTimeData.list"
-              title="msg://com.mom.winery.view.mestanliangjirealtimedata/mesTanliangjiRealTimeDataListView.title"/>
-        <item view="MesZengguoRealData.list"
-              title="msg://com.mom.winery.view.meszengguorealdata/mesZengguoRealDataListView.title"/>
+        <item view="SupersetSummaryView" title="msg://com.mom.winery.view.supersetsummary/supersetSummaryView.title"/>
+
+        <item view="MesZengSumData.list" title="msg://com.mom.winery.view.meszengsumdata/mesZengSumDataListView.title"/>
+
+    </menu>
+    <menu id="historyRealData" title="msg://com.mom.winery/menu.historyRealData.title" opened="true">
+        <item view="MesTanliangRealDataV2.list"
+              title="msg://com.mom.winery.view.mestanliangrealdatav2/mesTanliangRealDataV2ListView.title"/>
+        <item view="MesZengguoRealDataV2.list"
+              title="msg://com.mom.winery.view.meszengguorealdatav2/mesZengguoRealDataV2ListView.title"/>
         <item view="MesRunliangRealtimeData.list"
               title="msg://com.mom.winery.view.mesrunliangrealtimedata/mesRunliangRealtimeDataListView.title"/>
         <item view="MesGlobalRealData.list"
               title="msg://com.mom.winery.view.mesglobalrealdata/mesGlobalRealDataListView.title"/>
-        <item view="MesRunliangdouOperation.list"
-              title="msg://com.mom.winery.view.mesrunliangdouoperation/mesRunliangdouOperationListView.title"/>
-        <item view="MesZengguoOperation.list"
-              title="msg://com.mom.winery.view.meszengguooperation/mesZengguoOperationListView.title"/>
-        <item view="MesZengguoUnitProcedure.list"
-              title="msg://com.mom.winery.view.meszengguounitprocedure/mesZengguoUnitProcedureListView.title"/>
-        <item view="MesZengguoMultiAnalysisi.list"
-              title="msg://com.mom.winery.view.meszengguounitprocedure/mesZengguoMultiAnalysisView.title"/>
-
     </menu>
     <menu id="winccRawData" title="msg://com.mom.winery/menu.winccRawData.title" opened="true">
         <item view="WinccGeiliaoji.list" title="msg://com.mom.winery.view.winccgeiliaoji/winccGeiliaojiListView.title"/>
@@ -74,6 +85,12 @@
     </menu>
     <menu id="application" title="msg://com.mom.winery/menu.application.title" opened="true">
         <item view="User.list" title="msg://com.mom.winery.view.user/UserListView.title"/>
+        <item view="JobConfig.list" title="msg://com.mom.winery.view.jobconfig/jobConfigListView.title"/>
+        <item view="MesWinccItemConfig.list"
+              title="msg://com.mom.winery.view.meswinccitemconfig/mesWinccItemConfigListView.title"/>
+
+        <item view="MesZenggouPhaseConfig.list"
+              title="msg://com.mom.winery.view.meszenggouphaseconfig/mesZenggouPhaseConfigListView.title"/>
     </menu>
 
 </menu-config>

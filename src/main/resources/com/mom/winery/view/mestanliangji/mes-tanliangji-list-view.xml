@@ -93,6 +93,7 @@
                 <column property="winccStartId"/>
                 <column property="liangshuiAddQty"/>
                 <column property="winccUpdateTime"/>
+                <column property="tanliangjiNo"/>
             </columns>
         </dataGrid>
         <hbox id="lookupActions" visible="false">

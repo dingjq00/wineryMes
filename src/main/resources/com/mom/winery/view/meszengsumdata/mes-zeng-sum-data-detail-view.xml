@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view"
+      title="msg://mesZengSumDataDetailView.title"
+      focusComponent="form">
+    <data>
+        <instance id="mesZengSumDataDc"
+                  class="com.mom.winery.entity.MesZengSumData">
+            <fetchPlan extends="_base"/>
+            <loader id="mesZengSumDataDl"/>
+        </instance>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+    </facets>
+    <actions>
+        <action id="saveAction" type="detail_saveClose"/>
+        <action id="closeAction" type="detail_close"/>
+    </actions>
+    <layout>
+        <formLayout id="form" dataContainer="mesZengSumDataDc">
+            <responsiveSteps>
+                <responsiveStep minWidth="0" columns="1" labelsPosition="ASIDE"/>
+                <responsiveStep minWidth="40em" columns="2" labelsPosition="ASIDE"/>
+            </responsiveSteps>
+            <formItem>
+                <textField id="liaodouNoField" property="liaodouNo"/>
+            </formItem>
+            <formItem>
+                <textField id="liaodouLocationField" property="liaodouLocation"/>
+            </formItem>
+            <formItem>
+                <checkbox id="liaodouIsOccupiedField" property="liaodouIsOccupied"/>
+            </formItem>
+            <formItem>
+                <dateTimePicker id="lastCipTimeField" property="lastCipTime"/>
+            </formItem>
+            <formItem>
+                <checkbox id="isCipOverdueField" property="isCipOverdue"/>
+            </formItem>
+            <formItem>
+                <textField id="chujiaoLayerField" property="chujiaoLayer"/>
+            </formItem>
+            <formItem>
+                <textField id="chujiaoJiaochiNoField" property="chujiaoJiaochiNo"/>
+            </formItem>
+            <formItem>
+                <dateTimePicker id="chujiaoTimeField" property="chujiaoTime"/>
+            </formItem>
+            <formItem>
+                <select id="chujiaoZaopeiTypeField" property="chujiaoZaopeiType"/>
+            </formItem>
+            <formItem>
+                <textField id="downJiaochiNoField" property="downJiaochiNo"/>
+            </formItem>
+            <formItem>
+                <dateTimePicker id="downChujiaoTimeField" property="downChujiaoTime"/>
+            </formItem>
+            <formItem>
+                <textField id="downChujiaoLayerField" property="downChujiaoLayer"/>
+            </formItem>
+            <formItem>
+                <select id="downZaopeiTypeField" property="downZaopeiType"/>
+            </formItem>
+            <formItem>
+                <dateTimePicker id="downRunliangStartTimeField" property="downRunliangStartTime"/>
+            </formItem>
+            <formItem>
+                <dateTimePicker id="downRunliangEndTimeField" property="downRunliangEndTime"/>
+            </formItem>
+            <formItem>
+                <textField id="downRunliangDurationField" property="downRunliangDuration"/>
+            </formItem>
+            <formItem>
+                <checkbox id="downIsDurationOkField" property="downIsDurationOk"/>
+            </formItem>
+            <formItem>
+                <textField id="downRunliangWaterField" property="downRunliangWater"/>
+            </formItem>
+            <formItem>
+                <textField id="downZaopeiQtyField" property="downZaopeiQty"/>
+            </formItem>
+            <formItem>
+                <textField id="downDaoKeField" property="downDaoKe"/>
+            </formItem>
+            <formItem>
+                <textField id="downLiangShiField" property="downLiangShi"/>
+            </formItem>
+            <formItem>
+                <select id="downLiangTypeField" property="downLiangType"/>
+            </formItem>
+            <formItem>
+                <textField id="upJiaochiNoField" property="upJiaochiNo"/>
+            </formItem>
+            <formItem>
+                <dateTimePicker id="upChujiaoTimeField" property="upChujiaoTime"/>
+            </formItem>
+            <formItem>
+                <textField id="upChujiaoLayerField" property="upChujiaoLayer"/>
+            </formItem>
+            <formItem>
+                <select id="upZaopeiTypeField" property="upZaopeiType"/>
+            </formItem>
+            <formItem>
+                <dateTimePicker id="upRunliangStartTimeField" property="upRunliangStartTime"/>
+            </formItem>
+            <formItem>
+                <dateTimePicker id="upRunliangEndTimeField" property="upRunliangEndTime"/>
+            </formItem>
+            <formItem>
+                <textField id="upRunliangDurationField" property="upRunliangDuration"/>
+            </formItem>
+            <formItem>
+                <checkbox id="upIsDurationOkField" property="upIsDurationOk"/>
+            </formItem>
+            <formItem>
+                <textField id="upRunliangWaterField" property="upRunliangWater"/>
+            </formItem>
+            <formItem>
+                <textField id="upZaopeiQtyField" property="upZaopeiQty"/>
+            </formItem>
+            <formItem>
+                <textField id="upDaoKeField" property="upDaoKe"/>
+            </formItem>
+            <formItem>
+                <textField id="upLiangShiField" property="upLiangShi"/>
+            </formItem>
+            <formItem>
+                <select id="upLiangTypeField" property="upLiangType"/>
+            </formItem>
+            <formItem>
+                <dateTimePicker id="zengStartTimeField" property="zengStartTime"/>
+            </formItem>
+            <formItem>
+                <dateTimePicker id="robotUpStartTimeField" property="robotUpStartTime"/>
+            </formItem>
+            <formItem>
+                <dateTimePicker id="kapanStartTimeField" property="kapanStartTime"/>
+            </formItem>
+            <formItem>
+                <dateTimePicker id="liujiuEndTimeField" property="liujiuEndTime"/>
+            </formItem>
+            <formItem>
+                <dateTimePicker id="zengEndTimeField" property="zengEndTime"/>
+            </formItem>
+            <formItem>
+                <textField id="zengNoField" property="zengNo"/>
+            </formItem>
+            <formItem>
+                <select id="zengZaopeiTypeField" property="zengZaopeiType"/>
+            </formItem>
+            <formItem>
+                <textField id="shangzengDurationField" property="shangzengDuration"/>
+            </formItem>
+            <formItem>
+                <textField id="shangzengLayerField" property="shangzengLayer"/>
+            </formItem>
+            <formItem>
+                <textField id="shangzengHeightField" property="shangzengHeight"/>
+            </formItem>
+            <formItem>
+                <textField id="shangzengWeightField" property="shangzengWeight"/>
+            </formItem>
+            <formItem>
+                <textField id="addHuangshuiField" property="addHuangshui"/>
+            </formItem>
+            <formItem>
+                <textField id="addJiuweiField" property="addJiuwei"/>
+            </formItem>
+            <formItem>
+                <textField id="addHuishouField" property="addHuishou"/>
+            </formItem>
+            <formItem>
+                <textField id="addReshuiField" property="addReshui"/>
+            </formItem>
+            <formItem>
+                <textField id="jiejiuFirstClassDurationField" property="jiejiuFirstClassDuration"/>
+            </formItem>
+            <formItem>
+                <textField id="jiejiuSecondClassDurationField" property="jiejiuSecondClassDuration"/>
+            </formItem>
+            <formItem>
+                <textField id="jiejiuThirdClassDurationField" property="jiejiuThirdClassDuration"/>
+            </formItem>
+            <formItem>
+                <textField id="jiejiuJiuweiDurationField" property="jiejiuJiuweiDuration"/>
+            </formItem>
+            <formItem>
+                <textField id="jiejiuFeishuiDurationField" property="jiejiuFeishuiDuration"/>
+            </formItem>
+            <formItem>
+                <textField id="liangshuiAddField" property="liangshuiAdd"/>
+            </formItem>
+            <formItem>
+                <textField id="haoqiShangzengField" property="haoqiShangzeng"/>
+            </formItem>
+            <formItem>
+                <textField id="haoqiZhengliuField" property="haoqiZhengliu"/>
+            </formItem>
+            <formItem>
+                <textField id="zhengliuDurationField" property="zhengliuDuration"/>
+            </formItem>
+            <formItem>
+                <textField id="liujiuZhenzhuDurationField" property="liujiuZhenzhuDuration"/>
+            </formItem>
+            <formItem>
+                <dateTimePicker id="tanliangStartTimeField" property="tanliangStartTime"/>
+            </formItem>
+            <formItem>
+                <dateTimePicker id="tanliangEndTimeField" property="tanliangEndTime"/>
+            </formItem>
+            <formItem>
+                <textField id="tanliangDurationField" property="tanliangDuration"/>
+            </formItem>
+            <formItem>
+                <textField id="tanliangOutLayerField" property="tanliangOutLayer"/>
+            </formItem>
+            <formItem>
+                <textField id="tanliangPoolInNoField" property="tanliangPoolInNo"/>
+            </formItem>
+            <formItem>
+                <dateTimePicker id="tanliangChujiaoTimeField" property="tanliangChujiaoTime"/>
+            </formItem>
+            <formItem>
+                <select id="tanliangZaopeiTypeField" property="tanliangZaopeiType"/>
+            </formItem>
+            <formItem>
+                <textField id="tanliangZaopeiWeightField" property="tanliangZaopeiWeight"/>
+            </formItem>
+            <formItem>
+                <textField id="tanliangJiaquWeightField" property="tanliangJiaquWeight"/>
+            </formItem>
+            <formItem>
+                <textField id="tanliangMaxTempField" property="tanliangMaxTemp"/>
+            </formItem>
+            <formItem>
+                <textField id="tanliangMinTempField" property="tanliangMinTemp"/>
+            </formItem>
+            <formItem>
+                <textField id="tanliangAvgTempField" property="tanliangAvgTemp"/>
+            </formItem>
+            <formItem>
+                <textField id="zaopeiTypeField" property="zaopeiType"/>
+            </formItem>
+        </formLayout>
+        <hbox id="detailActions">
+            <button id="saveAndCloseButton" action="saveAction"/>
+            <button id="closeButton" action="closeAction"/>
+        </hbox>
+    </layout>
+</view>

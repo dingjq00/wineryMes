@@ -5,7 +5,14 @@
     <data>
         <instance id="mesZhuanyundouDc"
                   class="com.mom.winery.entity.MesZhuanyundou">
-            <fetchPlan extends="_base"/>
+            <fetchPlan extends="_base">
+                <property name="currentLocation" fetchPlan="_base"/>
+                <property name="fullOrEmpty" fetchPlan="_base"/>
+                <property name="chujiaozaoOrHuijiaoZao" fetchPlan="_base"/>
+                <property name="huijiaoJiaochi" fetchPlan="_base"/>
+                <property name="chujiaoJiaochi" fetchPlan="_base"/>
+                <property name="mesShopfloor" fetchPlan="_base"/>
+            </fetchPlan>
             <loader id="mesZhuanyundouDl"/>
         </instance>
     </data>
@@ -20,6 +27,59 @@
         <formLayout id="form" dataContainer="mesZhuanyundouDc">
             <textField id="zhuanyundouNameField" property="zhuanyundouName"/>
             <textField id="zhuanyundouNoField" property="zhuanyundouNo"/>
+            <textField id="wincc_NoField" property="wincc_No"/>
+            <entityPicker id="currentLocationField" property="currentLocation">
+                <actions>
+                    <action id="entityLookup" type="entity_lookup"/>
+                    <action id="entityClear" type="entity_clear"/>
+                </actions>
+            </entityPicker>
+            <entityPicker id="fullOrEmptyField" property="fullOrEmpty">
+                <actions>
+                    <action id="entityLookup" type="entity_lookup"/>
+                    <action id="entityClear" type="entity_clear"/>
+                </actions>
+            </entityPicker>
+            <entityPicker id="chujiaozaoOrHuijiaoZaoField" property="chujiaozaoOrHuijiaoZao">
+                <actions>
+                    <action id="entityLookup" type="entity_lookup"/>
+                    <action id="entityClear" type="entity_clear"/>
+                </actions>
+            </entityPicker>
+            <textField id="huijiaoTanliangDurationField" property="huijiaoTanliangDuration"/>
+            <textField id="huijiaoJiaochiLayerField" property="huijiaoJiaochiLayer"/>
+            <entityPicker id="huijiaoJiaochiField" property="huijiaoJiaochi">
+                <actions>
+                    <action id="entityLookup" type="entity_lookup"/>
+                    <action id="entityClear" type="entity_clear"/>
+                </actions>
+            </entityPicker>
+            <dateTimePicker id="huijiaoChujiaoTimeField" property="huijiaoChujiaoTime"/>
+            <select id="huijiaoZaopeiTypeField" property="huijiaoZaopeiType"/>
+            <textField id="huijiaoQufeiQtyField" property="huijiaoQufeiQty"/>
+            <textField id="huijiaoZaopeiQtyField" property="huijiaoZaopeiQty"/>
+            <textField id="huijiaoChukouMaxTempField" property="huijiaoChukouMaxTemp"/>
+            <textField id="huijiaoChukouMinTempField" property="huijiaoChukouMinTemp"/>
+            <dateTimePicker id="huijiaoTanliangStartTimeField" property="huijiaoTanliangStartTime"/>
+            <textField id="huijiaoChukouAvgTempField" property="huijiaoChukouAvgTemp"/>
+            <textField id="chujiaoJiaochiLayerField" property="chujiaoJiaochiLayer"/>
+            <entityPicker id="chujiaoJiaochiField" property="chujiaoJiaochi">
+                <actions>
+                    <action id="entityLookup" type="entity_lookup"/>
+                    <action id="entityClear" type="entity_clear"/>
+                </actions>
+            </entityPicker>
+            <dateTimePicker id="chujiaoTimeField" property="chujiaoTime"/>
+            <select id="chujiaoZaopeiTypeField" property="chujiaoZaopeiType"/>
+            <textField id="winccUpdateIdField" property="winccUpdateId"/>
+            <dateTimePicker id="winccUpdateTimeField" property="winccUpdateTime"/>
+            <dateTimePicker id="lastModifiedDateField" property="lastModifiedDate"/>
+            <entityPicker id="mesShopfloorField" property="mesShopfloor">
+                <actions>
+                    <action id="entityLookup" type="entity_lookup"/>
+                    <action id="entityClear" type="entity_clear"/>
+                </actions>
+            </entityPicker>
         </formLayout>
         <hbox id="detailActions">
             <button id="saveAndCloseBtn" action="saveAction"/>

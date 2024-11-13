@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view"
+      title="msg://mesTanliangRealDataV2DetailView.title"
+      focusComponent="form">
+    <data>
+        <instance id="mesTanliangRealDataV2Dc"
+                  class="com.mom.winery.entity.MesTanliangRealDataV2">
+            <fetchPlan extends="_base"/>
+            <loader id="mesTanliangRealDataV2Dl"/>
+        </instance>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+    </facets>
+    <actions>
+        <action id="saveAction" type="detail_saveClose"/>
+        <action id="closeAction" type="detail_close"/>
+    </actions>
+    <layout>
+        <formLayout id="form" dataContainer="mesTanliangRealDataV2Dc" labelsPosition="ASIDE">
+            <formItem>
+                <textField id="tanliangGeiliaojiYuzhongField" property="tanliangGeiliaojiYuzhong"/>
+            </formItem>
+            <formItem>
+                <textField id="qufeiZancuncangYuzhongField" property="qufeiZancuncangYuzhong"/>
+            </formItem>
+            <formItem>
+                <textField id="tangliangGeiliaojiLiusuField" property="tangliangGeiliaojiLiusu"/>
+            </formItem>
+            <formItem>
+                <textField id="qufenLiusuField" property="qufenLiusu"/>
+            </formItem>
+            <formItem>
+                <textField id="tanliangZhongbuTempField" property="tanliangZhongbuTemp"/>
+            </formItem>
+            <formItem>
+                <textField id="tanliangChukouTempField" property="tanliangChukouTemp"/>
+            </formItem>
+            <formItem>
+                <textField id="winccUpdateIdField" property="winccUpdateId"/>
+            </formItem>
+            <formItem>
+                <dateTimePicker id="winccUpdateTimeField" property="winccUpdateTime"/>
+            </formItem>
+            <textField id="tempIndexField" property="tempIndex"/>
+        </formLayout>
+        <hbox id="detailActions">
+            <button id="saveAndCloseBtn" action="saveAction"/>
+            <button id="closeBtn" action="closeAction"/>
+        </hbox>
+    </layout>
+</view>

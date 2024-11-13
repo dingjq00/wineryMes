@@ -62,17 +62,25 @@
                 <action id="remove" type="list_remove"/>
             </actions>
             <columns resizable="true">
-                <column property="mesArea"/>
-                <column property="winccUpdateTime"/>
-                <column property="winccUpdateId"/>
-                <column property="faqiLengningTiaojiefaKaidu"/>
-                <column property="qingxiShuiguanYew"/>
-                <column property="xunhuaShuiHuancunguanYew"/>
-                <column property="qingxiShuiguanShuiwen"/>
-                <column property="xunhuaShuiwenJinshui"/>
-                <column property="xunhuaShuiwenHuishui"/>
-                <column property="xunhuaJinshuiLiuliang"/>
-                <column property="xunhuaChushuiLiuliang"/>
+                <column property="mesArea" autoWidth="true"/>
+                <column property="winccUpdateTime" autoWidth="true"/>
+                <column property="winccUpdateId" autoWidth="true"/>
+                <column property="faqiLengningTiaojiefaKaidu" autoWidth="true"/>
+                <column property="qingxiShuiguanYew" autoWidth="true"/>
+                <column property="xunhuaShuiHuancunguanYew" autoWidth="true"/>
+                <column property="qingxiShuiguanShuiwen" autoWidth="true"/>
+                <column property="xunhuaShuiwenJinshui" autoWidth="true"/>
+                <column property="xunhuaShuiwenHuishui" autoWidth="true"/>
+                <column property="xunhuaJinshuiLiuliang" autoWidth="true"/>
+                <column property="xunhuaChushuiLiuliang" autoWidth="true"/>
+                <column property="jieliaodouYuzhong1" autoWidth="true"/>
+                <column property="jieliaodouYuzhong2" autoWidth="true"/>
+                <column property="jieliaodouYuzhong3" autoWidth="true"/>
+                <column property="jieliaodouYuzhong4" autoWidth="true"/>
+                <column property="liangshuiguanYewei" autoWidth="true"/>
+                <column property="weijiuguanYewei" autoWidth="true"/>
+                <column property="huishouDiguoShuiwei" autoWidth="true"/>
+                <column property="diuzaoWeijiuguanYewei" autoWidth="true"/>
             </columns>
         </dataGrid>
         <hbox id="lookupActions" visible="false">

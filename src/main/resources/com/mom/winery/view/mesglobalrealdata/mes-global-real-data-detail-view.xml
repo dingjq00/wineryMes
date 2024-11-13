@@ -28,6 +28,14 @@
             <textField id="xunhuaShuiwenHuishuiField" property="xunhuaShuiwenHuishui"/>
             <textField id="xunhuaJinshuiLiuliangField" property="xunhuaJinshuiLiuliang"/>
             <textField id="xunhuaChushuiLiuliangField" property="xunhuaChushuiLiuliang"/>
+            <textField id="jieliaodouYuzhong1Field" property="jieliaodouYuzhong1"/>
+            <textField id="jieliaodouYuzhong2Field" property="jieliaodouYuzhong2"/>
+            <textField id="jieliaodouYuzhong3Field" property="jieliaodouYuzhong3"/>
+            <textField id="jieliaodouYuzhong4Field" property="jieliaodouYuzhong4"/>
+            <textField id="liangshuiguanYeweiField" property="liangshuiguanYewei"/>
+            <textField id="weijiuguanYeweiField" property="weijiuguanYewei"/>
+            <textField id="huishouDiguoShuiweiField" property="huishouDiguoShuiwei"/>
+            <textField id="diuzaoWeijiuguanYeweiField" property="diuzaoWeijiuguanYewei"/>
         </formLayout>
         <hbox id="detailActions">
             <button id="saveAndCloseBtn" action="saveAction"/>

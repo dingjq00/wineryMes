@@ -3,6 +3,7 @@ package com.mom.winery.entity;
 import io.jmix.core.DeletePolicy;
 import io.jmix.core.entity.annotation.JmixGeneratedValue;
 import io.jmix.core.entity.annotation.OnDeleteInverse;
+import io.jmix.core.metamodel.annotation.Comment;
 import io.jmix.core.metamodel.annotation.InstanceName;
 import io.jmix.core.metamodel.annotation.JmixEntity;
 import io.jmix.core.metamodel.annotation.NumberFormat;
@@ -35,10 +36,15 @@ public class MesTanliangji {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private MesArea mesArea;
 
+    @Comment("摊晾机名称")
     @InstanceName
     @NotNull
     @Column(name = "TANLIANGJI_CODE", nullable = false, length = 120)
     private String tanliangjiCode;
+
+    @Comment("摊晾机编号")
+    @Column(name = "TANLIANGJI_NO")
+    private Integer tanliangjiNo;
 
     @JoinColumn(name = "RESOURCE_ZENGGUO_ID")
     @ManyToOne(fetch = FetchType.LAZY)
@@ -161,6 +167,14 @@ public class MesTanliangji {
     @LastModifiedDate
     @Column(name = "LAST_MODIFIED_DATE")
     private OffsetDateTime lastModifiedDate;
+
+    public Integer getTanliangjiNo() {
+        return tanliangjiNo;
+    }
+
+    public void setTanliangjiNo(Integer tanliangjiNo) {
+        this.tanliangjiNo = tanliangjiNo;
+    }
 
     public Date getWinccUpdateTime() {
         return winccUpdateTime;

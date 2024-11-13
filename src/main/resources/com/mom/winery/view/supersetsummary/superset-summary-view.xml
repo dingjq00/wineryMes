@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view" xmlns:superset="http://jmix.io/schema/superset/ui"
+      title="msg://supersetSummaryView.title">
+    <layout>
+        <superset:dashboard  id="dashboard" width="100%" height="100%"
+                             embeddedId="ff202c37-f66d-48e9-b0ed-0e59f997e9aa"/>
+
+    </layout>
+</view>

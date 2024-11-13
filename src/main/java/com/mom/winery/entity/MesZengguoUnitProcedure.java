@@ -808,6 +808,5 @@ public class MesZengguoUnitProcedure {
     public Float getEnergyQiTotal(){
         return getEnergyQiShangzeng() + getEnergyQiShangzeng();
 
-
     }
 }

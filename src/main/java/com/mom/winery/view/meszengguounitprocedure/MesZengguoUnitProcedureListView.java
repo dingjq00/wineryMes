@@ -3,9 +3,11 @@ package com.mom.winery.view.meszengguounitprocedure;
 import com.mom.winery.entity.MesZengguoUnitProcedure;
 import com.mom.winery.view.main.MainView;
 import com.vaadin.flow.component.ClickEvent;
+import com.vaadin.flow.router.QueryParameters;
 import com.vaadin.flow.router.Route;
 import io.jmix.flowui.DialogWindows;
 import io.jmix.flowui.Notifications;
+import io.jmix.flowui.ViewNavigators;
 import io.jmix.flowui.component.grid.DataGrid;
 import io.jmix.flowui.kit.component.button.JmixButton;
 import io.jmix.flowui.view.*;
@@ -32,6 +34,8 @@ public class MesZengguoUnitProcedureListView extends StandardListView<MesZengguo
     private Notifications notifications;
     @Autowired
     private DialogWindows dialogWindows;
+    @Autowired
+    private ViewNavigators viewNavigators;
 
     @Subscribe(id = "multiZengguoAnalysisi", subject = "clickListener")
     public void onMultiZengguoAnalysisiClick(final ClickEvent<JmixButton> event) {
@@ -41,10 +45,18 @@ public class MesZengguoUnitProcedureListView extends StandardListView<MesZengguo
             return;
         }
         List<Long> unitProcedureIds = mesZengguoUnitProcedureList.stream().map(MesZengguoUnitProcedure::getId).toList();
-        DialogWindow<MesZengguoMultiAnalysisView> window = dialogWindows.view(this, MesZengguoMultiAnalysisView.class).build();
-//        window.getView().setDc(productionOrderMaterialPreparerationDTOS);
-        window.getView().setUnitProcedureIds(unitProcedureIds);
-        window.open();
-
+//        DialogWindow<MesZengguoMultiAnalysisView> window = dialogWindows.view(this, MesZengguoMultiAnalysisView.class).build();
+////        window.getView().setDc(productionOrderMaterialPreparerationDTOS);
+//        window.getView().setUnitProcedureIds(unitProcedureIds);
+//        window.open();
+        String unitProcedureIdsStr = unitProcedureIds.stream().map(String::valueOf).reduce((a, b) -> a + "," + b).orElse("");
+        viewNavigators.view(this, MesZengguoMultiAnalysisView.class)
+//                .withAfterNavigationHandler(afterViewNavigationEvent -> {
+//                    MesZengguoMultiAnalysisView view = afterViewNavigationEvent.getView();
+//                    view.setUnitProcedureIds(unitProcedureIds);
+//                })
+                .withQueryParameters(QueryParameters.of("ids", unitProcedureIdsStr))
+                .withBackwardNavigation(true)
+                .navigate();
     }
 }

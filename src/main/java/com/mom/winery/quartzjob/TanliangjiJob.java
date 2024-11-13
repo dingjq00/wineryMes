@@ -26,6 +26,9 @@ public class TanliangjiJob implements Job {
     @Autowired
     private WinccDataDealCommons winccDataDealCommons;
 
+    @Autowired
+    private JobSaveDataService jobSaveDataService;
+
     @Authenticated
     @Override
     public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
@@ -61,7 +64,7 @@ public class TanliangjiJob implements Job {
              */
             List<MesTanliangji> areaTanliangjiList = mesTanliangjiList.stream()
                     .filter(mesTanliangji -> mesTanliangji.getMesArea().equals(mesArea))
-                    .sorted(Comparator.comparing(MesTanliangji::getTanliangjiCode))
+                    .sorted(Comparator.comparing(MesTanliangji::getTanliangjiNo))
                     .toList();
             int areaTanliangjiListSize = areaTanliangjiList.size();
             if (areaTanliangjiListSize == 0) {
@@ -102,8 +105,6 @@ public class TanliangjiJob implements Job {
             }
 
 
-
-
             /**
              * 获取每个单元Wincc 摊晾机待处理的数据
              */
@@ -114,6 +115,7 @@ public class TanliangjiJob implements Job {
                             "order by e.winccId")
                     .parameter("areaCode", areaCode)
                     .parameter("currentWinccId", currentWinccId)
+                    .maxResults(1000)
                     .list();
             if (winccTanliangjiList.isEmpty()) {
                 continue;
@@ -160,7 +162,7 @@ public class TanliangjiJob implements Job {
                     MesZengguo rawZengguo = mesTanliangji.getResourceZengguo();
                     int zengguoNo = Integer.parseInt(tanliangjiParts[0]);
                     MesZengguo zengguo = mesZengguoList.stream()
-                            .filter(e -> e.getZengguoCode().equals(zengguoNo))
+                            .filter(e ->e.getMesArea().equals(mesArea) && e.getZengguoCode().equals(zengguoNo))
                             .findFirst()
                             .orElse(null);
                     mesTanliangji.setResourceZengguo(zengguo);
@@ -261,7 +263,8 @@ public class TanliangjiJob implements Job {
 
                         MesTanliangjiRecord preRecord = mesTanliangjiRecordList.stream()
                                 .filter(e -> e.getMesTanliangji().equals(mesTanliangji)
-                                        && e.getPhaseStartTime().before(mesTanliangji.getWinccUpdateTime()))
+                                        && e.getPhaseStartTime().before(mesTanliangji.getWinccUpdateTime())
+                                        && e.getPhaseEndTime() == null)
                                 .max(Comparator.comparing(MesTanliangjiRecord::getPhaseStartTime))
                                 .orElse(null);
                         if (preRecord != null) {
@@ -276,33 +279,34 @@ public class TanliangjiJob implements Job {
 
                             mesTanliangjiRecordList.add(preRecord);
                         } else {
-                            if (rawWinccUpdateTime != null) {
+
                                 List<MesTanliangjiRecord> preRecords = dataManager.load(MesTanliangjiRecord.class)
                                         .query("select e from MesTanliangjiRecord e " +
                                                 "where e.mesTanliangji = :mesTanliangji " +
-                                                "and e.winccStartTime <= :winccStartTime " +
+                                                "and e.phaseStartTime < :winccStartTime " +
+                                                "and e.phaseEndTime is null " +
                                                 "order by e.winccStartTime desc")
                                         .parameter("mesTanliangji", mesTanliangji)
-                                        .parameter("winccStartTime", rawWinccUpdateTime)
+                                        .parameter("winccStartTime", mesTanliangji.getWinccUpdateTime())
                                         .maxResults(1)
                                         .list();
                                 if (!preRecords.isEmpty()) {
                                     MesTanliangjiRecord preRecord1 = preRecords.get(0);
                                     preRecord1.setPhaseEndTime(mesTanliangji.getWinccUpdateTime());
-                                    if (preRecord1.getPhaseEndTime() != null && preRecord1.getPhaseEndTime() != null) {
-                                        long duration = preRecord1.getPhaseEndTime().getTime() - preRecord1.getPhaseEndTime().getTime();
+                                    if (preRecord1.getPhaseStartTime() != null && preRecord1.getPhaseEndTime() != null) {
+                                        long duration = preRecord1.getPhaseEndTime().getTime() - preRecord1.getPhaseStartTime().getTime();
                                         preRecord1.setPhaseDuration((float) (duration / 60000));
                                     }
                                     preRecord1.setWinccEndId(mesTanliangji.getWinccStartId());
                                     setPrerecordNormalInfo(preRecord1, rawZengguo, rawDashuiliang, rawZengxu, rawXiaBanJiaDaoKeLiang, rawXiaBanJiaLiangShiLiang, rawXiaBanJiaZaoPeiLiang, rawShangBanJiaDaoKeLiang, rawShangBanJiaLiangShiLiang, rawShangBanJiaZaoPeiLiang, rawZhengliuShiChang, rawShangZengShiChang, rawZaoPeiType, rawShangzengTotalQty, rawZhuanyundou);
                                     mesTanliangjiRecordList.add(preRecord1);
                                 }
-                            }
+
                         }
                     }
                 }
             }
-            saveData(areaTanliangjiList, mesTanliangjiRecordList, jobConfig, maxWinccId);
+            jobSaveDataService.saveTanliangData(areaTanliangjiList, mesTanliangjiRecordList, jobConfig, maxWinccId);
             mesTanliangjiRecordList.clear();
         }
     }
@@ -430,11 +434,5 @@ public class TanliangjiJob implements Job {
 
     }
 
-    @Transactional
-    public void saveData(List<MesTanliangji> areaTanliangjiList , List<MesTanliangjiRecord> mesTanliangjiRecordList, JobConfig jobConfig, Integer maxWinccId) {
-        dataManager.unconstrained().save(new SaveContext().setDiscardSaved(true).saving(areaTanliangjiList));
-        dataManager.unconstrained().save(new SaveContext().setDiscardSaved(true).saving(mesTanliangjiRecordList));
-        jobConfig.setWinccId(maxWinccId);
-        dataManager.save(new SaveContext().setDiscardSaved(true).saving(jobConfig));
-    }
+
 }

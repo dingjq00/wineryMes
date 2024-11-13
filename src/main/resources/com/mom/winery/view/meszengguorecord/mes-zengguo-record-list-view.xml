@@ -97,7 +97,6 @@
                 <column property="liangshiQtyUp" autoWidth="true"/>
                 <column property="liangshiTypUp" autoWidth="true"/>
                 <column property="zaopeiType" autoWidth="true"/>
-
                 <column property="shangzengHeight" autoWidth="true"/>
                 <column property="jiejiuDurationFirstClass" autoWidth="true"/>
                 <column property="jiejiuDurationSecondClass" autoWidth="true"/>
@@ -123,6 +122,8 @@
                 <column property="phaseStartWinccId" autoWidth="true"/>
                 <column property="phaseEndWinccId" autoWidth="true"/>
                 <column property="lastModifiedDate" autoWidth="true"/>
+                <column property="mainPhase"/>
+                <column property="relatedRecordId"/>
             </columns>
         </dataGrid>
         <hbox id="lookupActions" visible="false">

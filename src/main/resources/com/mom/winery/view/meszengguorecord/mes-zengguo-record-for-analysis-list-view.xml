@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view"
+      xmlns:c="http://jmix.io/schema/flowui/jpql-condition"
+      title="msg://mesZengguoRecordAnalysisListView.title"
+      focusComponent="mesZengguoRecordsDataGrid">
+    <data>
+        <collection id="mesZengguoRecordsDc"
+                    class="com.mom.winery.entity.MesZengguoRecord">
+            <fetchPlan extends="_base">
+                <property name="mesZengguo" fetchPlan="_base">
+                    <property name="mesArea" fetchPlan="_base">
+                        <property name="mesShopfloor" fetchPlan="_base"/>
+                    </property>
+                </property>
+                <property name="zengguoPhase" fetchPlan="_base"/>
+                <property name="jiaochiDown" fetchPlan="_base"/>
+                <property name="runliangDurationQualifiedDown" fetchPlan="_base"/>
+                <property name="jiaochiUp" fetchPlan="_base"/>
+                <property name="runliangDuarationQualifiedUp" fetchPlan="_base"/>
+            </fetchPlan>
+            <loader id="mesZengguoRecordsDl" readOnly="true">
+                <query>
+                    <![CDATA[select e from MesZengguoRecord e where e.endTimeTall > :endTimeTall1]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+        <urlQueryParameters>
+            <genericFilter component="genericFilter"/>
+            <pagination component="pagination"/>
+        </urlQueryParameters>
+    </facets>
+    <actions>
+        <action id="selectAction" type="lookup_select"/>
+        <action id="discardAction" type="lookup_discard"/>
+    </actions>
+    <layout>
+        <genericFilter id="genericFilter"
+                       dataLoader="mesZengguoRecordsDl">
+            <properties include=".*"/>
+        </genericFilter>
+        <hbox id="buttonsPanel" classNames="buttons-panel">
+            <button id="createButton" action="mesZengguoRecordsDataGrid.create"/>
+            <button id="editButton" action="mesZengguoRecordsDataGrid.edit"/>
+            <button id="excelExportButton" action="mesZengguoRecordsDataGrid.excelExport"/>
+            <button id="readButton" action="mesZengguoRecordsDataGrid.read"/>
+            <button id="refreshButton" action="mesZengguoRecordsDataGrid.refresh"/>
+            <button id="removeButton" action="mesZengguoRecordsDataGrid.remove"/>
+            <button id="zengguoAnalysis" text="甑锅执行分析"/>
+            <simplePagination id="pagination" dataLoader="mesZengguoRecordsDl"/>
+        </hbox>
+        <dataGrid id="mesZengguoRecordsDataGrid"
+                  width="100%"
+                  minHeight="20em"
+                  dataContainer="mesZengguoRecordsDc"
+                  columnReorderingAllowed="true"
+                  selectionMode="MULTI">
+            <actions>
+                <action id="create" type="list_create"/>
+                <action id="edit" type="list_edit">
+                    <properties>
+                        <property name="viewClass"
+                                  value="com.mom.winery.view.meszengguorecord.MesZengguoRecordAnalysisiDetailView"/>
+                    </properties>
+                </action>
+                <action id="excelExport" type="grdexp_excelExport"/>
+                <action id="read" type="list_read"/>
+                <action id="refresh" type="list_refresh"/>
+                <action id="remove" type="list_remove"/>
+            </actions>
+            <columns resizable="true">
+                <column property="mesZengguo" autoWidth="true"/>
+                <column property="zengSequence" autoWidth="true"/>
+                <column property="zaopeiType" autoWidth="true"/>
+                <column property="startTimeTotal" autoWidth="true"/>
+                <column property="endTimeTall" autoWidth="true"/>
+                <column property="startTimeDeviceShangZeng" autoWidth="true"/>
+                <column property="shangzengLayer" autoWidth="true"/>
+                <column property="shangzengDuration" autoWidth="true"/>
+                <column property="shangzengHeight" autoWidth="true"/>
+                <!--                <column property="shangzengTotalQty" autoWidth="true"/>-->
+                <column property="startTimeKagai" autoWidth="true"/>
+                <column property="endTimeLiujiu" autoWidth="true"/>
+                <column property="jiaochiDown" autoWidth="true"/>
+                <column property="jiaochiLayerDown" autoWidth="true"/>
+                <column property="jiaochiTimeDown" autoWidth="true"/>
+                <column property="zaopeiTypeDown" autoWidth="true"/>
+                <column property="runliangStartTimeDown" autoWidth="true"/>
+                <column property="runliangEndTimeDown" autoWidth="true"/>
+                <column property="runliangAddWaterDown" autoWidth="true"/>
+                <column property="runliangDurationDown" autoWidth="true"/>
+                <!--                <column property="runliangDurationQualifiedDown" autoWidth="true"/>-->
+                <column property="zaopeiQtyDown" autoWidth="true"/>
+                <column property="daokeQtyDown" autoWidth="true"/>
+                <column property="liangshiQtyDown" autoWidth="true"/>
+                <column property="liangshiTypeDown" autoWidth="true"/>
+                <column property="jiaochiUp" autoWidth="true"/>
+                <column property="jiaochiTimeUp" autoWidth="true"/>
+                <column property="jiaochiLayerUp" autoWidth="true"/>
+                <column property="zaopeiTypeUp" autoWidth="true"/>
+                <column property="runliangStartTimeUp" autoWidth="true"/>
+                <column property="runliangEndTimeUp" autoWidth="true"/>
+                <column property="runliangAddWaterUp" autoWidth="true"/>
+                <column property="runliangDurationUp" autoWidth="true"/>
+                <!--                <column property="runliangDuarationQualifiedUp" autoWidth="true"/>-->
+                <column property="zaopeiQtyUp" autoWidth="true"/>
+                <column property="daokeQtyUp" autoWidth="true"/>
+                <column property="liangshiQtyUp" autoWidth="true"/>
+                <column property="liangshiTypUp" autoWidth="true"/>
+                <column property="jiejiuDurationFirstClass" autoWidth="true"/>
+                <column property="jiejiuDurationSecondClass" autoWidth="true"/>
+                <column property="jiejiuDurationThirdClass" autoWidth="true"/>
+                <column property="jiejiuDurationFeishui" autoWidth="true"/>
+                <column property="jiejiuDurationJiuwei" autoWidth="true"/>
+                <column property="liangshuiAddQty" autoWidth="true"/>
+                <column property="huishoudiguoWaterAddQty" autoWidth="true"/>
+                <column property="hotWaterAddQty" autoWidth="true"/>
+                <column property="jiuweiAddQty" autoWidth="true"/>
+                <column property="huangshuiAddQty" autoWidth="true"/>
+                <column property="energyQiShangzeng" autoWidth="true"/>
+                <column property="energyQiZhengliu" autoWidth="true"/>
+                <column property="zhengliuDuration" autoWidth="true"/>
+                <column property="liujiuAddZhengzhuDuration" autoWidth="true"/>
+                <column property="mainPhase"/>
+                <column property="relatedRecordId"/>
+                <!--                <column property="phaseStartWinccId" autoWidth="true"/>-->
+                <!--                <column property="phaseEndWinccId" autoWidth="true"/>-->
+            </columns>
+        </dataGrid>
+        <hbox id="lookupActions" visible="false">
+            <button id="selectButton" action="selectAction"/>
+            <button id="discardButton" action="discardAction"/>
+        </hbox>
+    </layout>
+</view>

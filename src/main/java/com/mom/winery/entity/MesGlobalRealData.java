@@ -231,4 +231,106 @@ public class MesGlobalRealData {
     public void setId(Long id) {
         this.id = id;
     }
+
+    @Comment("1#机器人接料斗余重")
+    @NumberFormat(pattern = "#.##")
+    @Column(name = "JIELIAODOU_YUZHONG1")
+    private Float jieliaodouYuzhong1;
+
+    @Comment("2#机器人接料斗余重")
+    @NumberFormat(pattern = "#.##")
+    @Column(name = "JIELIAODOU_YUZHONG2")
+    private Float jieliaodouYuzhong2;
+
+    @Comment("3#机器人接料斗余重")
+    @NumberFormat(pattern = "#.##")
+    @Column(name = "JIELIAODOU_YUZHONG3")
+    private Float jieliaodouYuzhong3;
+
+    @Comment("2#机器人接料斗余重")
+    @NumberFormat(pattern = "#.##")
+    @Column(name = "JIELIAODOU_YUZHONG4")
+    private Float jieliaodouYuzhong4;
+
+    public Float getJieliaodouYuzhong4() {
+        return jieliaodouYuzhong4;
+    }
+
+    public void setJieliaodouYuzhong4(Float jieliaodouYuzhong4) {
+        this.jieliaodouYuzhong4 = jieliaodouYuzhong4;
+    }
+
+    public Float getJieliaodouYuzhong3() {
+        return jieliaodouYuzhong3;
+    }
+
+    public void setJieliaodouYuzhong3(Float jieliaodouYuzhong3) {
+        this.jieliaodouYuzhong3 = jieliaodouYuzhong3;
+    }
+
+    public Float getJieliaodouYuzhong2() {
+        return jieliaodouYuzhong2;
+    }
+
+    public void setJieliaodouYuzhong2(Float jieliaodouYuzhong2) {
+        this.jieliaodouYuzhong2 = jieliaodouYuzhong2;
+    }
+
+    public Float getJieliaodouYuzhong1() {
+        return jieliaodouYuzhong1;
+    }
+
+    public void setJieliaodouYuzhong1(Float jieliaodouYuzhong1) {
+        this.jieliaodouYuzhong1 = jieliaodouYuzhong1;
+    }
+
+    @Comment("量水罐液位")
+    @NumberFormat(pattern = "##.##")
+    @Column(name = "LIANGSHUIGUAN_YEWEI")
+    private Float liangshuiguanYewei;
+
+    @Comment("尾酒罐液位")
+    @NumberFormat(pattern = "##.##")
+    @Column(name = "WEIJIUGUAN_YEWEI")
+    private Float weijiuguanYewei;
+
+    @Comment("回收底锅水位")
+    @NumberFormat(pattern = "##.##")
+    @Column(name = "HUISHOU_DIGUO_SHUIWEI")
+    private Float huishouDiguoShuiwei;
+
+    @Comment("丢糟尾酒罐液位")
+    @NumberFormat(pattern = "##.##")
+    @Column(name = "DIUZAO_WEIJIUGUAN_YEWEI")
+    private Float diuzaoWeijiuguanYewei;
+
+    public Float getLiangshuiguanYewei() {
+        return liangshuiguanYewei;
+    }
+
+    public void setLiangshuiguanYewei(Float liangshuiguanYewei) {
+        this.liangshuiguanYewei = liangshuiguanYewei;
+    }
+
+    public Float getWeijiuguanYewei() {
+        return weijiuguanYewei;
+    }
+
+    public void setWeijiuguanYewei(Float weijiuguanYewei) {
+        this.weijiuguanYewei = weijiuguanYewei;
+    }
+
+    public Float getHuishouDiguoShuiwei() {
+        return huishouDiguoShuiwei;
+    }
+
+    public void setHuishouDiguoShuiwei(Float huishouDiguoShuiwei) {
+        this.huishouDiguoShuiwei = huishouDiguoShuiwei;
+    }
+
+    public Float getDiuzaoWeijiuguanYewei() {
+        return diuzaoWeijiuguanYewei;
+    }
+
+    public void setDiuZaoWeijiuguanYewei(Float diuzaoWeijiuguanYewei) {this.diuzaoWeijiuguanYewei = diuzaoWeijiuguanYewei;}
 }

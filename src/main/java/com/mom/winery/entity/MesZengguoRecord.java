@@ -1,9 +1,7 @@
 package com.mom.winery.entity;
 
 import io.jmix.core.entity.annotation.JmixGeneratedValue;
-import io.jmix.core.metamodel.annotation.Comment;
-import io.jmix.core.metamodel.annotation.JmixEntity;
-import io.jmix.core.metamodel.annotation.NumberFormat;
+import io.jmix.core.metamodel.annotation.*;
 import jakarta.persistence.*;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
@@ -38,6 +36,14 @@ public class MesZengguoRecord {
     @JoinColumn(name = "ZENGGUO_PHASE_ID")
     @ManyToOne(fetch = FetchType.LAZY)
     private MesZenggouPhaseConfig zengguoPhase;
+
+    @Comment("甑锅主阶段，用于画图")
+    @Column(name = "MAIN_PHASE")
+    private Integer mainPhase;
+
+    @Comment("关联的最终 recordId")
+    @Column(name = "RELATED_RECORD_ID")
+    private Long relatedRecordId;
 
     @Comment("阶段开始时间")
     @Column(name = "MES_START_TIME_TOTAL")
@@ -269,6 +275,22 @@ public class MesZengguoRecord {
     @LastModifiedDate
     @Column(name = "LAST_MODIFIED_DATE")
     private OffsetDateTime lastModifiedDate;
+
+    public Long getRelatedRecordId() {
+        return relatedRecordId;
+    }
+
+    public void setRelatedRecordId(Long relatedRecordId) {
+        this.relatedRecordId = relatedRecordId;
+    }
+
+    public EnumZengguoMainPhase getMainPhase() {
+        return mainPhase == null ? null : EnumZengguoMainPhase.fromId(mainPhase);
+    }
+
+    public void setMainPhase(EnumZengguoMainPhase mainPhase) {
+        this.mainPhase = mainPhase == null ? null : mainPhase.getId();
+    }
 
     public Float getPhaseDuration() {
         return phaseDuration;
@@ -772,5 +794,30 @@ public class MesZengguoRecord {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    @JmixProperty
+    @DependsOnProperties({"mesZengguo", "zengSequence"})
+    public String getZengguoNameAndSequence() {
+        return getMesZengguo().getZengguoName() + " " + getZengSequence();
+    }
+
+    @JmixProperty
+    @DependsOnProperties({"liangshiQtyUp", "liangshiQtyDown"})
+    public Float getLiangshiTotal(){
+        return getLiangshiQtyUp() + getLiangshiQtyDown();
+    }
+
+    @JmixProperty
+    @DependsOnProperties({"zaopeiQtyDown", "zaopeiQtyUp"})
+    public Float getZaopeiTotal(){
+        return getZaopeiQtyDown() + getZaopeiQtyUp();
+    }
+
+    @JmixProperty
+    @DependsOnProperties({"energyQiShangzeng", "energyQiShangzeng"})
+    public Float getEnergyQiTotal(){
+        return getEnergyQiShangzeng() + getEnergyQiShangzeng();
+
     }
 }

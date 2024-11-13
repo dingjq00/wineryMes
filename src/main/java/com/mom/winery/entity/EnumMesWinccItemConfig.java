@@ -14,7 +14,8 @@ public enum EnumMesWinccItemConfig implements EnumClass<String> {
     EMPTY_FULL("EMPTY_FULL"),
     DIUZAO_LIANGZAO("DIUZAO_LIANGZAO"),
     NOTQUALIFIED_QUALIFIED("NOTQUALIFIED_QUALIFIED"),
-    LS_TYPE("LS_TYPE");
+    LS_TYPE("LS_TYPE"),
+    CHUJIAO_HUIJIAO("CHUJIAO_HUIJIAO");
 
     private final String id;
 

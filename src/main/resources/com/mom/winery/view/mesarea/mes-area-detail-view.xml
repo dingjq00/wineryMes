@@ -216,6 +216,7 @@
             </actions>
             <columns>
                 <column property="tanliangjiCode"/>
+                <column property="tanliangjiNo"/>
                 <column property="createdBy"/>
                 <column property="createdDate"/>
                 <column property="lastModifiedBy"/>

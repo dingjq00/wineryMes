@@ -11,6 +11,11 @@
                     <property name="mesArea" fetchPlan="_base">
                         <property name="mesShopfloor" fetchPlan="_base"/>
                     </property>
+                    <property name="resourceZengguo" fetchPlan="_base">
+                        <property name="mesArea" fetchPlan="_base">
+                            <property name="mesShopfloor" fetchPlan="_base"/>
+                        </property>
+                    </property>
                 </property>
                 <property name="resourceZengguo" fetchPlan="_base"/>
                 <property name="currentZhuanyundou" fetchPlan="_base"/>
@@ -48,6 +53,7 @@
             <button id="readBtn" action="mesTanliangjiRecordsDataGrid.read"/>
             <button id="refreshBtn" action="mesTanliangjiRecordsDataGrid.refresh"/>
             <button id="removeBtn" action="mesTanliangjiRecordsDataGrid.remove"/>
+            <button id="changeResorce" text="变化12"/>
             <simplePagination id="pagination" dataLoader="mesTanliangjiRecordsDl"/>
         </hbox>
         <dataGrid id="mesTanliangjiRecordsDataGrid"
@@ -55,7 +61,7 @@
                   minHeight="20em"
                   dataContainer="mesTanliangjiRecordsDc"
                   columnReorderingAllowed="true"
-                  selectionMode="MULTI">
+                  selectionMode="MULTI" multiSort="true">
             <actions>
                 <action id="bulkEdit" type="bulked_edit"/>
                 <action id="create" type="list_create"/>
@@ -67,40 +73,42 @@
                 <action id="remove" type="list_remove"/>
             </actions>
             <columns resizable="true">
-                <column property="mesTanliangji.mesArea"/>
-                <column property="mesTanliangji"/>
-                <column property="resourceZengguo"/>
-                <column property="zengSequence"/>
-                <column property="winccZaopeiQty"/>
-                <column property="winccJiaquQty"/>
-                <column property="winccOutMaxTemp"/>
-                <column property="winccOutMinTemp"/>
-                <column property="winccOutAvgTemp"/>
-                <column property="winccStartTime"/>
-                <column property="winccEndTime"/>
-                <column property="winccDuration"/>
-                <column property="daokeAddQtyDown"/>
-                <column property="liangshiAddQtyDown"/>
-                <column property="zaopeiAddQtyDown"/>
-                <column property="daokeAddQtyUp"/>
-                <column property="liangshiAddQtyUp"/>
-                <column property="zaopeiAddQtyUp"/>
-                <column property="zhengliuDuration"/>
-                <column property="shangzengDuration"/>
-                <column property="zaopeiType"/>
-                <column property="shangzengTotalQty"/>
-                <column property="currentZhuanyundou"/>
-                <column property="winccJiaochiLayer"/>
-                <column property="winccChujiaoTime"/>
-                <column property="winccZaopeiType"/>
-                <column property="winccInputJiaochi"/>
-                <column property="winccStartId"/>
-                <column property="winccEndId"/>
-                <column property="liangshuiAddQty"/>
-                <column property="phaseDuration"/>
-                <column property="lastModifiedDate"/>
-                <column property="phaseStartTime"/>
-                <column property="phaseEndTime"/>
+                <column property="mesTanliangji.mesArea" autoWidth="true"/>
+                <column property="mesTanliangji" autoWidth="true"/>
+                <column property="resourceZengguo" autoWidth="true"/>
+                <column property="zengSequence" autoWidth="true"/>
+                <column property="phaseStartTime" autoWidth="true"/>
+                <column property="phaseEndTime" autoWidth="true"/>
+                <column property="phaseDuration" autoWidth="true"/>
+                <column property="winccZaopeiQty" autoWidth="true"/>
+                <column property="winccJiaquQty" autoWidth="true"/>
+                <column property="winccOutMaxTemp" autoWidth="true"/>
+                <column property="winccOutMinTemp" autoWidth="true"/>
+                <column property="winccOutAvgTemp" autoWidth="true"/>
+                <column property="winccStartTime" autoWidth="true"/>
+                <column property="winccEndTime" autoWidth="true"/>
+                <column property="winccDuration" autoWidth="true"/>
+                <column property="daokeAddQtyDown" autoWidth="true"/>
+                <column property="liangshiAddQtyDown" autoWidth="true"/>
+                <column property="zaopeiAddQtyDown" autoWidth="true"/>
+                <column property="daokeAddQtyUp" autoWidth="true"/>
+                <column property="liangshiAddQtyUp" autoWidth="true"/>
+                <column property="zaopeiAddQtyUp" autoWidth="true"/>
+                <column property="zhengliuDuration" autoWidth="true"/>
+                <column property="shangzengDuration" autoWidth="true"/>
+                <column property="zaopeiType" autoWidth="true"/>
+                <column property="shangzengTotalQty" autoWidth="true"/>
+                <column property="currentZhuanyundou" autoWidth="true"/>
+                <column property="winccJiaochiLayer" autoWidth="true"/>
+                <column property="winccChujiaoTime" autoWidth="true"/>
+                <column property="winccZaopeiType" autoWidth="true"/>
+                <column property="winccInputJiaochi" autoWidth="true"/>
+                <column property="winccStartId" autoWidth="true"/>
+                <column property="winccEndId" autoWidth="true"/>
+                <column property="liangshuiAddQty" autoWidth="true"/>
+
+                <column property="lastModifiedDate" autoWidth="true"/>
+
             </columns>
         </dataGrid>
         <hbox id="lookupActions" visible="false">

@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view"
+      xmlns:c="http://jmix.io/schema/flowui/jpql-condition"
+      title="msg://mesZengSumDataListView.title"
+      focusComponent="mesZengSumDatasDataGrid">
+    <data>
+        <collection id="mesZengSumDatasDc"
+                    class="com.mom.winery.entity.MesZengSumData">
+            <fetchPlan extends="_base">
+                <property name="emptyFull" fetchPlan="_base"/>
+                <property name="chujiaoOrHuijiao" fetchPlan="_base"/>
+                <property name="resourceZengguo" fetchPlan="_base"/>
+            </fetchPlan>
+            <loader id="mesZengSumDatasDl" readOnly="true">
+                <query>
+                    <![CDATA[select e from MesZengSumData e]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+        <urlQueryParameters>
+            <genericFilter component="genericFilter"/>
+            <pagination component="pagination"/>
+        </urlQueryParameters>
+    </facets>
+    <actions>
+        <action id="selectAction" type="lookup_select"/>
+        <action id="discardAction" type="lookup_discard"/>
+    </actions>
+    <layout>
+        <genericFilter id="genericFilter"
+                       dataLoader="mesZengSumDatasDl">
+            <properties include=".*"/>
+        </genericFilter>
+        <hbox id="buttonsPanel" classNames="buttons-panel">
+            <button id="bulkEditButton" action="mesZengSumDatasDataGrid.bulkEdit"/>
+            <button id="createButton" action="mesZengSumDatasDataGrid.create"/>
+            <button id="editButton" action="mesZengSumDatasDataGrid.edit"/>
+            <button id="excelExportButton" action="mesZengSumDatasDataGrid.excelExport"/>
+            <button id="readButton" action="mesZengSumDatasDataGrid.read"/>
+            <button id="refreshButton" action="mesZengSumDatasDataGrid.refresh"/>
+            <simplePagination id="pagination" dataLoader="mesZengSumDatasDl"/>
+        </hbox>
+        <dataGrid id="mesZengSumDatasDataGrid"
+                  width="100%"
+                  minHeight="20em"
+                  dataContainer="mesZengSumDatasDc"
+                  columnReorderingAllowed="true"
+                  selectionMode="MULTI">
+            <actions>
+                <action id="bulkEdit" type="bulked_edit"/>
+                <action id="create" type="list_create"/>
+                <action id="edit" type="list_edit"/>
+                <action id="excelExport" type="grdexp_excelExport"/>
+                <action id="read" type="list_read"/>
+                <action id="refresh" type="list_refresh"/>
+            </actions>
+            <columns resizable="true">
+                <column property="resourceZengguo.mesArea" autoWidth="true"/>
+                <column property="resourceZengguo" autoWidth="true"/>
+                <column property="zengNo" autoWidth="true"/>
+                <column property="zengStartTime" autoWidth="true"/>
+                <column property="robotUpStartTime" autoWidth="true"/>
+                <column property="kapanStartTime" autoWidth="true"/>
+                <column property="liujiuEndTime" autoWidth="true"/>
+                <column property="zengEndTime" autoWidth="true"/>
+
+                <column property="zengZaopeiType" autoWidth="true"/>
+                <column property="shangzengDuration" autoWidth="true"/>
+                <column property="shangzengLayer" autoWidth="true"/>
+                <column property="shangzengHeight" autoWidth="true"/>
+                <column property="shangzengWeight" autoWidth="true"/>
+                <column property="addHuangshui" autoWidth="true"/>
+                <column property="addJiuwei" autoWidth="true"/>
+                <column property="addHuishou" autoWidth="true"/>
+                <column property="addReshui" autoWidth="true"/>
+                <column property="jiejiuFirstClassDuration" autoWidth="true"/>
+                <column property="jiejiuSecondClassDuration" autoWidth="true"/>
+                <column property="jiejiuThirdClassDuration" autoWidth="true"/>
+                <column property="jiejiuJiuweiDuration" autoWidth="true"/>
+                <column property="jiejiuFeishuiDuration" autoWidth="true"/>
+                <column property="liangshuiAdd" autoWidth="true"/>
+                <column property="haoqiShangzeng" autoWidth="true"/>
+                <column property="haoqiZhengliu" autoWidth="true"/>
+                <column property="zhengliuDuration" autoWidth="true"/>
+                <column property="liujiuZhenzhuDuration" autoWidth="true"/>
+                <column property="liaodouNo" autoWidth="true"/>
+                <column property="liaodouLocation" autoWidth="true"/>
+                <column property="liaodouIsOccupied" autoWidth="true"/>
+                <column property="lastCipTime" autoWidth="true"/>
+                <column property="isCipOverdue" autoWidth="true"/>
+                <column property="emptyFull" autoWidth="true"/>
+                <column property="chujiaoOrHuijiao" autoWidth="true"/>
+                <column property="chujiaoLayer" autoWidth="true"/>
+                <column property="chujiaoJiaochiNo" autoWidth="true"/>
+                <column property="chujiaoTime" autoWidth="true"/>
+                <column property="chujiaoZaopeiType" autoWidth="true"/>
+                <column property="downJiaochiNo" autoWidth="true"/>
+                <column property="downChujiaoTime" autoWidth="true"/>
+                <column property="downChujiaoLayer" autoWidth="true"/>
+                <column property="downZaopeiType" autoWidth="true"/>
+                <column property="downRunliangStartTime" autoWidth="true"/>
+                <column property="downRunliangEndTime" autoWidth="true"/>
+                <column property="downRunliangDuration" autoWidth="true"/>
+                <column property="downIsDurationOk" autoWidth="true"/>
+                <column property="downRunliangWater" autoWidth="true"/>
+                <column property="downZaopeiQty" autoWidth="true"/>
+                <column property="downDaoKe" autoWidth="true"/>
+                <column property="downLiangShi" autoWidth="true"/>
+                <column property="downLiangType" autoWidth="true"/>
+                <column property="upJiaochiNo" autoWidth="true"/>
+                <column property="upChujiaoTime" autoWidth="true"/>
+                <column property="upChujiaoLayer" autoWidth="true"/>
+                <column property="upZaopeiType" autoWidth="true"/>
+                <column property="upRunliangStartTime" autoWidth="true"/>
+                <column property="upRunliangEndTime" autoWidth="true"/>
+                <column property="upRunliangDuration" autoWidth="true"/>
+                <column property="upIsDurationOk" autoWidth="true"/>
+                <column property="upRunliangWater" autoWidth="true"/>
+                <column property="upZaopeiQty" autoWidth="true"/>
+                <column property="upDaoKe" autoWidth="true"/>
+                <column property="upLiangShi" autoWidth="true"/>
+                <column property="upLiangType" autoWidth="true"/>
+
+                <column property="tanliangStartTime" autoWidth="true"/>
+                <column property="tanliangEndTime" autoWidth="true"/>
+                <column property="tanliangDuration" autoWidth="true"/>
+                <column property="tanliangOutLayer" autoWidth="true"/>
+                <column property="tanliangPoolInNo" autoWidth="true"/>
+                <column property="tanliangChujiaoTime" autoWidth="true"/>
+                <column property="tanliangZaopeiType" autoWidth="true"/>
+                <column property="tanliangZaopeiWeight" autoWidth="true"/>
+                <column property="tanliangJiaquWeight" autoWidth="true"/>
+                <column property="tanliangMaxTemp" autoWidth="true"/>
+                <column property="tanliangMinTemp" autoWidth="true"/>
+                <column property="tanliangAvgTemp" autoWidth="true"/>
+                <column property="zaopeiType" autoWidth="true"/>
+            </columns>
+        </dataGrid>
+        <hbox id="lookupActions" visible="false">
+            <button id="selectButton" action="selectAction"/>
+            <button id="discardButton" action="discardAction"/>
+        </hbox>
+    </layout>
+</view>

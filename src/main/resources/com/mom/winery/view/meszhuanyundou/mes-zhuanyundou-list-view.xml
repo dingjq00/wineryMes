@@ -8,6 +8,12 @@
                     class="com.mom.winery.entity.MesZhuanyundou">
             <fetchPlan extends="_base">
                 <property name="mesArea" fetchPlan="_base"/>
+                <property name="currentLocation" fetchPlan="_base"/>
+                <property name="fullOrEmpty" fetchPlan="_base"/>
+                <property name="chujiaozaoOrHuijiaoZao" fetchPlan="_base"/>
+                <property name="huijiaoJiaochi" fetchPlan="_base"/>
+                <property name="chujiaoJiaochi" fetchPlan="_base"/>
+                <property name="mesShopfloor" fetchPlan="_base"/>
             </fetchPlan>
             <loader id="mesZhuanyundousDl" readOnly="true">
                 <query>
@@ -56,10 +62,33 @@
                 <action id="refresh" type="list_refresh"/>
             </actions>
             <columns resizable="true">
-                <column property="mesArea.mesShopfloor"/>
-                <column property="mesArea"/>
-                <column property="zhuanyundouName"/>
-                <column property="zhuanyundouNo"/>
+                <column property="mesArea.mesShopfloor" autoWidth="true"/>
+                <column property="mesArea" autoWidth="true"/>
+                <column property="zhuanyundouName" autoWidth="true"/>
+                <column property="zhuanyundouNo" autoWidth="true"/>
+                <column property="wincc_No" autoWidth="true"/>
+                <column property="currentLocation" autoWidth="true"/>
+                <column property="fullOrEmpty" autoWidth="true"/>
+                <column property="chujiaozaoOrHuijiaoZao" autoWidth="true"/>
+                <column property="huijiaoTanliangDuration" autoWidth="true"/>
+                <column property="huijiaoJiaochiLayer" autoWidth="true"/>
+                <column property="huijiaoJiaochi" autoWidth="true"/>
+                <column property="huijiaoChujiaoTime" autoWidth="true"/>
+                <column property="huijiaoZaopeiType" autoWidth="true"/>
+                <column property="huijiaoQufeiQty" autoWidth="true"/>
+                <column property="huijiaoZaopeiQty" autoWidth="true"/>
+                <column property="huijiaoChukouMaxTemp" autoWidth="true"/>
+                <column property="huijiaoChukouMinTemp" autoWidth="true"/>
+                <column property="huijiaoTanliangStartTime" autoWidth="true"/>
+                <column property="huijiaoChukouAvgTemp" autoWidth="true"/>
+                <column property="chujiaoJiaochiLayer" autoWidth="true"/>
+                <column property="chujiaoJiaochi" autoWidth="true"/>
+                <column property="chujiaoTime" autoWidth="true"/>
+                <column property="chujiaoZaopeiType" autoWidth="true"/>
+                <column property="winccUpdateId" autoWidth="true"/>
+                <column property="winccUpdateTime" autoWidth="true"/>
+                <column property="lastModifiedDate" autoWidth="true"/>
+                <column property="mesShopfloor"/>
             </columns>
         </dataGrid>
         <hbox id="lookupActions" visible="false">

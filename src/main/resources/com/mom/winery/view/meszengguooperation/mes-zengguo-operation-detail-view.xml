@@ -155,6 +155,8 @@
                 <column property="liujiuAddZhengzhuDuration" autoWidth="true"/>
                 <column property="phaseStartWinccId" autoWidth="true"/>
                 <column property="phaseEndWinccId" autoWidth="true"/>
+                <column property="mainPhase"/>
+                <column property="relatedRecordId"/>
             </columns>
         </dataGrid>
     </layout>

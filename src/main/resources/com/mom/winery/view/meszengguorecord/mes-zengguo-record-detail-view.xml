@@ -180,6 +180,8 @@
                     <action id="entityClear" type="entity_clear"/>
                 </actions>
             </entityPicker>
+            <select id="mainPhaseField" property="mainPhase"/>
+            <textField id="relatedRecordIdField" property="relatedRecordId"/>
         </formLayout>
         <hbox id="detailActions">
             <button id="saveAndCloseBtn" action="saveAction"/>

@@ -74,6 +74,7 @@
             <textField id="winccStartIdField" property="winccStartId"/>
             <textField id="liangshuiAddQtyField" property="liangshuiAddQty"/>
             <dateTimePicker id="startTimeField" property="winccUpdateTime"/>
+            <textField id="tanliangjiNoField" property="tanliangjiNo"/>
         </formLayout>
         <hbox id="detailActions">
             <button id="saveAndCloseBtn" action="saveAction"/>

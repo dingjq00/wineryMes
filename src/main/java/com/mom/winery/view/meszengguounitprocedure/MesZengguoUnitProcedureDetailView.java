@@ -43,6 +43,4 @@ public class MesZengguoUnitProcedureDetailView extends StandardDetailView<MesZen
         mesZengguoOperationsDl.setParameters(mesZengguoOperationsDlParams);
         mesZengguoOperationsDl.load();
     }
-
-
 }
