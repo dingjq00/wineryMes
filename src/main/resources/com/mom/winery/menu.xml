@@ -33,7 +33,6 @@
               title="msg://com.mom.winery.view.meszhuanyundourecord/mesZhuanyundouRecordListView.title"/>
 
 
-
     </menu>
     <menu id="executeRecords" title="msg://com.mom.winery/menu.executeRecords.title" opened="true">
         <item view="MesRunliangdouOperation.list"

@@ -1,5 +1,6 @@
 package com.mom.winery.view.meszengguorecord;
 
+import com.mom.winery.entity.MesZengSumData;
 import com.mom.winery.entity.MesZengguoRecord;
 import com.mom.winery.entity.MesZengguoUnitProcedure;
 import com.mom.winery.view.main.MainView;
@@ -7,6 +8,7 @@ import com.mom.winery.view.meszengguounitprocedure.MesZengguoMultiAnalysisView;
 import com.vaadin.flow.component.ClickEvent;
 import com.vaadin.flow.router.QueryParameters;
 import com.vaadin.flow.router.Route;
+import io.jmix.core.DataManager;
 import io.jmix.flowui.Notifications;
 import io.jmix.flowui.ViewNavigators;
 import io.jmix.flowui.component.grid.DataGrid;
@@ -41,6 +43,8 @@ public class MesZengguoRecordAnalysisListView extends StandardListView<MesZenggu
     private Notifications notifications;
     @Autowired
     private ViewNavigators viewNavigators;
+    @Autowired
+    private DataManager dataManager;
 
     @Subscribe
     public void onInit(final InitEvent event) {
@@ -50,7 +54,19 @@ public class MesZengguoRecordAnalysisListView extends StandardListView<MesZenggu
 
         mesZengguoRecordsDl.setParameter("endTimeTall1",startTimeDate);
         mesZengguoRecordsDl.load();
-
+//        List<MesZengguoRecord> mesZengguoRecordList = mesZengguoRecordsDl.getContainer().getItems();
+//        for (MesZengguoRecord zengguoRecord : mesZengguoRecordList) {
+//            MesZengSumData sumDataRecord = dataManager.load(MesZengSumData.class)
+//                    .query("select e from MesZengSumData e where e.zengStartTime = :startTime " +
+//                            "and  e.resourceZengguo = :mesZengguo " +
+//                            "and e.zengNo = :zengSequence ")
+//                    .parameter("startTime", zengguoRecord.getStartTimeTotal())
+//                    .parameter("mesZengguo", zengguoRecord.getMesZengguo())
+//                    .parameter("zengSequence", zengguoRecord.getZengSequence())
+//                    .optional()
+//                    .orElse(null);
+//            zengguoRecord.setSumDataRecord(sumDataRecord);
+//        }
     }
 
     @Subscribe(id = "zengguoAnalysis", subject = "clickListener")

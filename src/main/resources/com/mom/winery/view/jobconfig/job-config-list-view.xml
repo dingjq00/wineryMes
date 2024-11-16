@@ -42,6 +42,7 @@
             <button id="jsonExportBtn" action="jobConfigsDataGrid.jsonExport"/>
             <button id="refreshBtn" action="jobConfigsDataGrid.refresh"/>
             <button id="removeBtn" action="jobConfigsDataGrid.remove"/>
+            <button id="createBasicInfo" text="13车间基础数据创建" visible="false"/>
             <simplePagination id="pagination" dataLoader="jobConfigsDl"/>
         </hbox>
         <dataGrid id="jobConfigsDataGrid"

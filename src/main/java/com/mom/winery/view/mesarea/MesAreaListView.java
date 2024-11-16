@@ -48,7 +48,7 @@ public class MesAreaListView extends StandardListView<MesArea> {
         }
         List<MesArea> mesAreas = dataManager.load(MesArea.class)
                 .query("select e from MesArea e where e.mesShopfloor.mesShopfloorCode = :shopFloorCode")
-                .parameter("shopFloorCode", "12车间")
+                .parameter("shopFloorCode", "13车间")
                 .list();
         List<MesRunliangdou> mesRunliangdous = dataManager.load(MesRunliangdou.class)
                 .query("select e from MesRunliangdou e where e.mesArea = :mesArea " +
@@ -92,7 +92,12 @@ public class MesAreaListView extends StandardListView<MesArea> {
                 MesZengguo zengguoNew = dataManager.create(MesZengguo.class);
                 zengguoNew.setMesArea(area);
                 zengguoNew.setZengguoCode(zengguo.getZengguoCode());
-                zengguoNew.setZengguoName(zengguo.getZengguoName());
+                String zengguoName11 = zengguo.getZengguoName();
+                if(zengguoName11.contains("11车间")){
+                    zengguoName11 = zengguoName11.replace("11车间","13车间");
+                }
+
+                zengguoNew.setZengguoName(zengguoName11);
                 zengguoNew.setZengSequence(zengguo.getZengSequence());
                 zengguos.add(zengguoNew);
             }

@@ -83,7 +83,7 @@ public class ZengguoDeviceJob implements Job {
                             "order by e.winccId")
                     .parameter("areaCode", areaCode)
                     .parameter("currentWinccId", currentWinccId)
-                    .maxResults(1000)
+                    .maxResults(10000)
                     .list();
             if (winccZengdeviceList.isEmpty()) {
                 continue;

@@ -1,5 +1,6 @@
 package com.mom.winery.view.meszengguorecord;
 
+import com.mom.winery.app.WinccDataDealCommons;
 import com.mom.winery.entity.*;
 import com.mom.winery.view.main.MainView;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
@@ -26,6 +27,7 @@ import io.jmix.flowui.view.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.cassandra.CassandraProperties;
 
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 
@@ -51,6 +53,8 @@ public class MesZengguoRecordAnalysisiListView extends StandardListView<MesZengg
     private UiComponents uiComponents;
     @ViewComponent
     private VerticalLayout shangzengRealDataVerticalLayout;
+    @Autowired
+    private WinccDataDealCommons winccDataDealCommons;
 
     public List<Long> getRecordIds() {
         return recordIds;
@@ -74,7 +78,20 @@ public class MesZengguoRecordAnalysisiListView extends StandardListView<MesZengg
         List<MesZengguoRecord> mesZengguoRecordList = mesZengguoRecordsDl.getContainer().getItems();
         List<MesZengguoRealDataV2> mesZengguoRealDataList = new ArrayList<>();
         List<MesZengguoRecord> totalRecordList = new ArrayList<>();
+
         for (MesZengguoRecord mesZengguoRecord : mesZengguoRecordList) {
+            // 找对应的 sumdata
+            MesZengSumData sumData = dataManager.load(MesZengSumData.class)
+                    .query("select e from MesZengSumData e " +
+                            "where e.zengStartTime = :startTime " +
+                            "and e.resourceZengguo = :mesZengguo " +
+                            "and e.zengNo = :zengSequence ")
+                    .parameter("startTime", mesZengguoRecord.getStartTimeTotal())
+                    .parameter("mesZengguo", mesZengguoRecord.getMesZengguo())
+                    .parameter("zengSequence", mesZengguoRecord.getZengSequence())
+                    .optional()
+                    .orElse(null);
+            mesZengguoRecord.setSumDataRecord(sumData);
             MesZengguo mesZengguo = mesZengguoRecord.getMesZengguo();
             List<MesZengguoRealDataV2> realDataList = dataManager.load(MesZengguoRealDataV2.class)
                     .query("select e from MesZengguoRealDataV2 e " +
@@ -90,17 +107,14 @@ public class MesZengguoRecordAnalysisiListView extends StandardListView<MesZengg
                 mesZengguoRealDataV2.setMesZengguoRecord(mesZengguoRecord);
             }
 
-
             List<MesZengguoRecord> allRecordList = dataManager.load(MesZengguoRecord.class)
                     .query("select e from MesZengguoRecord e " +
                             "where e.mesZengguo = :mesZengguo " +
                             " and e.zengSequence = :zengSequence " +
-                            " and e.startTimeTotal >= :startTime " +
-                            " and e.startTimeTotal < :endTime " )
+                            " and e.startTimeTotal = :startTime "  )
                     .parameter("mesZengguo", mesZengguo)
                     .parameter("zengSequence", mesZengguoRecord.getZengSequence())
                     .parameter("startTime", mesZengguoRecord.getStartTimeTotal())
-                    .parameter("endTime", mesZengguoRecord.getEndTimeTall() == null ? new Date() : mesZengguoRecord.getEndTimeTall())
                     .list();
             for (MesZengguoRecord record : allRecordList) {
                 record.setRelatedRecordId(mesZengguoRecord.getId());
@@ -144,6 +158,9 @@ public class MesZengguoRecordAnalysisiListView extends StandardListView<MesZengg
         // 溜酒曲线
         getLiujiuQuxian(mesZengguoRecordList, mesZengguoRealDataList,totalRecordList);
 
+        // 按照wincc 实际进行溜酒
+//        getLiujiuQuxianV2(mesZengguoRecordList, mesZengguoRealDataList,totalRecordList);
+
         // 蒸煮曲线
         getZhengzhuQuxian(mesZengguoRecordList, mesZengguoRealDataList,totalRecordList);
 
@@ -154,7 +171,11 @@ public class MesZengguoRecordAnalysisiListView extends StandardListView<MesZengg
 
     private void getTanliangQuxian(List<MesZengguoRecord> zengguoRecords) {
         for (MesZengguoRecord zengguoRecord : zengguoRecords) {
-            Date phaseEndTimeTotal = zengguoRecord.getPhaseEndTimeTotal();
+            Date phaseEndTimeTotal = zengguoRecord.getEndTimeTall();
+            Date minEnd = winccDataDealCommons.convertStringToDate("2022/10/30 00:01:00");
+            if(phaseEndTimeTotal.before(minEnd)){
+                continue;
+            }
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(phaseEndTimeTotal);
             calendar.add(Calendar.HOUR, 4);
@@ -187,18 +208,40 @@ public class MesZengguoRecordAnalysisiListView extends StandardListView<MesZengg
             chart.withTitle(title);
 
             MesTanliangjiRecord mesTanliangjiRecord = mesTanliangjiRecordList.getFirst();
+
+
+            Date tanliangStartTime = mesTanliangjiRecord.getPhaseStartTime();
+            Date tanliangEndTime = mesTanliangjiRecord.getPhaseEndTime();
+            if(zengguoRecord.getSumDataRecord()!= null ){
+                Date minDate = winccDataDealCommons.convertStringToDate("2022/10/30 00:01:00");
+                if(zengguoRecord.getSumDataRecord().getTanliangStartTime().compareTo(minDate) > 0 && zengguoRecord.getSumDataRecord().getTanliangEndTime().compareTo(minDate) > 0){
+                    tanliangStartTime = zengguoRecord.getSumDataRecord().getTanliangStartTime();
+                    tanliangEndTime = zengguoRecord.getSumDataRecord().getTanliangEndTime();
+                }
+            }
+
             List<MesTanliangRealDataV2> mesTanliangRealDataList = dataManager.load(MesTanliangRealDataV2.class)
                     .query("select e from MesTanliangRealDataV2 e " +
                             "where e.mesArea = :mesArea " +
                             "and e.mesTanliangji = :mesTanliangji " +
-                            "and e.winccUpdateId >= :phaseStartWinccId " +
-                            "and e.winccUpdateId <= :phaseEndWinccId " +
+                            "and e.winccUpdateTime >= :phaseStartTime " +
+                            "and e.winccUpdateTime <= :phaseEndTime " +
                             "order by e.winccUpdateId")
                     .parameter("mesArea", zengguoRecord.getMesZengguo().getMesArea())
                     .parameter("mesTanliangji", mesTanliangjiRecord.getMesTanliangji())
-                    .parameter("phaseStartWinccId", mesTanliangjiRecord.getWinccStartId())
-                    .parameter("phaseEndWinccId", mesTanliangjiRecord.getWinccEndId())
+                    .parameter("phaseStartTime", tanliangStartTime)
+                    .parameter("phaseEndTime", tanliangEndTime)
                     .list();
+            // mesTanliangRealDataList从第一大于4的开始截取
+            int startIndex = 0;
+            for(int i=0;i<mesTanliangRealDataList.size();i++){
+                MesTanliangRealDataV2 mesTanliangRealData = mesTanliangRealDataList.get(i);
+                if(mesTanliangRealData.getTangliangGeiliaojiLiusu() > 5){
+                    startIndex = i;
+                    break;
+                }
+            }
+            mesTanliangRealDataList = mesTanliangRealDataList.subList(startIndex,mesTanliangRealDataList.size());
 
             ListChartItems<EntityDataItem> chartItems = new ListChartItems<>();
             for(int i=0;i<mesTanliangRealDataList.size();i++){
@@ -319,7 +362,7 @@ public class MesZengguoRecordAnalysisiListView extends StandardListView<MesZengg
     private void getLiujiuQuxian(List<MesZengguoRecord> mesZengguoRecords, List<MesZengguoRealDataV2> mesZengguoRealDataList,List<MesZengguoRecord> totalRecords) {
         for (MesZengguoRecord zengguoRecord : mesZengguoRecords) {
             Chart chart = uiComponents.create(Chart.class);
-            chart.setMinHeight("30em");
+            chart.setMinHeight("40em");
             ListChartItems<EntityDataItem> chartItems = new ListChartItems<>();
             List<Integer> liujiuList = Arrays.asList(520,521,522,523,524);
 
@@ -338,11 +381,23 @@ public class MesZengguoRecordAnalysisiListView extends StandardListView<MesZengg
             List<MesZengguoRealDataV2> mesZengguoRealDataForUpList = mesZengguoRealDataList.stream()
                     .filter(e -> e.getMesZengguoRecord().equals(zengguoRecord))
                     .filter(e ->e.getWinccUpdateTime().compareTo(minStartTime) >= 0 &&
-                            e.getWinccUpdateTime().compareTo(maxEndTime) <= 0)
+                            e.getWinccUpdateTime().compareTo(maxEndTime) < 0)
                     .filter(e -> liujiuList.contains(e.getMesZengguoMiniRecord().getZengguoPhase().getPhaseNo()))
                     .sorted(Comparator.comparing(MesZengguoRealDataV2::getWinccUpdateTime))
                     .toList();
 
+            // 对于mesZengguoRealDataForUpList中的每一条记录中的甑锅温度，如果开始大于100，则其后续的数据remove 出 list
+            int startIndex = 0;
+            for(int i=0;i<mesZengguoRealDataForUpList.size();i++){
+                MesZengguoRealDataV2 mesZengguoRealData = mesZengguoRealDataForUpList.get(i);
+                if(mesZengguoRealData.getGuoniWendu() > 100){
+                    startIndex = i;
+                    break;
+                }
+            }
+            if(startIndex > 0){
+                mesZengguoRealDataForUpList = mesZengguoRealDataForUpList.subList(0,startIndex);
+            }
             Integer jiutouStart = -1;
             Integer jiutouEnd = -1;
             Integer firstClassStart = -1;
@@ -417,9 +472,35 @@ public class MesZengguoRecordAnalysisiListView extends StandardListView<MesZengg
                 }
                 chartItems.addItem(new EntityDataItem(mesZengguoRealData));
             }
+
+            int initialSize = chartItems.getItems().size();
+            if(initialSize <= 120){
+                int dev = 120 - initialSize;
+                for(int i = 0; i < dev; i++){
+                    MesZengguoRealDataV2 mesZengguoRealData = dataManager.create(MesZengguoRealDataV2.class);
+                    mesZengguoRealData.setTempIndex(initialSize + i);
+                    chartItems.addItem(new EntityDataItem(mesZengguoRealData));
+                }
+            }
+
+            // Create a SimpleDateFormat instance with the desired format
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+
+            // Format the date
+            String formattedDate = dateFormat.format(zengguoRecord.getStartTimeKagai());
+
             String chartTitle = "接酒阶段状况：" + "\n "
-                    + "甑锅：" + zengguoRecord.getMesZengguo().getZengguoName() + "\n"
-                    + "甑序：" + zengguoRecord.getZengSequence() + "\n";
+                    +"甑锅：" + zengguoRecord.getMesZengguo().getZengguoName() + "\n"
+                    +"甑序：" + zengguoRecord.getZengSequence() + "   " + formattedDate +"\n " +
+                    "装甑效率：" + String.format("%.3f", zengguoRecord.getShangzengXiaolv()) + "\n" +
+                    "一二级斜率：" + String.format("%.3f", zengguoRecord.getShangzengXielv()) + "\n" +
+                    "二级斜率：" + String.format("%.3f", zengguoRecord.getShangzengSecondClassXielv()) + "\n" +
+                    "二级三级斜率：" + String.format("%.3f", zengguoRecord.getShangzengSecondThirdXielv()) + "\n" +
+                    "三级斜率：" + String.format("%.3f", zengguoRecord.getShangzengThirdClassXielv()) + "\n" +
+                    "一至三级斜率：" + String.format("%.3f", zengguoRecord.getShangzengfirstThirdXielv()) + "\n" +
+                    "各级酒级时长：" + String.format("%.3f", zengguoRecord.getJiejiuDurationFirstClass()) + " - " + String.format("%.3f", zengguoRecord.getJiejiuDurationSecondClass())+ " - "
+                    + String.format("%.3f", zengguoRecord.getJiejiuDurationThirdClass()) + "\n" ;
+
 //            if(jiuweiStart !=  -1) {
 //                chartTitle = chartTitle + "酒头：" + jiutouStart + "-" + jiutouEnd + "\n";
 //            }
@@ -467,7 +548,7 @@ public class MesZengguoRecordAnalysisiListView extends StandardListView<MesZengg
 
             chart.withYAxis(new YAxis().withMax("30").withMin("15").withName("出酒温度").withPosition(AbstractCartesianAxis.Position.RIGHT));
 
-            chart.withYAxis(new YAxis().withMax("102").withMin("70").withName("锅内温度").withPosition(AbstractCartesianAxis.Position.RIGHT).withOffset(50));
+            chart.withYAxis(new YAxis().withMax("102").withMin("80").withName("锅内温度").withPosition(AbstractCartesianAxis.Position.RIGHT).withOffset(50));
 
             LineSeries lineSeries3 = new LineSeries().withName("蒸汽压力").withYAxisIndex(0);
 
@@ -489,12 +570,218 @@ public class MesZengguoRecordAnalysisiListView extends StandardListView<MesZengg
                 piecewiseVisualMap.setPieces(pieces);
                 chart.withVisualMap(piecewiseVisualMap);
             }
-            chart.withSeries(lineSeries3,lineSeries5,lineSeries6,lineSeries7);
+            chart.withSeries(lineSeries3,lineSeries5,lineSeries6);
 
             shangzengRealDataVerticalLayout.add(chart);
         }
     }
 
+
+    private void getLiujiuQuxianV2(List<MesZengguoRecord> mesZengguoRecords, List<MesZengguoRealDataV2> mesZengguoRealDataList,List<MesZengguoRecord> totalRecords) {
+        for (MesZengguoRecord zengguoRecord : mesZengguoRecords) {
+            MesZengguoRecord zhengzhuRecord = totalRecords.stream()
+                    .filter(e -> e.getRelatedRecordId().equals(zengguoRecord.getId()))
+//                    .filter(e -> e.getMainPhase().equals(EnumZengguoMainPhase.ZHENGZHU_CHONGSUAN))
+                    .filter(e -> e.getZengguoPhase().getPhaseNo().equals(525))
+                    .min(Comparator.comparing(MesZengguoRecord::getPhaseStartTimeTotal))
+                    .orElse(null);
+            if(zhengzhuRecord == null){
+                return;
+            }
+            // 卡盘溜酒开始时间
+            Date kapanLiujiuStartTime = zhengzhuRecord.getStartTimeKagai();
+            // 溜酒结束时间
+            Date liujiuEndTime = zhengzhuRecord.getEndTimeLiujiu();
+            // 计算开始结束总时长
+            float liujiuTotalDuration = (float) ((liujiuEndTime.getTime() - kapanLiujiuStartTime.getTime()) / 1000) / 60;
+            // 酒头溜酒时长(分钟为单位)
+            float jiutouDuration = liujiuTotalDuration - (zhengzhuRecord.getJiejiuDurationFirstClass() + zhengzhuRecord.getJiejiuDurationSecondClass()
+                    + zhengzhuRecord.getJiejiuDurationThirdClass() + zhengzhuRecord.getJiejiuDurationFeishui()) ;
+            // 一级酒开始时间 = 卡盘溜酒开始时间 +  酒头溜酒时长
+            Date firstClassStartTime = new Date(kapanLiujiuStartTime.getTime() + (long) (jiutouDuration * 60 * 1000));
+            Date secondClassStartTime = new Date(firstClassStartTime.getTime() + (long) (zhengzhuRecord.getJiejiuDurationFirstClass() * 60 * 1000));
+            Date thirdClassStartTime = new Date(secondClassStartTime.getTime() + (long) (zhengzhuRecord.getJiejiuDurationSecondClass() * 60 * 1000));
+            Date jiuweiStartTime = new Date(thirdClassStartTime.getTime() + (long) (zhengzhuRecord.getJiejiuDurationThirdClass() * 60 * 1000));
+
+            Chart chart = uiComponents.create(Chart.class);
+            chart.setMinHeight("30em");
+            ListChartItems<EntityDataItem> chartItems = new ListChartItems<>();
+
+            List<MesZengguoRealDataV2> mesZengguoRealDataV2List = mesZengguoRealDataList.stream()
+                    .filter(e -> e.getMesZengguo().equals(zengguoRecord.getMesZengguo()))
+                    .filter(e -> e.getWinccUpdateTime().compareTo(kapanLiujiuStartTime) >= 0 &&
+                            e.getWinccUpdateTime().compareTo(liujiuEndTime) <= 0)
+                    .sorted(Comparator.comparing(MesZengguoRealDataV2::getWinccUpdateTime))
+                    .toList();
+
+            int jiutouStart = -1;
+            int jiutouEnd = -1;
+            int firstClassStart = -1;
+            int firstClassEnd = -1;
+            int secondClassStart = -1;
+            int secondClassEnd = -1;
+            int thirdClassStart = -1;
+            int thirdClassEnd = -1;
+            int jiuweiStart = -1;
+            int jiuweiEnd = -1;
+            for(int i=0;i<mesZengguoRealDataV2List.size();i++){
+                MesZengguoRealDataV2 mesZengguoRealData = mesZengguoRealDataV2List.get(i);
+                mesZengguoRealData.setTempIndex2(i);
+                Date winccUpdateTime = mesZengguoRealData.getWinccUpdateTime();
+                int jiuGrade = -1;
+                if(winccUpdateTime.compareTo(kapanLiujiuStartTime) >= 0 && winccUpdateTime.compareTo(firstClassStartTime) < 0){
+                    jiuGrade = 0;
+                }
+                if(winccUpdateTime.compareTo(firstClassStartTime) >= 0 && winccUpdateTime.compareTo(secondClassStartTime) < 0){
+                    jiuGrade = 1;
+                }
+                if(winccUpdateTime.compareTo(secondClassStartTime) >= 0 && winccUpdateTime.compareTo(thirdClassStartTime) < 0){
+                    jiuGrade = 2;
+                }
+                if(winccUpdateTime.compareTo(thirdClassStartTime) >= 0 && winccUpdateTime.compareTo(jiuweiStartTime) < 0){
+                    jiuGrade = 3;
+                }
+                if (winccUpdateTime.compareTo(jiuweiStartTime) >= 0 && winccUpdateTime.compareTo(liujiuEndTime) <= 0){
+                    jiuGrade = 4;
+                }
+                switch (jiuGrade){
+                    case 0: // 酒头
+                        if(jiutouStart == -1){jiutouStart = i;}
+                        break;
+                    case 1: // 一级
+                        if(firstClassStart == -1){
+                            firstClassStart = i;
+                            if(jiutouEnd == -1){
+                                jiutouEnd = i - 1;
+                            }
+                        }
+                        break;
+                    case 2: // 二级
+                        if(secondClassStart == -1){
+                            secondClassStart = i;
+                            if(jiutouEnd == -1){
+                                jiutouEnd = i - 1;
+                            }
+                            if(firstClassEnd == -1){
+                                firstClassEnd = i - 1;
+                            }
+                        }
+                        break;
+                    case 3: // 三级
+                        if(thirdClassStart == -1){
+                            thirdClassStart = i;
+                            if(jiutouEnd == -1){
+                                jiutouEnd = i - 1;
+                            }
+                            if(firstClassEnd == -1){
+                                firstClassEnd = i - 1;
+                            }
+                            if(secondClassEnd == -1){
+                                secondClassEnd = i - 1;
+                            }
+                        }
+//                        thirdClassEnd = i;
+                        break;
+                    case 4: // 酒尾
+                        if(jiuweiStart == -1){
+                            jiuweiStart = i;
+                            if(jiutouEnd == -1){
+                                jiutouEnd = i - 1;
+                            }
+                            if(firstClassEnd == -1){
+                                firstClassEnd = i - 1;
+                            }
+                            if(secondClassEnd == -1){
+                                secondClassEnd = i - 1;
+                            }
+                            if(thirdClassEnd == -1){
+                                thirdClassEnd = i - 1;
+                            }
+                        }
+                        jiuweiEnd = i;
+                        break;
+                }
+                chartItems.addItem(new EntityDataItem(mesZengguoRealData));
+            }
+
+            int initialSize = chartItems.getItems().size();
+            if(initialSize <= 120){
+                int dev = 120 - initialSize;
+                for(int i = 0; i < dev; i++){
+                    MesZengguoRealDataV2 mesZengguoRealData = dataManager.create(MesZengguoRealDataV2.class);
+                    mesZengguoRealData.setTempIndex2(initialSize + i);
+                    chartItems.addItem(new EntityDataItem(mesZengguoRealData));
+                }
+            }
+            // Create a SimpleDateFormat instance with the desired format
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+
+            // Format the date
+            String formattedDate = dateFormat.format(zengguoRecord.getStartTimeKagai());
+
+            String chartTitle = "接酒阶段状况：" + "\n "
+                    + "甑锅：" + zengguoRecord.getMesZengguo().getZengguoName() + "\n"
+                    + "甑序：" + zengguoRecord.getZengSequence() + "   " + formattedDate +"\n " +
+                    " 装甑效率：" + String.format("%.3f", zengguoRecord.getShangzengXiaolv()) + "\n" +
+                    " 一二级斜率：" + String.format("%.3f", zengguoRecord.getShangzengXielv()) + "\n" +
+                    "各级酒级时长：" + String.format("%.3f", zengguoRecord.getJiejiuDurationFirstClass()) + " - " + String.format("%.3f", zengguoRecord.getJiejiuDurationSecondClass())+ " - "
+                    + String.format("%.3f", zengguoRecord.getJiejiuDurationThirdClass()) ;
+
+            Title title = new Title().withText(chartTitle).withShow(true);
+            chart.setTitle(title);
+
+            chart.withDataSet(
+                    new DataSet().withSource(
+                            new DataSet.Source<EntityDataItem>()
+                                    .withDataProvider(chartItems)
+                                    .withCategoryField("tempIndex2")
+//                                    .withValueFields("zhengqiKaidu","zhengqiShunshiLiuliang","lengningKaidu","zhengqiYali","guoniWendu","chujiuWendu","diguoShuiwen")
+                                    .withValueFields("zhengqiYali","guoniWendu","diguoShuiwen")
+                    )
+            );
+            Tooltip tooltip = new Tooltip();
+            tooltip.setTrigger(AbstractTooltip.Trigger.AXIS);
+            AbstractTooltip.AxisPointer axisPointer = new AbstractTooltip.AxisPointer();
+            axisPointer.setType(AbstractTooltip.AxisPointer.IndicatorType.CROSS);
+            tooltip.setAxisPointer(axisPointer);
+            chart.setTooltip(tooltip);
+
+            Legend legend = new Legend();
+            chart.withLegend(legend);
+            XAxis xAxis = new XAxis();
+            chart.withXAxis(xAxis);
+            YAxis yAxis = new YAxis().withName("蒸汽压力");
+            chart.withYAxis(yAxis);
+
+//            chart.withYAxis(new YAxis().withMax("30").withMin("15").withName("出酒温度").withPosition(AbstractCartesianAxis.Position.RIGHT));
+
+            chart.withYAxis(new YAxis().withMax("102").withMin("80").withName("锅内温度").withPosition(AbstractCartesianAxis.Position.RIGHT).withOffset(50));
+
+            LineSeries lineSeries3 = new LineSeries().withName("蒸汽压力").withYAxisIndex(0);
+
+            LineSeries lineSeries5 = new LineSeries().withName("锅内温度").withYAxisIndex(1);
+//            LineSeries lineSeries6 = new LineSeries().withName("出酒温度").withYAxisIndex(1);
+            LineSeries lineSeries7 = new LineSeries().withName("底锅水温").withYAxisIndex(1);
+            PiecewiseVisualMap piecewiseVisualMap = new PiecewiseVisualMap();
+            List<PiecewiseVisualMap.Piece> pieces = new ArrayList<>();
+            if(firstClassStart != -1){
+                pieces.add(new PiecewiseVisualMap.Piece().withMin(Double.valueOf(firstClassStart)).withMax(Double.valueOf(firstClassEnd)).withColor(Color.RED));
+            }
+            if(secondClassStart != -1){
+                pieces.add(new PiecewiseVisualMap.Piece().withMin(Double.valueOf(secondClassStart)).withMax(Double.valueOf(secondClassEnd)).withColor(Color.GREEN));
+            }
+            if(thirdClassStart != -1){
+                pieces.add(new PiecewiseVisualMap.Piece().withMin(Double.valueOf(thirdClassStart)).withMax(Double.valueOf(thirdClassEnd)).withColor(Color.BLUE));
+            }
+            if(!pieces.isEmpty()){
+                piecewiseVisualMap.setPieces(pieces);
+                chart.withVisualMap(piecewiseVisualMap);
+            }
+            chart.withSeries(lineSeries3,lineSeries5,lineSeries7);
+
+            shangzengRealDataVerticalLayout.add(chart);
+        }
+    }
 
     private void getShangzengQuxian(List<MesZengguoRecord> mesZengguoRecords, List<MesZengguoRealDataV2> mesZengguoRealDataList,List<MesZengguoRecord> totalRecords) {
         for (MesZengguoRecord mesZengguoRecord : mesZengguoRecords) {

@@ -83,6 +83,7 @@
                 <column property="mesZengguoRecord" autoWidth="true"/>
                 <column property="tempIndex" autoWidth="true"/>
                 <column property="mesZengguoMiniRecord"/>
+                <column property="tempIndex2"/>
             </columns>
         </dataGrid>
         <hbox id="lookupActions" visible="false">

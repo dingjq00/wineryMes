@@ -13,6 +13,7 @@
                 <property name="runliangDurationQualifiedDown" fetchPlan="_base"/>
                 <property name="jiaochiUp" fetchPlan="_base"/>
                 <property name="runliangDuarationQualifiedUp" fetchPlan="_base"/>
+                <property name="sumDataRecord" fetchPlan="_base"/>
             </fetchPlan>
             <loader id="mesZengguoRecordsDl" readOnly="true">
                 <query>
@@ -62,10 +63,13 @@
                 <column property="mesZengguo" autoWidth="true"/>
                 <column property="zengSequence" autoWidth="true"/>
                 <column property="zaopeiType" autoWidth="true"/>
-                <column property="phaseStartTimeTotal" autoWidth="true"/>
-                <column property="phaseEndTimeTotal" autoWidth="true"/>
-                <column property="phaseDuration" autoWidth="true"/>
                 <column property="startTimeTotal" autoWidth="true"/>
+                <column property="shangzengXiaolv"/>
+                <column property="shangzengXielv"/>
+                <column property="shangzengSecondClassXielv"/>
+                <column property="shangzengThirdClassXielv"/>
+                <column property="shangzengfirstThirdXielv"/>
+                <column property="shangzengSecondThirdXielv"/>
                 <column property="startTimeDeviceShangZeng" autoWidth="true"/>
                 <column property="startTimeKagai" autoWidth="true"/>
                 <column property="endTimeLiujiu" autoWidth="true"/>
@@ -96,7 +100,6 @@
                 <column property="daokeQtyUp" autoWidth="true"/>
                 <column property="liangshiQtyUp" autoWidth="true"/>
                 <column property="liangshiTypUp" autoWidth="true"/>
-
                 <column property="shangzengLayer" autoWidth="true"/>
                 <column property="shangzengDuration" autoWidth="true"/>
                 <column property="shangzengHeight" autoWidth="true"/>
@@ -117,15 +120,20 @@
                 <column property="liujiuAddZhengzhuDuration" autoWidth="true"/>
                 <column property="phaseStartWinccId" autoWidth="true"/>
                 <column property="phaseEndWinccId" autoWidth="true"/>
-                <column property="mainPhase"/>
-                <column property="relatedRecordId"/>
+<!--                <column property="mainPhase"/>-->
+<!--                <column property="relatedRecordId"/>-->
+                <column property="sumDataRecord"/>
+                <column property="sumDataRecord.tanliangDuration"/>
+                <column property="sumDataRecord.tanliangAvgTemp"/>
+                <column property="sumDataRecord.tanliangMaxTemp"/>
+                <column property="sumDataRecord.tanliangMinTemp"/>
+
             </columns>
         </dataGrid>
         <hbox id="lookupActions" visible="false">
             <button id="selectButton" action="selectAction"/>
             <button id="discardButton" action="discardAction"/>
         </hbox>
-
         <hbox minHeight="26em" width="100%">
             <charts:chart minWidth="50%" minHeight="25em">
                 <charts:tooltip trigger="AXIS">
@@ -133,7 +141,7 @@
                 </charts:tooltip>
                 <charts:legend/>
                 <charts:xAxes>
-                    <charts:xAxis  />
+                    <charts:xAxis/>
                 </charts:xAxes>
                 <charts:yAxes>
                     <charts:yAxis name="出酒量" position="LEFT" alignTicks="true">
@@ -142,12 +150,11 @@
                     </charts:yAxis>
                     <charts:yAxis name="资源投入量" position="RIGHT" alignTicks="true"/>
                 </charts:yAxes>
-
                 <charts:dataSet>
                     <charts:source dataContainer="mesZengguoRecordsDc"
                                    categoryField="zengguoNameAndSequence"
                                    valueFields="jiejiuDurationFirstClass jiejiuDurationSecondClass
-                               jiejiuDurationThirdClass jiejiuDurationJiuwei zaopeiTotal liangshiTotal energyQiTotal"/>
+                               jiejiuDurationThirdClass jiejiuDurationFeishui zaopeiTotal liangshiTotal energyQiTotal"/>
                 </charts:dataSet>
                 <charts:series>
                     <charts:bar name="一级酒" stack="stack" yAxisIndex="0"/>
@@ -160,7 +167,7 @@
                     <charts:bar name="耗气量" yAxisIndex="1"/>
                 </charts:series>
             </charts:chart>
-            <charts:chart minWidth="50%"  minHeight="25em">
+            <charts:chart minWidth="50%" minHeight="25em">
                 <charts:tooltip trigger="AXIS">
                     <charts:axisPointer type="SHADOW"/>
                 </charts:tooltip>
@@ -173,7 +180,6 @@
                     </charts:yAxis>
                     <charts:yAxis name="润粮时长" position="RIGHT" alignTicks="true"/>
                 </charts:yAxes>
-
                 <charts:dataSet>
                     <charts:source dataContainer="mesZengguoRecordsDc"
                                    categoryField="zengguoNameAndSequence"
@@ -189,8 +195,7 @@
                 </charts:series>
             </charts:chart>
         </hbox>
-
-        <hbox width="100%" >
+        <hbox width="100%">
             <charts:chart minHeight="25em">
                 <charts:tooltip trigger="AXIS">
                     <charts:axisPointer type="SHADOW"/>
@@ -203,7 +208,6 @@
                     <charts:yAxis name="添加量" position="LEFT" alignTicks="true">
                     </charts:yAxis>
                 </charts:yAxes>
-
                 <charts:dataSet>
                     <charts:source dataContainer="mesZengguoRecordsDc"
                                    categoryField="zengguoNameAndSequence"
@@ -228,7 +232,6 @@
                     <charts:yAxis name="层数及时长" position="LEFT" alignTicks="true"/>
                     <charts:yAxis name="高度及上甑总重" position="RIGHT" alignTicks="true"/>
                 </charts:yAxes>
-
                 <charts:dataSet>
                     <charts:source dataContainer="mesZengguoRecordsDc"
                                    categoryField="zengguoNameAndSequence"
@@ -242,9 +245,6 @@
                 </charts:series>
             </charts:chart>
         </hbox>
-
-
-
         <vbox id="shangzengRealDataVerticalLayout" minHeight="40em"/>
     </layout>
 </view>

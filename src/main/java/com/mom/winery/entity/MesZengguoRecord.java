@@ -17,7 +17,8 @@ import java.util.Date;
         @Index(name = "IDX_MES_ZENGTONG_RECORD_ZENGGUO_PHASE", columnList = "ZENGGUO_PHASE_ID"),
         @Index(name = "IDX_MES_ZENGGUO_RECORD_MES_ZENGGUO", columnList = "MES_ZENGGUO_ID"),
         @Index(name = "IDX_MES_ZENGGUO_RECORD_RUNLIANG_DURATION_QUALIFIED_DOWN", columnList = "RUNLIANG_DURATION_QUALIFIED_DOWN_ID"),
-        @Index(name = "IDX_MES_ZENGGUO_RECORD_RUNLIANG_DUARATION_QUALIFIED_UP", columnList = "RUNLIANG_DUARATION_QUALIFIED_UP_ID")
+        @Index(name = "IDX_MES_ZENGGUO_RECORD_RUNLIANG_DUARATION_QUALIFIED_UP", columnList = "RUNLIANG_DUARATION_QUALIFIED_UP_ID"),
+        @Index(name = "IDX_MES_ZENGGUO_RECORD_SUM_DATA_RECORD", columnList = "SUM_DATA_RECORD_ID")
 })
 @Entity
 public class MesZengguoRecord {
@@ -60,6 +61,7 @@ public class MesZengguoRecord {
     @Column(name = "PHASE_DURATION")
     private Float phaseDuration;
 
+    @Comment("甑锅任务开始时间")
     @Column(name = "START_TIME_TOTAL")
     @Temporal(TemporalType.TIMESTAMP)
     private Date startTimeTotal;
@@ -189,6 +191,31 @@ public class MesZengguoRecord {
     @Column(name = "SHANGZENG_DURATION")
     private Float shangzengDuration;
 
+    @Comment("装甑效率")
+    @NumberFormat(pattern = "#.00")
+    @Column(name = "SHANGZENG_XIAOLV")
+    private Float shangzengXiaolv;
+
+    @Comment("装甑斜率")
+    @Column(name = "SHANGZENG_XIELV")
+    private Float shangzengXielv;
+
+    @Comment("二级酒斜率")
+    @Column(name = "SHANGZENG_SECOND_CLASS_XIELV")
+    private Float shangzengSecondClassXielv;
+
+    @Comment("三级酒斜率")
+    @Column(name = "SHANGZENG_THIRD_CLASS_XIELV")
+    private Float shangzengThirdClassXielv;
+
+    @Comment("一级至三级斜率")
+    @Column(name = "SHANGZENGFIRST_THIRD_XIELV")
+    private Float shangzengfirstThirdXielv;
+
+    @Comment("二级三级酒斜率")
+    @Column(name = "SHANGZENG_SECOND_THIRD_XIELV")
+    private Float shangzengSecondThirdXielv;
+
     @NumberFormat(pattern = "###.##")
     @Column(name = "SHANGZENG_HEIGHT")
     private Float shangzengHeight;
@@ -275,6 +302,67 @@ public class MesZengguoRecord {
     @LastModifiedDate
     @Column(name = "LAST_MODIFIED_DATE")
     private OffsetDateTime lastModifiedDate;
+
+    @Comment("汇总数据记录")
+    @JoinColumn(name = "SUM_DATA_RECORD_ID")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private MesZengSumData sumDataRecord;
+
+    public void setShangzengSecondThirdXielv(Float shangzengSecondThirdXielv) {
+        this.shangzengSecondThirdXielv = shangzengSecondThirdXielv;
+    }
+
+    public Float getShangzengSecondThirdXielv() {
+        return shangzengSecondThirdXielv;
+    }
+
+    public void setShangzengfirstThirdXielv(Float shangzengfirstThirdXielv) {
+        this.shangzengfirstThirdXielv = shangzengfirstThirdXielv;
+    }
+
+    public Float getShangzengfirstThirdXielv() {
+        return shangzengfirstThirdXielv;
+    }
+
+    public void setShangzengSecondClassXielv(Float shangzengSecondClassXielv) {
+        this.shangzengSecondClassXielv = shangzengSecondClassXielv;
+    }
+
+    public Float getShangzengSecondClassXielv() {
+        return shangzengSecondClassXielv;
+    }
+
+    public Float getShangzengThirdClassXielv() {
+        return shangzengThirdClassXielv;
+    }
+
+    public void setShangzengThirdClassXielv(Float shangzengThirdClassXielv) {
+        this.shangzengThirdClassXielv = shangzengThirdClassXielv;
+    }
+
+    public void setShangzengXielv(Float shangzengXielv) {
+        this.shangzengXielv = shangzengXielv;
+    }
+
+    public Float getShangzengXielv() {
+        return shangzengXielv;
+    }
+
+    public Float getShangzengXiaolv() {
+        return shangzengXiaolv;
+    }
+
+    public void setShangzengXiaolv(Float shangzengXiaolv) {
+        this.shangzengXiaolv = shangzengXiaolv;
+    }
+
+    public MesZengSumData getSumDataRecord() {
+        return sumDataRecord;
+    }
+
+    public void setSumDataRecord(MesZengSumData sumDataRecord) {
+        this.sumDataRecord = sumDataRecord;
+    }
 
     public Long getRelatedRecordId() {
         return relatedRecordId;
@@ -815,7 +903,7 @@ public class MesZengguoRecord {
     }
 
     @JmixProperty
-    @DependsOnProperties({"energyQiShangzeng", "energyQiShangzeng"})
+    @DependsOnProperties({"energyQiShangzeng"})
     public Float getEnergyQiTotal(){
         return getEnergyQiShangzeng() + getEnergyQiShangzeng();
 

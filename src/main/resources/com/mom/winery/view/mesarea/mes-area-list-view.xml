@@ -50,7 +50,7 @@
             <button id="jsonExportBtn" action="mesAreasDataGrid.jsonExport"/>
             <button id="refreshBtn" action="mesAreasDataGrid.refresh"/>
             <button id="removeBtn" action="mesAreasDataGrid.remove"/>
-            <button id="createBasicInfoFor12" text="12车间基础数据创建" visible="false"/>
+            <button id="createBasicInfoFor12" text="13车间基础数据创建" visible="false"/>
             <simplePagination id="pagination" dataLoader="mesAreasDl"/>
         </hbox>
         <dataGrid id="mesAreasDataGrid"
@@ -79,8 +79,8 @@
             <button id="selectBtn" action="selectAction"/>
             <button id="discardBtn" action="discardAction"/>
         </hbox>
-        <superset:dashboard id="dashboard" width="100%" height="100%" embeddedId="9ee62817-a355-419c-8390-db2032ed17d5"
-                            chartControlsVisible="true" filtersExpanded="true" titleVisible="true"/>
+<!--        <superset:dashboard id="dashboard" width="100%" height="100%" embeddedId="9ee62817-a355-419c-8390-db2032ed17d5"-->
+<!--                            chartControlsVisible="true" filtersExpanded="true" titleVisible="true"/>-->
 
     </layout>
 </view>

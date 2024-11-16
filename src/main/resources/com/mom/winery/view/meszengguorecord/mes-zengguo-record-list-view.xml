@@ -13,6 +13,7 @@
                     <property name="mesArea" fetchPlan="_base"/>
                 </property>
                 <property name="zengguoPhase" fetchPlan="_base"/>
+                <property name="sumDataRecord" fetchPlan="_base"/>
             </fetchPlan>
             <loader id="mesZengguoRecordsDl" readOnly="true">
                 <query>
@@ -124,6 +125,21 @@
                 <column property="lastModifiedDate" autoWidth="true"/>
                 <column property="mainPhase"/>
                 <column property="relatedRecordId"/>
+                <column property="sumDataRecord"/>
+                <column property="sumDataRecord.chujiaoZaopeiType"/>
+                <column property="sumDataRecord.zengStartTime"/>
+                <column property="sumDataRecord.zengEndTime"/>
+                <column property="sumDataRecord.jiejiuFirstClassDuration"/>
+                <column property="sumDataRecord.jiejiuSecondClassDuration"/>
+                <column property="sumDataRecord.jiejiuThirdClassDuration"/>
+                <column property="sumDataRecord.jiejiuFeishuiDuration"/>
+                <column property="sumDataRecord.jiejiuJiuweiDuration"/>
+                <column property="shangzengXiaolv"/>
+                <column property="shangzengXielv"/>
+                <column property="shangzengSecondClassXielv"/>
+                <column property="shangzengThirdClassXielv"/>
+                <column property="shangzengfirstThirdXielv"/>
+                <column property="shangzengSecondThirdXielv"/>
             </columns>
         </dataGrid>
         <hbox id="lookupActions" visible="false">

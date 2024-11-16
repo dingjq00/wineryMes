@@ -119,6 +119,10 @@ public class MesZengguoRealDataV2 {
     @Column(name = "TEMP_INDEX")
     private Integer tempIndex;
 
+    @Comment("曲线展示辅助2")
+    @Column(name = "TEMP_INDEX2")
+    private Integer tempIndex2;
+
     @CreatedBy
     @Column(name = "CREATED_BY")
     private String createdBy;
@@ -134,6 +138,14 @@ public class MesZengguoRealDataV2 {
     @LastModifiedDate
     @Column(name = "LAST_MODIFIED_DATE")
     private OffsetDateTime lastModifiedDate;
+
+    public Integer getTempIndex2() {
+        return tempIndex2;
+    }
+
+    public void setTempIndex2(Integer tempIndex2) {
+        this.tempIndex2 = tempIndex2;
+    }
 
     public MesZengguoRecord getMesZengguoMiniRecord() {
         return mesZengguoMiniRecord;

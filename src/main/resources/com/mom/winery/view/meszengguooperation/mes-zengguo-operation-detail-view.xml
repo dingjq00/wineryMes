@@ -21,6 +21,7 @@
             </loader>
             <fetchPlan extends="_base">
                 <property name="zengguoPhase" fetchPlan="_base"/>
+                <property name="sumDataRecord" fetchPlan="_base"/>
             </fetchPlan>
         </collection>
     </data>
@@ -157,6 +158,13 @@
                 <column property="phaseEndWinccId" autoWidth="true"/>
                 <column property="mainPhase"/>
                 <column property="relatedRecordId"/>
+                <column property="sumDataRecord"/>
+                <column property="shangzengXiaolv"/>
+                <column property="shangzengXielv"/>
+                <column property="shangzengSecondClassXielv"/>
+                <column property="shangzengThirdClassXielv"/>
+                <column property="shangzengfirstThirdXielv"/>
+                <column property="shangzengSecondThirdXielv"/>
             </columns>
         </dataGrid>
     </layout>

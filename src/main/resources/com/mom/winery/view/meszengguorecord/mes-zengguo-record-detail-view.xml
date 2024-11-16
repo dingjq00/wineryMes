@@ -10,6 +10,7 @@
                 <property name="runliangDuarationQualifiedUp" fetchPlan="_base"/>
                 <property name="mesZengguo" fetchPlan="_base"/>
                 <property name="zengguoPhase" fetchPlan="_base"/>
+                <property name="sumDataRecord" fetchPlan="_base"/>
             </fetchPlan>
             <loader id="mesZengguoRecordDl"/>
         </instance>
@@ -182,6 +183,18 @@
             </entityPicker>
             <select id="mainPhaseField" property="mainPhase"/>
             <textField id="relatedRecordIdField" property="relatedRecordId"/>
+            <entityPicker id="sumDataRecordField" property="sumDataRecord">
+                <actions>
+                    <action id="entityLookup" type="entity_lookup"/>
+                    <action id="entityClear" type="entity_clear"/>
+                </actions>
+            </entityPicker>
+            <textField id="shangzengXiaolvField" property="shangzengXiaolv"/>
+            <textField id="shangzengXielvField" property="shangzengXielv"/>
+            <textField id="shangzengSecondClassXielvField" property="shangzengSecondClassXielv"/>
+            <textField id="shangzengThirdClassXielvField" property="shangzengThirdClassXielv"/>
+            <textField id="shangzengfirstThirdXielvField" property="shangzengfirstThirdXielv"/>
+            <textField id="shangzengSecondThirdXielvField" property="shangzengSecondThirdXielv"/>
         </formLayout>
         <hbox id="detailActions">
             <button id="saveAndCloseBtn" action="saveAction"/>
