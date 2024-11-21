@@ -18,7 +18,8 @@ import java.util.Date;
         @Index(name = "IDX_MES_ZENGGUO_RECORD_MES_ZENGGUO", columnList = "MES_ZENGGUO_ID"),
         @Index(name = "IDX_MES_ZENGGUO_RECORD_RUNLIANG_DURATION_QUALIFIED_DOWN", columnList = "RUNLIANG_DURATION_QUALIFIED_DOWN_ID"),
         @Index(name = "IDX_MES_ZENGGUO_RECORD_RUNLIANG_DUARATION_QUALIFIED_UP", columnList = "RUNLIANG_DUARATION_QUALIFIED_UP_ID"),
-        @Index(name = "IDX_MES_ZENGGUO_RECORD_SUM_DATA_RECORD", columnList = "SUM_DATA_RECORD_ID")
+        @Index(name = "IDX_MES_ZENGGUO_RECORD_SUM_DATA_RECORD", columnList = "SUM_DATA_RECORD_ID"),
+        @Index(name = "IDX_MES_ZENGGUO_RECORD_SHIFT_TEAM", columnList = "SHIFT_TEAM_ID")
 })
 @Entity
 public class MesZengguoRecord {
@@ -307,6 +308,31 @@ public class MesZengguoRecord {
     @JoinColumn(name = "SUM_DATA_RECORD_ID")
     @ManyToOne(fetch = FetchType.LAZY)
     private MesZengSumData sumDataRecord;
+
+    @Comment("班组")
+    @JoinColumn(name = "SHIFT_TEAM_ID")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private MesShiftTeam shiftTeam;
+
+    @Comment("班次")
+    @Column(name = "ENUM_SHIFT", length = 50)
+    private String enumShift;
+
+    public EnumShiftConfig getEnumShift() {
+        return enumShift == null ? null : EnumShiftConfig.fromId(enumShift);
+    }
+
+    public void setEnumShift(EnumShiftConfig enumShift) {
+        this.enumShift = enumShift == null ? null : enumShift.getId();
+    }
+
+    public MesShiftTeam getShiftTeam() {
+        return shiftTeam;
+    }
+
+    public void setShiftTeam(MesShiftTeam shiftTeam) {
+        this.shiftTeam = shiftTeam;
+    }
 
     public void setShangzengSecondThirdXielv(Float shangzengSecondThirdXielv) {
         this.shangzengSecondThirdXielv = shangzengSecondThirdXielv;

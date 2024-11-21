@@ -18,6 +18,7 @@
                 <property name="jiaochiUp" fetchPlan="_base"/>
                 <property name="runliangDuarationQualifiedUp" fetchPlan="_base"/>
                 <property name="sumDataRecord" fetchPlan="_base"/>
+                <property name="shiftTeam" fetchPlan="_base"/>
             </fetchPlan>
             <loader id="mesZengguoRecordsDl" readOnly="true">
                 <query>
@@ -141,7 +142,8 @@
                 <column property="sumDataRecord.jiejiuFeishuiDuration"/>
                 <column property="sumDataRecord.jiejiuJiuweiDuration"/>
                 <column property="sumDataRecord.upZaopeiType"/>
-
+                <column property="shiftTeam"/>
+                <column property="enumShift"/>
                 <!--                <column property="phaseStartWinccId" autoWidth="true"/>-->
                 <!--                <column property="phaseEndWinccId" autoWidth="true"/>-->
             </columns>

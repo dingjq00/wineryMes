@@ -20,6 +20,7 @@
                 <property name="resourceZengguo" fetchPlan="_base"/>
                 <property name="currentZhuanyundou" fetchPlan="_base"/>
                 <property name="winccInputJiaochi" fetchPlan="_base"/>
+                <property name="shiftTeam" fetchPlan="_base"/>
             </fetchPlan>
             <loader id="mesTanliangjiRecordsDl" readOnly="true">
                 <query>
@@ -106,9 +107,9 @@
                 <column property="winccStartId" autoWidth="true"/>
                 <column property="winccEndId" autoWidth="true"/>
                 <column property="liangshuiAddQty" autoWidth="true"/>
-
                 <column property="lastModifiedDate" autoWidth="true"/>
-
+                <column property="shiftTeam"/>
+                <column property="enumShift"/>
             </columns>
         </dataGrid>
         <hbox id="lookupActions" visible="false">

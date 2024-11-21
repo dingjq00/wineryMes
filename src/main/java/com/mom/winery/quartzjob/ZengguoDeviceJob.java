@@ -14,6 +14,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalTime;
+import java.time.OffsetDateTime;
 import java.util.*;
 
 /**
@@ -56,12 +58,31 @@ public class ZengguoDeviceJob implements Job {
                 .query("select e from MesZenggouPhaseConfig e")
                 .list();
 
+        List<MesShiftTime> shiftTimeList = dataManager.load(MesShiftTime.class)
+                .query("select e from MesShiftTime e " +
+                        "order by e.startTimeStr desc ")
+                .list();
+
+        List<MesTeamArrange> teamArrangeList = dataManager.load(MesTeamArrange.class)
+                .query("select e from MesTeamArrange e " +
+                        "order by e.periodStartDateStr desc ")
+                .list();
+
         for (JobConfig jobConfig : jobConfigList) {
             List<MesTanliangjiRecord> mesTanliangjiRecordList = new ArrayList<>();
 
             MesArea mesArea = jobConfig.getMesArea();
+            MesShopfloor mesShopfloor = mesArea.getMesShopfloor();
             Integer areaCode = mesArea.getAreaCode();
             Integer currentWinccId = jobConfig.getWinccId();
+
+            List<MesShiftTime> shiftTimeListForShopfloow = shiftTimeList.stream()
+                    .filter(e -> e.getMesShopfloor().equals(mesShopfloor))
+                    .toList();
+            List<MesTeamArrange> teamArrangeListForShopfloor = teamArrangeList.stream()
+                    .filter(e -> e.getMesShopfloor().equals(mesShopfloor))
+                    .toList();
+
             /**
              * 获取每个单元的甑锅
              */
@@ -290,8 +311,11 @@ public class ZengguoDeviceJob implements Job {
                         record.setPhaseStartTimeTotal(winccUpdateTime);
                         record.setPhaseStartWinccId(winccId);
                         setNewRecordNormalInfo(record, mesZengguo);
-                        mesZengguoRecordList.add(record);
+                        // 设置 shiftinfo
+                        setShiftInfo(record, teamArrangeListForShopfloor, shiftTimeListForShopfloow);
 
+
+                        mesZengguoRecordList.add(record);
 
                         // 设置 Record结束
                         MesZengguoRecord preRecord = mesZengguoRecordList.stream()
@@ -342,6 +366,59 @@ public class ZengguoDeviceJob implements Job {
             }
             jobSaveDataService.saveZengguoData(jobConfig, areaZengguoList, mesZengguoRecordList,mesZengguoOperationList,mesZengguoUnitProcedureList, maxWinccId);
         }
+    }
+
+    private static void setShiftInfo(MesZengguoRecord record, List<MesTeamArrange> teamArrangeListForShopfloor, List<MesShiftTime> shiftTimeListForShopfloow) {
+        // 设置shiftInfo
+        String recordStartDate = "";
+        String recordStartHour = "";
+        String recordStartMinute = "";
+        Date recordDate = null;
+        String recordDateStr = "";
+        String recordDateAllstr = "";
+        MesTeamArrange teamArrange = null;
+
+        recordDate = record.getPhaseStartTimeTotal();
+        // 获取recordDate的日时分
+        recordDateStr = recordDate.toString();
+        recordStartDate = recordDateStr.substring(8, 10);
+        recordStartHour = recordDateStr.substring(11, 13);
+        recordStartMinute =recordDateStr.substring(14,16);
+        recordDateAllstr = recordStartDate + recordStartHour +  recordStartMinute;
+        String finalRecordDateAllstr = recordDateAllstr;
+        teamArrange = teamArrangeListForShopfloor.stream()
+                .filter(e -> e.getPeriodStartDateStr().compareTo(finalRecordDateAllstr) <= 0
+                        && e.getPeriodEndDateStr().compareTo(finalRecordDateAllstr) >= 0)
+                .findFirst()
+                .orElse(null);
+        if(teamArrange == null){
+            teamArrange = teamArrangeListForShopfloor.stream()
+                    .max(Comparator.comparing(MesTeamArrange::getPeriodStartDateStr))
+                    .orElse(null);
+        }
+        String hourMinuteStr = recordStartHour +  recordStartMinute;
+
+        MesShiftTime shiftTime = shiftTimeListForShopfloow.stream()
+                .filter(e -> e.getStartTimeStr().compareTo(hourMinuteStr) <= 0
+                        && e.getEndTimeStr().compareTo(hourMinuteStr) >= 0)
+                .findFirst()
+                .orElse(null);
+        if(shiftTime == null){
+            shiftTime = shiftTimeListForShopfloow.stream()
+                    .max(Comparator.comparing(MesShiftTime::getStartTimeStr))
+                    .orElse(null);
+        }
+        MesShiftTeam shiftTeam = null;
+        if (shiftTime != null) {
+            shiftTeam = switch (shiftTime.getEnumShift()) {
+                case EnumShiftConfig.DAY_SHIFT -> teamArrange.getDayShiftTeam();
+                case EnumShiftConfig.SHORT_NIGHT_SHIFT -> teamArrange.getShortNightTeam();
+                case EnumShiftConfig.LONG_NIGHT_SHIFT -> teamArrange.getLongNightTeam();
+            };
+        }
+
+        record.setShiftTeam(shiftTeam);
+        record.setEnumShift(shiftTime.getEnumShift());
     }
 
     private void finishPreOperation(List<MesZengguoOperation> mesZengguoOperationList, MesZengguo mesZengguo,EnumZengguoMainPhase mainPhase, MesZengguoRecord record,

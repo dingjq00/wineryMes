@@ -31,6 +31,9 @@
               title="msg://com.mom.winery.view.mesdiuzaoweijiutank/mesDiuZaoWeiJiuTankListView.title"/>
         <item view="MesZhuanyundouRecord.list"
               title="msg://com.mom.winery.view.meszhuanyundourecord/mesZhuanyundouRecordListView.title"/>
+        <item view="MesShiftTeam.list" title="msg://com.mom.winery.view.messhiftteam/mesShiftTeamListView.title"/>
+        <item view="MesShiftTime.list" title="msg://com.mom.winery.view.messhifttime/mesShiftTimeListView.title"/>
+        <item view="MesTeamArrange.list" title="msg://com.mom.winery.view.mesteamarrange/mesTeamArrangeListView.title"/>
 
 
     </menu>
@@ -56,6 +59,8 @@
         <item view="SupersetSummaryView" title="msg://com.mom.winery.view.supersetsummary/supersetSummaryView.title"/>
 
         <item view="MesZengSumData.list" title="msg://com.mom.winery.view.meszengsumdata/mesZengSumDataListView.title"/>
+        <item view="SupersetShiftteamView"
+              title="msg://com.mom.winery.view.supersetshiftteam/supersetShiftteamView.title"/>
 
     </menu>
     <menu id="historyRealData" title="msg://com.mom.winery/menu.historyRealData.title" opened="true">

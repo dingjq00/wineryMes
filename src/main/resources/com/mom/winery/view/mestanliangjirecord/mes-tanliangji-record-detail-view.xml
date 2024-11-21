@@ -10,6 +10,7 @@
                 <property name="resourceZengguo" fetchPlan="_base"/>
                 <property name="currentZhuanyundou" fetchPlan="_base"/>
                 <property name="winccInputJiaochi" fetchPlan="_base"/>
+                <property name="shiftTeam" fetchPlan="_base"/>
             </fetchPlan>
             <loader id="mesTanliangjiRecordDl"/>
         </instance>
@@ -76,6 +77,13 @@
             </entityPicker>
             <dateTimePicker id="phaseStartTimeField" property="phaseStartTime"/>
             <dateTimePicker id="phaseEndTimeField" property="phaseEndTime"/>
+            <entityPicker id="shiftTeamField" property="shiftTeam">
+                <actions>
+                    <action id="entityLookup" type="entity_lookup"/>
+                    <action id="entityClear" type="entity_clear"/>
+                </actions>
+            </entityPicker>
+            <select id="enumShiftField" property="enumShift"/>
         </formLayout>
         <hbox id="detailActions">
             <button id="saveAndCloseBtn" action="saveAction"/>

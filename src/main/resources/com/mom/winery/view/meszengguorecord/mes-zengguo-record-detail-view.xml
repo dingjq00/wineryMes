@@ -11,6 +11,7 @@
                 <property name="mesZengguo" fetchPlan="_base"/>
                 <property name="zengguoPhase" fetchPlan="_base"/>
                 <property name="sumDataRecord" fetchPlan="_base"/>
+                <property name="shiftTeam" fetchPlan="_base"/>
             </fetchPlan>
             <loader id="mesZengguoRecordDl"/>
         </instance>
@@ -195,6 +196,13 @@
             <textField id="shangzengThirdClassXielvField" property="shangzengThirdClassXielv"/>
             <textField id="shangzengfirstThirdXielvField" property="shangzengfirstThirdXielv"/>
             <textField id="shangzengSecondThirdXielvField" property="shangzengSecondThirdXielv"/>
+            <entityPicker id="shiftTeamField" property="shiftTeam">
+                <actions>
+                    <action id="entityLookup" type="entity_lookup"/>
+                    <action id="entityClear" type="entity_clear"/>
+                </actions>
+            </entityPicker>
+            <select id="enumShiftField" property="enumShift"/>
         </formLayout>
         <hbox id="detailActions">
             <button id="saveAndCloseBtn" action="saveAction"/>

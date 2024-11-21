@@ -1,0 +1,9 @@
+select record.* from MES_ZENGGUO_RECORD record
+left join MES_SHIFT_TEAM  on record.SHIFT_TEAM_ID = MES_SHIFT_TEAM.ID
+left join MES_ZENGTONG M on record.MES_ZENGGUO_ID = M.ID
+left join MES_AREA on M.MES_AREA_ID = MES_AREA.ID
+left join MES_SHOPFLOOR on MES_AREA.MES_SHOPFLOOR_ID = MES_SHOPFLOOR.ID
+
+where MES_SHOPFLOOR_NAME='13车间';
+
+

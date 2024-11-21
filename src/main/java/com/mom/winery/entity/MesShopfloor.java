@@ -1,6 +1,7 @@
 package com.mom.winery.entity;
 
 import io.jmix.core.entity.annotation.JmixGeneratedValue;
+import io.jmix.core.metamodel.annotation.Comment;
 import io.jmix.core.metamodel.annotation.Composition;
 import io.jmix.core.metamodel.annotation.InstanceName;
 import io.jmix.core.metamodel.annotation.JmixEntity;
@@ -21,6 +22,20 @@ public class MesShopfloor {
     @Column(name = "ID", nullable = false)
     @Id
     private Long id;
+
+    @Comment("车间班组")
+    @Composition
+    @OneToMany(mappedBy = "mesShopfloor")
+    private List<MesShiftTeam> shiftTeam;
+
+    @Composition
+    @OneToMany(mappedBy = "mesShopfloor")
+    private List<MesShiftTime> shiftTime;
+
+    @Comment("班组安排")
+    @Composition
+    @OneToMany(mappedBy = "mesShopfloor")
+    private List<MesTeamArrange> teamArrange;
 
     @Column(name = "MES_SITE_CODE", length = 120)
     private String mesSiteCode;
@@ -66,6 +81,30 @@ public class MesShopfloor {
     @LastModifiedDate
     @Column(name = "LAST_MODIFIED_DATE")
     private OffsetDateTime lastModifiedDate;
+
+    public List<MesTeamArrange> getTeamArrange() {
+        return teamArrange;
+    }
+
+    public void setTeamArrange(List<MesTeamArrange> teamArrange) {
+        this.teamArrange = teamArrange;
+    }
+
+    public List<MesShiftTime> getShiftTime() {
+        return shiftTime;
+    }
+
+    public void setShiftTime(List<MesShiftTime> shiftTime) {
+        this.shiftTime = shiftTime;
+    }
+
+    public List<MesShiftTeam> getShiftTeam() {
+        return shiftTeam;
+    }
+
+    public void setShiftTeam(List<MesShiftTeam> shiftTeam) {
+        this.shiftTeam = shiftTeam;
+    }
 
     public List<MesCirculatingWaterTank> getMesCirculatingWaterTanks() {
         return mesCirculatingWaterTanks;

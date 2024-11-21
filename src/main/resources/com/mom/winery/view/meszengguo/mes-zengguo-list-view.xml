@@ -45,6 +45,7 @@
             <button id="jsonExportBtn" action="mesZengguosDataGrid.jsonExport"/>
             <button id="refreshBtn" action="mesZengguosDataGrid.refresh"/>
             <button id="removeBtn" action="mesZengguosDataGrid.remove"/>
+            <button id="changeName" text="修改名称"/>
             <simplePagination id="pagination" dataLoader="mesZengguosDl"/>
         </hbox>
         <dataGrid id="mesZengguosDataGrid"

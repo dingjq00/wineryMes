@@ -10,12 +10,18 @@
                 <property name="mesShopfloorWineTanks" fetchPlan="_base"/>
                 <property name="mesCleanWaterTanks" fetchPlan="_base"/>
                 <property name="mesCirculatingWaterTanks" fetchPlan="_base"/>
+                <property name="shiftTeam" fetchPlan="_base"/>
+                <property name="shiftTime" fetchPlan="_base"/>
+                <property name="teamArrange" fetchPlan="_base"/>
             </fetchPlan>
             <loader id="mesShopfloorDl"/>
             <collection id="mesAreasDc" property="mesAreas"/>
             <collection id="mesShopfloorWineTanksDc" property="mesShopfloorWineTanks"/>
             <collection id="mesCleanWaterTanksDc" property="mesCleanWaterTanks"/>
             <collection id="mesCirculatingWaterTanksDc" property="mesCirculatingWaterTanks"/>
+            <collection id="shiftTeamDc" property="shiftTeam"/>
+            <collection id="shiftTimeDc" property="shiftTime"/>
+            <collection id="teamArrangeDc" property="teamArrange"/>
         </instance>
     </data>
     <facets>
@@ -139,6 +145,96 @@
             </actions>
             <columns>
                 <column property="circulatingWaterTankCode"/>
+                <column property="createdBy"/>
+                <column property="createdDate"/>
+                <column property="lastModifiedBy"/>
+                <column property="lastModifiedDate"/>
+            </columns>
+        </dataGrid>
+        <hbox id="buttonsPanel5" classNames="buttons-panel">
+            <button action="shiftTeamDataGrid.create"/>
+            <button action="shiftTeamDataGrid.edit"/>
+            <button action="shiftTeamDataGrid.remove"/>
+        </hbox>
+        <dataGrid id="shiftTeamDataGrid" dataContainer="shiftTeamDc" minHeight="20em" width="100%" height="100%">
+            <actions>
+                <action id="create" type="list_create">
+                    <properties>
+                        <property name="openMode" value="DIALOG"/>
+                    </properties>
+                </action>
+                <action id="edit" type="list_edit">
+                    <properties>
+                        <property name="openMode" value="DIALOG"/>
+                    </properties>
+                </action>
+                <action id="remove" type="list_remove"/>
+            </actions>
+            <columns>
+                <column property="teamCode"/>
+                <column property="teamName"/>
+                <column property="createdBy"/>
+                <column property="createdDate"/>
+                <column property="lastModifiedBy"/>
+                <column property="lastModifiedDate"/>
+            </columns>
+        </dataGrid>
+        <hbox id="buttonsPanel7" classNames="buttons-panel">
+            <button action="shiftTimeDataGrid.create"/>
+            <button action="shiftTimeDataGrid.edit"/>
+            <button action="shiftTimeDataGrid.remove"/>
+        </hbox>
+        <dataGrid id="shiftTimeDataGrid" dataContainer="shiftTimeDc"  minHeight="20em" width="100%" height="100%">
+            <actions>
+                <action id="create" type="list_create">
+                    <properties>
+                        <property name="openMode" value="DIALOG"/>
+                    </properties>
+                </action>
+                <action id="edit" type="list_edit">
+                    <properties>
+                        <property name="openMode" value="DIALOG"/>
+                    </properties>
+                </action>
+                <action id="remove" type="list_remove"/>
+            </actions>
+            <columns>
+                <column property="enumShift"/>
+                <column property="startTimeStr"/>
+                <column property="endTimeStr"/>
+                <column property="isActive"/>
+                <column property="createdBy"/>
+                <column property="createdDate"/>
+                <column property="lastModifiedBy"/>
+                <column property="lastModifiedDate"/>
+            </columns>
+        </dataGrid>
+        <hbox id="buttonsPanel8" classNames="buttons-panel">
+            <button action="teamArrangeDataGrid.create"/>
+            <button action="teamArrangeDataGrid.edit"/>
+            <button action="teamArrangeDataGrid.remove"/>
+        </hbox>
+        <dataGrid id="teamArrangeDataGrid" dataContainer="teamArrangeDc"  minHeight="20em" width="100%" height="100%">
+            <actions>
+                <action id="create" type="list_create">
+                    <properties>
+                        <property name="openMode" value="DIALOG"/>
+                    </properties>
+                </action>
+                <action id="edit" type="list_edit">
+                    <properties>
+                        <property name="openMode" value="DIALOG"/>
+                    </properties>
+                </action>
+                <action id="remove" type="list_remove"/>
+            </actions>
+            <columns>
+                <column property="periodStartDateStr"/>
+                <column property="periodEndDateStr"/>
+                <column property="dayShiftTeam"/>
+                <column property="shortNightTeam"/>
+                <column property="longNightTeam"/>
+                <column property="isActive"/>
                 <column property="createdBy"/>
                 <column property="createdDate"/>
                 <column property="lastModifiedBy"/>

@@ -1,6 +1,7 @@
 package com.mom.winery.entity;
 
 import io.jmix.core.entity.annotation.JmixGeneratedValue;
+import io.jmix.core.metamodel.annotation.Comment;
 import io.jmix.core.metamodel.annotation.JmixEntity;
 import io.jmix.core.metamodel.annotation.NumberFormat;
 import jakarta.persistence.*;
@@ -17,7 +18,8 @@ import java.util.Date;
         @Index(name = "IDX_MES_TANLIANGJI_RECORD_RESOURCE_ZENGGUO", columnList = "RESOURCE_ZENGGUO_ID"),
         @Index(name = "IDX_MES_TANLIANGJI_RECORD_CURRENT_ZHUANYUNDOU", columnList = "CURRENT_ZHUANYUNDOU_ID"),
         @Index(name = "IDX_MES_TANLIANGJI_RECORD_WINCC_INPUT_JIAOCHI", columnList = "WINCC_INPUT_JIAOCHI_ID"),
-        @Index(name = "IDX_MES_TANLIANGJI_RECORD_MES_TANLIANGJI", columnList = "MES_TANLIANGJI_ID")
+        @Index(name = "IDX_MES_TANLIANGJI_RECORD_MES_TANLIANGJI", columnList = "MES_TANLIANGJI_ID"),
+        @Index(name = "IDX_MES_TANLIANGJI_RECORD_SHIFT_TEAM", columnList = "SHIFT_TEAM_ID")
 })
 @Entity
 public class MesTanliangjiRecord {
@@ -163,6 +165,31 @@ public class MesTanliangjiRecord {
     @LastModifiedDate
     @Column(name = "LAST_MODIFIED_DATE")
     private OffsetDateTime lastModifiedDate;
+
+    @Comment("班组")
+    @JoinColumn(name = "SHIFT_TEAM_ID")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private MesShiftTeam shiftTeam;
+
+    @Comment("班次")
+    @Column(name = "ENUM_SHIFT")
+    private String enumShift;
+
+    public EnumShiftConfig getEnumShift() {
+        return enumShift == null ? null : EnumShiftConfig.fromId(enumShift);
+    }
+
+    public void setEnumShift(EnumShiftConfig enumShift) {
+        this.enumShift = enumShift == null ? null : enumShift.getId();
+    }
+
+    public MesShiftTeam getShiftTeam() {
+        return shiftTeam;
+    }
+
+    public void setShiftTeam(MesShiftTeam shiftTeam) {
+        this.shiftTeam = shiftTeam;
+    }
 
     public Date getPhaseEndTime() {
         return phaseEndTime;

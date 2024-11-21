@@ -19,6 +19,7 @@
             <fetchPlan extends="_base">
                 <property name="zengguoPhase" fetchPlan="_base"/>
                 <property name="sumDataRecord" fetchPlan="_base"/>
+                <property name="shiftTeam" fetchPlan="_base"/>
             </fetchPlan>
         </collection>
     </data>
@@ -30,182 +31,182 @@
         <action id="closeAction" type="detail_close"/>
     </actions>
     <layout>
-<!--        <formLayout id="form" dataContainer="mesZengguoRecordDc">-->
-<!--            <responsiveSteps>-->
-<!--                <responsiveStep minWidth="0" columns="1" labelsPosition="ASIDE"/>-->
-<!--                <responsiveStep minWidth="40em" columns="2" labelsPosition="ASIDE"/>-->
-<!--            </responsiveSteps>-->
-<!--            <formItem>-->
-<!--                <textField id="zengSequenceField" property="zengSequence"/>-->
-<!--            </formItem>-->
-<!--            <formItem>-->
-<!--                <dateTimePicker id="phaseStartTimeTotalField" property="phaseStartTimeTotal"/>-->
-<!--            </formItem>-->
-<!--            <formItem>-->
-<!--                <dateTimePicker id="phaseEndTimeTotalField" property="phaseEndTimeTotal"/>-->
-<!--            </formItem>-->
-<!--            <formItem>-->
-<!--                <textField id="phaseDurationField" property="phaseDuration"/>-->
-<!--            </formItem>-->
-<!--            <formItem>-->
-<!--                <dateTimePicker id="startTimeTotalField" property="startTimeTotal"/>-->
-<!--            </formItem>-->
-<!--            <formItem>-->
-<!--                <dateTimePicker id="startTimeDeviceShangZengField" property="startTimeDeviceShangZeng"/>-->
-<!--            </formItem>-->
-<!--            <formItem>-->
-<!--                <dateTimePicker id="startTimeKagaiField" property="startTimeKagai"/>-->
-<!--            </formItem>-->
-<!--            <formItem>-->
-<!--                <dateTimePicker id="endTimeLiujiuField" property="endTimeLiujiu"/>-->
-<!--            </formItem>-->
-<!--            <formItem>-->
-<!--                <dateTimePicker id="endTimeTallField" property="endTimeTall"/>-->
-<!--            </formItem>-->
-<!--            <formItem>-->
-<!--                <textField id="jiaochiLayerDownField" property="jiaochiLayerDown"/>-->
-<!--            </formItem>-->
-<!--            <formItem>-->
-<!--                <dateTimePicker id="jiaochiTimeDownField" property="jiaochiTimeDown"/>-->
-<!--            </formItem>-->
-<!--            <formItem>-->
-<!--                <select id="zaopeiTypeDownField" property="zaopeiTypeDown"/>-->
-<!--            </formItem>-->
-<!--            <formItem>-->
-<!--                <dateTimePicker id="runliangStartTimeDownField" property="runliangStartTimeDown"/>-->
-<!--            </formItem>-->
-<!--            <formItem>-->
-<!--                <dateTimePicker id="runliangEndTimeDownField" property="runliangEndTimeDown"/>-->
-<!--            </formItem>-->
-<!--            <formItem>-->
-<!--                <textField id="runliangAddWaterDownField" property="runliangAddWaterDown"/>-->
-<!--            </formItem>-->
-<!--            <formItem>-->
-<!--                <textField id="runliangDurationDownField" property="runliangDurationDown"/>-->
-<!--            </formItem>-->
-<!--            <formItem>-->
-<!--                <textField id="zaopeiQtyDownField" property="zaopeiQtyDown"/>-->
-<!--            </formItem>-->
-<!--            <formItem>-->
-<!--                <textField id="daokeQtyDownField" property="daokeQtyDown"/>-->
-<!--            </formItem>-->
-<!--            <formItem>-->
-<!--                <textField id="liangshiQtyDownField" property="liangshiQtyDown"/>-->
-<!--            </formItem>-->
-<!--            <formItem>-->
-<!--                <select id="liangshiTypeDownField" property="liangshiTypeDown"/>-->
-<!--            </formItem>-->
-<!--            <formItem>-->
-<!--                <dateTimePicker id="jiaochiTimeUpField" property="jiaochiTimeUp"/>-->
-<!--            </formItem>-->
-<!--            <formItem>-->
-<!--                <textField id="jiaochiLayerUpField" property="jiaochiLayerUp"/>-->
-<!--            </formItem>-->
-<!--            <formItem>-->
-<!--                <select id="zaopeiTypeUpField" property="zaopeiTypeUp"/>-->
-<!--            </formItem>-->
-<!--            <formItem>-->
-<!--                <dateTimePicker id="runliangStartTimeUpField" property="runliangStartTimeUp"/>-->
-<!--            </formItem>-->
-<!--            <formItem>-->
-<!--                <dateTimePicker id="runliangEndTimeUpField" property="runliangEndTimeUp"/>-->
-<!--            </formItem>-->
-<!--            <formItem>-->
-<!--                <textField id="runliangAddWaterUpField" property="runliangAddWaterUp"/>-->
-<!--            </formItem>-->
-<!--            <formItem>-->
-<!--                <textField id="runliangDurationUpField" property="runliangDurationUp"/>-->
-<!--            </formItem>-->
-<!--            <formItem>-->
-<!--                <textField id="zaopeiQtyUpField" property="zaopeiQtyUp"/>-->
-<!--            </formItem>-->
-<!--            <formItem>-->
-<!--                <textField id="daokeQtyUpField" property="daokeQtyUp"/>-->
-<!--            </formItem>-->
-<!--            <formItem>-->
-<!--                <textField id="liangshiQtyUpField" property="liangshiQtyUp"/>-->
-<!--            </formItem>-->
-<!--            <formItem>-->
-<!--                <select id="liangshiTypUpField" property="liangshiTypUp"/>-->
-<!--            </formItem>-->
-<!--            <formItem>-->
-<!--                <select id="zaopeiTypeField" property="zaopeiType"/>-->
-<!--            </formItem>-->
-<!--            <formItem>-->
-<!--                <textField id="shangzengLayerField" property="shangzengLayer"/>-->
-<!--            </formItem>-->
-<!--            <formItem>-->
-<!--                <textField id="shangzengDurationField" property="shangzengDuration"/>-->
-<!--            </formItem>-->
-<!--            <formItem>-->
-<!--                <textField id="shangzengHeightField" property="shangzengHeight"/>-->
-<!--            </formItem>-->
-<!--            <formItem>-->
-<!--                <textField id="shangzengTotalQtyField" property="shangzengTotalQty"/>-->
-<!--            </formItem>-->
-<!--            <formItem>-->
-<!--                <textField id="jiejiuDurationFirstClassField" property="jiejiuDurationFirstClass"/>-->
-<!--            </formItem>-->
-<!--            <formItem>-->
-<!--                <textField id="jiejiuDurationSecondClassField" property="jiejiuDurationSecondClass"/>-->
-<!--            </formItem>-->
-<!--            <formItem>-->
-<!--                <textField id="jiejiuDurationThirdClassField" property="jiejiuDurationThirdClass"/>-->
-<!--            </formItem>-->
-<!--            <formItem>-->
-<!--                <textField id="jiejiuDurationFeishuiField" property="jiejiuDurationFeishui"/>-->
-<!--            </formItem>-->
-<!--            <formItem>-->
-<!--                <textField id="jiejiuDurationJiuweiField" property="jiejiuDurationJiuwei"/>-->
-<!--            </formItem>-->
-<!--            <formItem>-->
-<!--                <textField id="liangshuiAddQtyField" property="liangshuiAddQty"/>-->
-<!--            </formItem>-->
-<!--            <formItem>-->
-<!--                <textField id="huishoudiguoWaterAddQtyField" property="huishoudiguoWaterAddQty"/>-->
-<!--            </formItem>-->
-<!--            <formItem>-->
-<!--                <textField id="hotWaterAddQtyField" property="hotWaterAddQty"/>-->
-<!--            </formItem>-->
-<!--            <formItem>-->
-<!--                <textField id="jiuweiAddQtyField" property="jiuweiAddQty"/>-->
-<!--            </formItem>-->
-<!--            <formItem>-->
-<!--                <textField id="huangshuiAddQtyField" property="huangshuiAddQty"/>-->
-<!--            </formItem>-->
-<!--            <formItem>-->
-<!--                <textField id="energyQiShangzengField" property="energyQiShangzeng"/>-->
-<!--            </formItem>-->
-<!--            <formItem>-->
-<!--                <textField id="energyQiZhengliuField" property="energyQiZhengliu"/>-->
-<!--            </formItem>-->
-<!--            <formItem>-->
-<!--                <textField id="zhengliuDurationField" property="zhengliuDuration"/>-->
-<!--            </formItem>-->
-<!--            <formItem>-->
-<!--                <textField id="liujiuAddZhengzhuDurationField" property="liujiuAddZhengzhuDuration"/>-->
-<!--            </formItem>-->
-<!--            <formItem>-->
-<!--                <textField id="phaseStartWinccIdField" property="phaseStartWinccId"/>-->
-<!--            </formItem>-->
-<!--            <formItem>-->
-<!--                <textField id="phaseEndWinccIdField" property="phaseEndWinccId"/>-->
-<!--            </formItem>-->
-<!--            <select id="mainPhaseField" property="mainPhase"/>-->
-<!--            <textField id="relatedRecordIdField" property="relatedRecordId"/>-->
-<!--            <entityPicker id="sumDataRecordField" property="sumDataRecord">-->
-<!--                <actions>-->
-<!--                    <action id="entityLookup" type="entity_lookup"/>-->
-<!--                    <action id="entityClear" type="entity_clear"/>-->
-<!--                </actions>-->
-<!--            </entityPicker>-->
-<!--            <textField id="shangzengXiaolvField" property="shangzengXiaolv"/>-->
-<!--            <textField id="shangzengXielvField" property="shangzengXielv"/>-->
-<!--            <textField id="shangzengSecondClassXielvField" property="shangzengSecondClassXielv"/>-->
-<!--            <textField id="shangzengThirdClassXielvField" property="shangzengThirdClassXielv"/>-->
-<!--            <textField id="shangzengfirstThirdXielvField" property="shangzengfirstThirdXielv"/>-->
-<!--            <textField id="shangzengSecondThirdXielvField" property="shangzengSecondThirdXielv"/>-->
-<!--        </formLayout>-->
+        <!--        <formLayout id="form" dataContainer="mesZengguoRecordDc">-->
+        <!--            <responsiveSteps>-->
+        <!--                <responsiveStep minWidth="0" columns="1" labelsPosition="ASIDE"/>-->
+        <!--                <responsiveStep minWidth="40em" columns="2" labelsPosition="ASIDE"/>-->
+        <!--            </responsiveSteps>-->
+        <!--            <formItem>-->
+        <!--                <textField id="zengSequenceField" property="zengSequence"/>-->
+        <!--            </formItem>-->
+        <!--            <formItem>-->
+        <!--                <dateTimePicker id="phaseStartTimeTotalField" property="phaseStartTimeTotal"/>-->
+        <!--            </formItem>-->
+        <!--            <formItem>-->
+        <!--                <dateTimePicker id="phaseEndTimeTotalField" property="phaseEndTimeTotal"/>-->
+        <!--            </formItem>-->
+        <!--            <formItem>-->
+        <!--                <textField id="phaseDurationField" property="phaseDuration"/>-->
+        <!--            </formItem>-->
+        <!--            <formItem>-->
+        <!--                <dateTimePicker id="startTimeTotalField" property="startTimeTotal"/>-->
+        <!--            </formItem>-->
+        <!--            <formItem>-->
+        <!--                <dateTimePicker id="startTimeDeviceShangZengField" property="startTimeDeviceShangZeng"/>-->
+        <!--            </formItem>-->
+        <!--            <formItem>-->
+        <!--                <dateTimePicker id="startTimeKagaiField" property="startTimeKagai"/>-->
+        <!--            </formItem>-->
+        <!--            <formItem>-->
+        <!--                <dateTimePicker id="endTimeLiujiuField" property="endTimeLiujiu"/>-->
+        <!--            </formItem>-->
+        <!--            <formItem>-->
+        <!--                <dateTimePicker id="endTimeTallField" property="endTimeTall"/>-->
+        <!--            </formItem>-->
+        <!--            <formItem>-->
+        <!--                <textField id="jiaochiLayerDownField" property="jiaochiLayerDown"/>-->
+        <!--            </formItem>-->
+        <!--            <formItem>-->
+        <!--                <dateTimePicker id="jiaochiTimeDownField" property="jiaochiTimeDown"/>-->
+        <!--            </formItem>-->
+        <!--            <formItem>-->
+        <!--                <select id="zaopeiTypeDownField" property="zaopeiTypeDown"/>-->
+        <!--            </formItem>-->
+        <!--            <formItem>-->
+        <!--                <dateTimePicker id="runliangStartTimeDownField" property="runliangStartTimeDown"/>-->
+        <!--            </formItem>-->
+        <!--            <formItem>-->
+        <!--                <dateTimePicker id="runliangEndTimeDownField" property="runliangEndTimeDown"/>-->
+        <!--            </formItem>-->
+        <!--            <formItem>-->
+        <!--                <textField id="runliangAddWaterDownField" property="runliangAddWaterDown"/>-->
+        <!--            </formItem>-->
+        <!--            <formItem>-->
+        <!--                <textField id="runliangDurationDownField" property="runliangDurationDown"/>-->
+        <!--            </formItem>-->
+        <!--            <formItem>-->
+        <!--                <textField id="zaopeiQtyDownField" property="zaopeiQtyDown"/>-->
+        <!--            </formItem>-->
+        <!--            <formItem>-->
+        <!--                <textField id="daokeQtyDownField" property="daokeQtyDown"/>-->
+        <!--            </formItem>-->
+        <!--            <formItem>-->
+        <!--                <textField id="liangshiQtyDownField" property="liangshiQtyDown"/>-->
+        <!--            </formItem>-->
+        <!--            <formItem>-->
+        <!--                <select id="liangshiTypeDownField" property="liangshiTypeDown"/>-->
+        <!--            </formItem>-->
+        <!--            <formItem>-->
+        <!--                <dateTimePicker id="jiaochiTimeUpField" property="jiaochiTimeUp"/>-->
+        <!--            </formItem>-->
+        <!--            <formItem>-->
+        <!--                <textField id="jiaochiLayerUpField" property="jiaochiLayerUp"/>-->
+        <!--            </formItem>-->
+        <!--            <formItem>-->
+        <!--                <select id="zaopeiTypeUpField" property="zaopeiTypeUp"/>-->
+        <!--            </formItem>-->
+        <!--            <formItem>-->
+        <!--                <dateTimePicker id="runliangStartTimeUpField" property="runliangStartTimeUp"/>-->
+        <!--            </formItem>-->
+        <!--            <formItem>-->
+        <!--                <dateTimePicker id="runliangEndTimeUpField" property="runliangEndTimeUp"/>-->
+        <!--            </formItem>-->
+        <!--            <formItem>-->
+        <!--                <textField id="runliangAddWaterUpField" property="runliangAddWaterUp"/>-->
+        <!--            </formItem>-->
+        <!--            <formItem>-->
+        <!--                <textField id="runliangDurationUpField" property="runliangDurationUp"/>-->
+        <!--            </formItem>-->
+        <!--            <formItem>-->
+        <!--                <textField id="zaopeiQtyUpField" property="zaopeiQtyUp"/>-->
+        <!--            </formItem>-->
+        <!--            <formItem>-->
+        <!--                <textField id="daokeQtyUpField" property="daokeQtyUp"/>-->
+        <!--            </formItem>-->
+        <!--            <formItem>-->
+        <!--                <textField id="liangshiQtyUpField" property="liangshiQtyUp"/>-->
+        <!--            </formItem>-->
+        <!--            <formItem>-->
+        <!--                <select id="liangshiTypUpField" property="liangshiTypUp"/>-->
+        <!--            </formItem>-->
+        <!--            <formItem>-->
+        <!--                <select id="zaopeiTypeField" property="zaopeiType"/>-->
+        <!--            </formItem>-->
+        <!--            <formItem>-->
+        <!--                <textField id="shangzengLayerField" property="shangzengLayer"/>-->
+        <!--            </formItem>-->
+        <!--            <formItem>-->
+        <!--                <textField id="shangzengDurationField" property="shangzengDuration"/>-->
+        <!--            </formItem>-->
+        <!--            <formItem>-->
+        <!--                <textField id="shangzengHeightField" property="shangzengHeight"/>-->
+        <!--            </formItem>-->
+        <!--            <formItem>-->
+        <!--                <textField id="shangzengTotalQtyField" property="shangzengTotalQty"/>-->
+        <!--            </formItem>-->
+        <!--            <formItem>-->
+        <!--                <textField id="jiejiuDurationFirstClassField" property="jiejiuDurationFirstClass"/>-->
+        <!--            </formItem>-->
+        <!--            <formItem>-->
+        <!--                <textField id="jiejiuDurationSecondClassField" property="jiejiuDurationSecondClass"/>-->
+        <!--            </formItem>-->
+        <!--            <formItem>-->
+        <!--                <textField id="jiejiuDurationThirdClassField" property="jiejiuDurationThirdClass"/>-->
+        <!--            </formItem>-->
+        <!--            <formItem>-->
+        <!--                <textField id="jiejiuDurationFeishuiField" property="jiejiuDurationFeishui"/>-->
+        <!--            </formItem>-->
+        <!--            <formItem>-->
+        <!--                <textField id="jiejiuDurationJiuweiField" property="jiejiuDurationJiuwei"/>-->
+        <!--            </formItem>-->
+        <!--            <formItem>-->
+        <!--                <textField id="liangshuiAddQtyField" property="liangshuiAddQty"/>-->
+        <!--            </formItem>-->
+        <!--            <formItem>-->
+        <!--                <textField id="huishoudiguoWaterAddQtyField" property="huishoudiguoWaterAddQty"/>-->
+        <!--            </formItem>-->
+        <!--            <formItem>-->
+        <!--                <textField id="hotWaterAddQtyField" property="hotWaterAddQty"/>-->
+        <!--            </formItem>-->
+        <!--            <formItem>-->
+        <!--                <textField id="jiuweiAddQtyField" property="jiuweiAddQty"/>-->
+        <!--            </formItem>-->
+        <!--            <formItem>-->
+        <!--                <textField id="huangshuiAddQtyField" property="huangshuiAddQty"/>-->
+        <!--            </formItem>-->
+        <!--            <formItem>-->
+        <!--                <textField id="energyQiShangzengField" property="energyQiShangzeng"/>-->
+        <!--            </formItem>-->
+        <!--            <formItem>-->
+        <!--                <textField id="energyQiZhengliuField" property="energyQiZhengliu"/>-->
+        <!--            </formItem>-->
+        <!--            <formItem>-->
+        <!--                <textField id="zhengliuDurationField" property="zhengliuDuration"/>-->
+        <!--            </formItem>-->
+        <!--            <formItem>-->
+        <!--                <textField id="liujiuAddZhengzhuDurationField" property="liujiuAddZhengzhuDuration"/>-->
+        <!--            </formItem>-->
+        <!--            <formItem>-->
+        <!--                <textField id="phaseStartWinccIdField" property="phaseStartWinccId"/>-->
+        <!--            </formItem>-->
+        <!--            <formItem>-->
+        <!--                <textField id="phaseEndWinccIdField" property="phaseEndWinccId"/>-->
+        <!--            </formItem>-->
+        <!--            <select id="mainPhaseField" property="mainPhase"/>-->
+        <!--            <textField id="relatedRecordIdField" property="relatedRecordId"/>-->
+        <!--            <entityPicker id="sumDataRecordField" property="sumDataRecord">-->
+        <!--                <actions>-->
+        <!--                    <action id="entityLookup" type="entity_lookup"/>-->
+        <!--                    <action id="entityClear" type="entity_clear"/>-->
+        <!--                </actions>-->
+        <!--            </entityPicker>-->
+        <!--            <textField id="shangzengXiaolvField" property="shangzengXiaolv"/>-->
+        <!--            <textField id="shangzengXielvField" property="shangzengXielv"/>-->
+        <!--            <textField id="shangzengSecondClassXielvField" property="shangzengSecondClassXielv"/>-->
+        <!--            <textField id="shangzengThirdClassXielvField" property="shangzengThirdClassXielv"/>-->
+        <!--            <textField id="shangzengfirstThirdXielvField" property="shangzengfirstThirdXielv"/>-->
+        <!--            <textField id="shangzengSecondThirdXielvField" property="shangzengSecondThirdXielv"/>-->
+        <!--        </formLayout>-->
         <hbox id="detailActions">
             <button id="saveAndCloseButton" action="saveAction"/>
             <button id="closeButton" action="closeAction"/>
@@ -281,6 +282,8 @@
                 <column property="shangzengThirdClassXielv"/>
                 <column property="shangzengfirstThirdXielv"/>
                 <column property="shangzengSecondThirdXielv"/>
+                <column property="shiftTeam"/>
+                <column property="enumShift"/>
             </columns>
         </dataGrid>
     </layout>

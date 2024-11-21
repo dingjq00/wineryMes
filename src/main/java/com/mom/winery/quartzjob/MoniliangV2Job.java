@@ -55,7 +55,7 @@ public class MoniliangV2Job implements Job {
                             "and e.isDealed is null " +
                             "order by e.winccId")
                     .parameter("areaNo", areaNo)
-                    .maxResults(1000)
+                    .maxResults(5000)
                     .list();
             if(winccMoniliangList.isEmpty()){
                 continue;

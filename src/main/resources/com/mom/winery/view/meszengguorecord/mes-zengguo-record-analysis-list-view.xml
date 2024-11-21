@@ -14,6 +14,7 @@
                 <property name="jiaochiUp" fetchPlan="_base"/>
                 <property name="runliangDuarationQualifiedUp" fetchPlan="_base"/>
                 <property name="sumDataRecord" fetchPlan="_base"/>
+                <property name="shiftTeam" fetchPlan="_base"/>
             </fetchPlan>
             <loader id="mesZengguoRecordsDl" readOnly="true">
                 <query>
@@ -120,14 +121,15 @@
                 <column property="liujiuAddZhengzhuDuration" autoWidth="true"/>
                 <column property="phaseStartWinccId" autoWidth="true"/>
                 <column property="phaseEndWinccId" autoWidth="true"/>
-<!--                <column property="mainPhase"/>-->
-<!--                <column property="relatedRecordId"/>-->
+                <!--                <column property="mainPhase"/>-->
+                <!--                <column property="relatedRecordId"/>-->
                 <column property="sumDataRecord"/>
                 <column property="sumDataRecord.tanliangDuration"/>
                 <column property="sumDataRecord.tanliangAvgTemp"/>
                 <column property="sumDataRecord.tanliangMaxTemp"/>
                 <column property="sumDataRecord.tanliangMinTemp"/>
-
+                <column property="shiftTeam"/>
+                <column property="enumShift"/>
             </columns>
         </dataGrid>
         <hbox id="lookupActions" visible="false">
@@ -154,13 +156,13 @@
                     <charts:source dataContainer="mesZengguoRecordsDc"
                                    categoryField="zengguoNameAndSequence"
                                    valueFields="jiejiuDurationFirstClass jiejiuDurationSecondClass
-                               jiejiuDurationThirdClass jiejiuDurationFeishui zaopeiTotal liangshiTotal energyQiTotal"/>
+                               jiejiuDurationThirdClass  zaopeiTotal liangshiTotal energyQiTotal"/>
                 </charts:dataSet>
                 <charts:series>
                     <charts:bar name="一级酒" stack="stack" yAxisIndex="0"/>
                     <charts:bar name="二级酒" stack="stack" yAxisIndex="0"/>
                     <charts:bar name="三级酒" stack="stack" yAxisIndex="0"/>
-                    <charts:bar name="酒尾" stack="stack" yAxisIndex="0"/>
+                    <!--                    <charts:bar name="酒尾" stack="stack" yAxisIndex="0"/>-->
                     <!--                <charts:bar name="废水" stack="stack" yAxisIndex="0"/>-->
                     <charts:bar name="糟醅量" yAxisIndex="1"/>
                     <charts:bar name="粮食耗用量" yAxisIndex="1"/>

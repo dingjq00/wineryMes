@@ -22,6 +22,7 @@
             <fetchPlan extends="_base">
                 <property name="zengguoPhase" fetchPlan="_base"/>
                 <property name="sumDataRecord" fetchPlan="_base"/>
+                <property name="shiftTeam" fetchPlan="_base"/>
             </fetchPlan>
         </collection>
     </data>
@@ -165,6 +166,8 @@
                 <column property="shangzengThirdClassXielv"/>
                 <column property="shangzengfirstThirdXielv"/>
                 <column property="shangzengSecondThirdXielv"/>
+                <column property="shiftTeam"/>
+                <column property="enumShift"/>
             </columns>
         </dataGrid>
     </layout>

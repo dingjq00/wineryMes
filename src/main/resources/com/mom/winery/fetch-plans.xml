@@ -1,0 +1,4 @@
+<fetchPlans xmlns="http://jmix.io/schema/core/fetch-plans">
+    <fetchPlan entity="MesShiftTime" name="mesShiftTime-fetch-plan" extends="_base">
+    </fetchPlan>
+</fetchPlans>
