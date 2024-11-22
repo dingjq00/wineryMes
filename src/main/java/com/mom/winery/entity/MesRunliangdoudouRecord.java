@@ -1,6 +1,7 @@
 package com.mom.winery.entity;
 
 import io.jmix.core.entity.annotation.JmixGeneratedValue;
+import io.jmix.core.metamodel.annotation.Comment;
 import io.jmix.core.metamodel.annotation.JmixEntity;
 import io.jmix.core.metamodel.annotation.NumberFormat;
 import jakarta.persistence.*;
@@ -22,7 +23,8 @@ import java.util.Date;
         @Index(name = "IDX_MES_RUNLIANGDOU_RECORD_DURATION_QUALIFIED", columnList = "DURATION_QUALIFIED_ID"),
         @Index(name = "IDX_MES_RUNLIANGDOUDOU_RECORD_MES_RUNLIANGDOU", columnList = "MES_RUNLIANGDOU_ID"),
         @Index(name = "IDX_MES_RUNLIANGDOUDOU_RECORD_PRE_LOCATION", columnList = "PRE_LOCATION_ID"),
-        @Index(name = "IDX_MES_RUNLIANGDOUDOU_RECORD_AFTER_LOCATION", columnList = "AFTER_LOCATION_ID")
+        @Index(name = "IDX_MES_RUNLIANGDOUDOU_RECORD_AFTER_LOCATION", columnList = "AFTER_LOCATION_ID"),
+        @Index(name = "IDX_MES_RUNLIANGDOUDOU_RECORD_SHIFT_TEAM", columnList = "SHIFT_TEAM_ID")
 })
 @Entity
 public class MesRunliangdoudouRecord {
@@ -46,6 +48,15 @@ public class MesRunliangdoudouRecord {
     @NumberFormat(pattern = "#.##")
     @Column(name = "PHASE_DURATION")
     private Float phaseDuration;
+
+    @Comment("班组")
+    @JoinColumn(name = "SHIFT_TEAM_ID")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private MesShiftTeam shiftTeam;
+
+    @Comment("班次")
+    @Column(name = "ENUM_SHIFT", length = 50)
+    private String enumShift;
 
     @JoinColumn(name = "PRE_LOCATION_ID")
     @ManyToOne(fetch = FetchType.LAZY)
@@ -139,6 +150,22 @@ public class MesRunliangdoudouRecord {
     @LastModifiedDate
     @Column(name = "LAST_MODIFIED_DATE")
     private OffsetDateTime lastModifiedDate;
+
+    public EnumShiftConfig getEnumShift() {
+        return enumShift == null ? null : EnumShiftConfig.fromId(enumShift);
+    }
+
+    public void setEnumShift(EnumShiftConfig enumShift) {
+        this.enumShift = enumShift == null ? null : enumShift.getId();
+    }
+
+    public MesShiftTeam getShiftTeam() {
+        return shiftTeam;
+    }
+
+    public void setShiftTeam(MesShiftTeam shiftTeam) {
+        this.shiftTeam = shiftTeam;
+    }
 
     public Integer getWinccEndId() {
         return winccEndId;

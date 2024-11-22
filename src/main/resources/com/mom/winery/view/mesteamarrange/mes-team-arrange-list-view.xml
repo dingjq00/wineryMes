@@ -45,6 +45,7 @@
             <button id="setShiftToZengRecord" text="设置12车间甑锅记录中的班组班次"/>
             <button id="set13shopfloorShiftToZengRecord" text="设置13车间甑锅记录中的班组班次"/>
             <button id="setTanliangShiftToZengRecord" text="设置摊晾记录中的班组班次"/>
+            <button id="setRunliangdouShiftToOperation" text="设置润粮斗记录中的班组班次"/>
             <simplePagination id="pagination" dataLoader="mesTeamArrangesDl"/>
         </hbox>
         <dataGrid id="mesTeamArrangesDataGrid"

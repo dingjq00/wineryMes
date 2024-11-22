@@ -1,27 +1,34 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <view xmlns="http://jmix.io/schema/flowui/view"
       xmlns:c="http://jmix.io/schema/flowui/jpql-condition"
-      title="msg://mesRunliangdoudouRecordListView.title"
+      title="msg://mesRunliangdoudouRecordList2View.title"
       focusComponent="mesRunliangdoudouRecordsDataGrid">
     <data>
         <collection id="mesRunliangdoudouRecordsDc"
                     class="com.mom.winery.entity.MesRunliangdoudouRecord">
             <fetchPlan extends="_base">
                 <property name="mesRunliangdou" fetchPlan="_base">
-                    <property name="mesArea" fetchPlan="_base"/>
+                    <property name="mesArea" fetchPlan="_base">
+                        <property name="mesShopfloor" fetchPlan="_base"/>
+                    </property>
+                    <property name="emptyOrFull" fetchPlan="_base"/>
                 </property>
-                <property name="location" fetchPlan="_base"/>
-                <property name="emptyOrFull" fetchPlan="_base"/>
                 <property name="diuZaoOrliangzao" fetchPlan="_base"/>
-                <property name="durationQualified" fetchPlan="_base"/>
-                <property name="preLocation" fetchPlan="_base"/>
-                <property name="afterLocation" fetchPlan="_base"/>
                 <property name="jiaochi" fetchPlan="_base"/>
+                <property name="durationQualified" fetchPlan="_base"/>
                 <property name="shiftTeam" fetchPlan="_base"/>
             </fetchPlan>
             <loader id="mesRunliangdoudouRecordsDl" readOnly="true">
                 <query>
-                    <![CDATA[select e from MesRunliangdoudouRecord e]]>
+                    <![CDATA[select r from MesRunliangdoudouRecord r
+                    WHERE r.runliangDuration > 0
+                      AND r.runliangDuration = (
+                        SELECT MAX(subR.runliangDuration)
+                        FROM MesRunliangdoudouRecord subR
+                        WHERE subR.mesRunliangdou = r.mesRunliangdou
+                          AND subR.startTime = r.startTime
+                      )
+                    ]]>
                 </query>
             </loader>
         </collection>
@@ -43,13 +50,13 @@
             <properties include=".*"/>
         </genericFilter>
         <hbox id="buttonsPanel" classNames="buttons-panel">
-            <button id="bulkEditBtn" action="mesRunliangdoudouRecordsDataGrid.bulkEdit"/>
-            <button id="createBtn" action="mesRunliangdoudouRecordsDataGrid.create"/>
-            <button id="editBtn" action="mesRunliangdoudouRecordsDataGrid.edit"/>
-            <button id="excelExportBtn" action="mesRunliangdoudouRecordsDataGrid.excelExport"/>
-            <button id="jsonExportBtn" action="mesRunliangdoudouRecordsDataGrid.jsonExport"/>
-            <button id="refreshBtn" action="mesRunliangdoudouRecordsDataGrid.refresh"/>
-            <button id="removeBtn" action="mesRunliangdoudouRecordsDataGrid.remove"/>
+            <button id="bulkEditButton" action="mesRunliangdoudouRecordsDataGrid.bulkEdit"/>
+            <button id="createButton" action="mesRunliangdoudouRecordsDataGrid.create"/>
+            <button id="editButton" action="mesRunliangdoudouRecordsDataGrid.edit"/>
+            <button id="excelExportButton" action="mesRunliangdoudouRecordsDataGrid.excelExport"/>
+            <button id="readButton" action="mesRunliangdoudouRecordsDataGrid.read"/>
+            <button id="refreshButton" action="mesRunliangdoudouRecordsDataGrid.refresh"/>
+            <button id="removeButton" action="mesRunliangdoudouRecordsDataGrid.remove"/>
             <simplePagination id="pagination" dataLoader="mesRunliangdoudouRecordsDl"/>
         </hbox>
         <dataGrid id="mesRunliangdoudouRecordsDataGrid"
@@ -57,50 +64,48 @@
                   minHeight="20em"
                   dataContainer="mesRunliangdoudouRecordsDc"
                   columnReorderingAllowed="true"
-                  selectionMode="MULTI" pageSize="200">
+                  selectionMode="MULTI">
             <actions>
                 <action id="bulkEdit" type="bulked_edit"/>
                 <action id="create" type="list_create"/>
                 <action id="edit" type="list_edit"/>
                 <action id="excelExport" type="grdexp_excelExport"/>
-                <action id="jsonExport" type="grdexp_jsonExport"/>
+                <action id="read" type="list_read"/>
                 <action id="refresh" type="list_refresh"/>
                 <action id="remove" type="list_remove"/>
             </actions>
             <columns resizable="true">
+                <column property="mesRunliangdou.mesArea.mesShopfloor" autoWidth="true"/>
                 <column property="mesRunliangdou.mesArea" autoWidth="true"/>
                 <column property="mesRunliangdou" autoWidth="true"/>
-                <column property="winccUpdateTime" autoWidth="true"/>
-                <column property="location" autoWidth="true"/>
-                <column property="emptyOrFull" autoWidth="true"/>
-                <column property="diuZaoOrliangzao" autoWidth="true"/>
-                <column property="waterQtyAdd" autoWidth="true"/>
-                <column property="runliangDuration" autoWidth="true"/>
+<!--                <column property="winccUpdateTime" autoWidth="true"/>-->
+<!--                <column property="winccEndTime" autoWidth="true"/>-->
+<!--                <column property="phaseDuration" autoWidth="true"/>-->
                 <column property="startTime" autoWidth="true"/>
-                <column property="endTime" autoWidth="true"/>
-                <column property="jiaochiLayer" autoWidth="true"/>
-                <column property="jiaochiTime" autoWidth="true"/>
+                <column property="shiftTeam" autoWidth="true"/>
+                <column property="enumShift" autoWidth="true"/>
+                <column property="runliangDuration" autoWidth="true"/>
+                <column property="diuZaoOrliangzao" autoWidth="true"/>
                 <column property="zaopeiType" autoWidth="true"/>
                 <column property="daokeAddQty" autoWidth="true"/>
+                <column property="liangshiType" autoWidth="true"/>
                 <column property="liangshiAddQty" autoWidth="true"/>
                 <column property="zaopeiAddQty" autoWidth="true"/>
-                <column property="durationQualified" autoWidth="true"/>
-                <column property="liangshiType" autoWidth="true"/>
-                <column property="winccEndTime" autoWidth="true"/>
-                <column property="phaseDuration" autoWidth="true"/>
-                <column property="preLocation" autoWidth="true"/>
-                <column property="afterLocation" autoWidth="true"/>
+                <column property="waterQtyAdd" autoWidth="true"/>
+<!--                <column property="endTime" autoWidth="true"/>-->
                 <column property="jiaochi" autoWidth="true"/>
-                <column property="winccStartID" autoWidth="true"/>
-                <column property="winccEndId" autoWidth="true"/>
-                <column property="lastModifiedDate" autoWidth="true"/>
-                <column property="shiftTeam"/>
-                <column property="enumShift"/>
+                <column property="jiaochiLayer" autoWidth="true"/>
+                <column property="jiaochiTime" autoWidth="true"/>
+
+<!--                <column property="durationQualified" autoWidth="true"/>-->
+<!--                <column property="winccStartID" autoWidth="true"/>-->
+<!--                <column property="winccEndId" autoWidth="true"/>-->
+
             </columns>
         </dataGrid>
         <hbox id="lookupActions" visible="false">
-            <button id="selectBtn" action="selectAction"/>
-            <button id="discardBtn" action="discardAction"/>
+            <button id="selectButton" action="selectAction"/>
+            <button id="discardButton" action="discardAction"/>
         </hbox>
     </layout>
 </view>

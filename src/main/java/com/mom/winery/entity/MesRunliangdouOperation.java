@@ -23,7 +23,8 @@ import java.util.Date;
         @Index(name = "IDX_MES_RUNLIANGDOU_OPERATION_DURATION_QUALIFIED", columnList = "DURATION_QUALIFIED_ID"),
         @Index(name = "IDX_MES_RUNLIANGDOUDOU_OPERATION_MES_RUNLIANGDOU", columnList = "MES_RUNLIANGDOU_ID"),
         @Index(name = "IDX_MES_RUNLIANGDOUDOU_OPERATION_PRE_LOCATION", columnList = "PRE_LOCATION_ID"),
-        @Index(name = "IDX_MES_RUNLIANGDOUDOU_OPERATION_AFTER_LOCATION", columnList = "AFTER_LOCATION_ID")
+        @Index(name = "IDX_MES_RUNLIANGDOUDOU_OPERATION_AFTER_LOCATION", columnList = "AFTER_LOCATION_ID"),
+        @Index(name = "IDX_MES_RUNLIANGDOU_OPERATION_SHIFT_TEAM", columnList = "SHIFT_TEAM_ID")
 })
 @Entity
 public class MesRunliangdouOperation {
@@ -127,6 +128,15 @@ public class MesRunliangdouOperation {
     @Column(name = "WINCC_END_ID")
     private Integer winccEndId;
 
+    @Comment("班组")
+    @JoinColumn(name = "SHIFT_TEAM_ID")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private MesShiftTeam shiftTeam;
+
+    @Comment("班次")
+    @Column(name = "ENUM_SHIFT", length = 50)
+    private String enumShift;
+
     @CreatedBy
     @Column(name = "CREATED_BY")
     private String createdBy;
@@ -142,6 +152,22 @@ public class MesRunliangdouOperation {
     @LastModifiedDate
     @Column(name = "LAST_MODIFIED_DATE")
     private OffsetDateTime lastModifiedDate;
+
+    public EnumShiftConfig getEnumShift() {
+        return enumShift == null ? null : EnumShiftConfig.fromId(enumShift);
+    }
+
+    public void setEnumShift(EnumShiftConfig enumShift) {
+        this.enumShift = enumShift == null ? null : enumShift.getId();
+    }
+
+    public MesShiftTeam getShiftTeam() {
+        return shiftTeam;
+    }
+
+    public void setShiftTeam(MesShiftTeam shiftTeam) {
+        this.shiftTeam = shiftTeam;
+    }
 
     public Integer getWinccEndId() {
         return winccEndId;

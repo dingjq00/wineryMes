@@ -226,4 +226,93 @@ public class MesTeamArrangeListView extends StandardListView<MesTeamArrange> {
             dataManager.unconstrained().save(new SaveContext().setDiscardSaved(true).saving(tanliangjiRecordList));
         }
     }
+
+    @Subscribe(id = "setRunliangdouShiftToOperation", subject = "clickListener")
+    public void onSetRunliangdouShiftToOperationClick(final ClickEvent<JmixButton> event) {
+        List<MesShopfloor> shopfloorList = dataManager.load(MesShopfloor.class)
+                .query("select e from MesShopfloor e ")
+                .list();
+        for (MesShopfloor mesShopfloor : shopfloorList) {
+            List<MesRunliangdoudouRecord> RunliangdoudouRecordList = dataManager.load(MesRunliangdoudouRecord.class)
+                    .query("select e from MesRunliangdoudouRecord e where  " +
+                            "e.shiftTeam is null and " +
+                            " e.mesRunliangdou.mesArea.mesShopfloor = :shopfloor " )
+                    .parameter("shopfloor", mesShopfloor)
+                    .maxResults(100000)
+                    .list();
+
+            List<MesTeamArrange> teamArrangeList = dataManager.load(MesTeamArrange.class)
+                    .query("select e from MesTeamArrange e " +
+                            "where e.isActive = true " +
+                            "and e.mesShopfloor = :shopfloor " +
+                            "order by e.periodStartDateStr desc ")
+                    .parameter("shopfloor", mesShopfloor)
+                    .list();
+            List<MesShiftTime> shiftTimeList = dataManager.load(MesShiftTime.class)
+                    .query("select e from MesShiftTime e " +
+                            "where e.isActive = true " +
+                            "and e.mesShopfloor = :shopfloor " +
+                            "order by e.startTimeStr desc" )
+                    .parameter("shopfloor", mesShopfloor)
+                    .list();
+
+            setRunliangdouOperationShiftTeam(RunliangdoudouRecordList, teamArrangeList, shiftTimeList);
+
+        }
+    }
+
+    private void setRunliangdouOperationShiftTeam(List<MesRunliangdoudouRecord> runliangdoudouRecordList, List<MesTeamArrange> teamArrangeList, List<MesShiftTime> shiftTimeList) {
+        //将runliangdouOperationList按照每组1000个进行分批处理
+        for (int i = 0; i < runliangdoudouRecordList.size(); i += 1000) {
+            List<MesRunliangdoudouRecord> runliangdoudouRecordBatchList = runliangdoudouRecordList.subList(i, Math.min(i + 1000, runliangdoudouRecordList.size()));
+            for (MesRunliangdoudouRecord runliangdoudouRecord : runliangdoudouRecordBatchList) {
+                String recordStartDate = "";
+                String recordStartHour = "";
+                String recordStartMinute = "";
+                Date recordDate = null;
+                String recordDateStr = "";
+                String recordDateAllstr = "";
+                MesTeamArrange teamArrange = null;
+
+                recordDate = runliangdoudouRecord.getStartTime();
+                if(recordDate == null){
+                    continue;
+                }
+                // 获取recordDate的日时分
+                recordDateStr = recordDate.toString();
+                recordStartDate = recordDateStr.substring(8, 10);
+                recordStartHour = recordDateStr.substring(11, 13);
+                recordStartMinute =recordDateStr.substring(14,16);
+                recordDateAllstr = recordStartDate + recordStartHour +  recordStartMinute;
+                String finalRecordDateAllstr = recordDateAllstr;
+                teamArrange = teamArrangeList.stream()
+                        .filter(e -> e.getPeriodStartDateStr().compareTo(finalRecordDateAllstr) <= 0
+                                && e.getPeriodEndDateStr().compareTo(finalRecordDateAllstr) >= 0)
+                        .findFirst()
+                        .orElse(null);
+                if(teamArrange == null){
+                    teamArrange = teamArrangeList.getFirst();
+                }
+                String hourMinuteStr = recordStartHour +  recordStartMinute;
+
+                MesShiftTime shiftTime = shiftTimeList.stream()
+                        .filter(e -> e.getStartTimeStr().compareTo(hourMinuteStr) <= 0
+                                && e.getEndTimeStr().compareTo(hourMinuteStr) >= 0)
+                        .findFirst()
+                        .orElse(null);
+                if(shiftTime == null){
+                    shiftTime = shiftTimeList.getFirst();
+                }
+                MesShiftTeam shiftTeam = switch (shiftTime.getEnumShift()) {
+                    case EnumShiftConfig.DAY_SHIFT -> teamArrange.getDayShiftTeam();
+                    case EnumShiftConfig.SHORT_NIGHT_SHIFT -> teamArrange.getShortNightTeam();
+                    case EnumShiftConfig.LONG_NIGHT_SHIFT -> teamArrange.getLongNightTeam();
+                };
+
+                runliangdoudouRecord.setShiftTeam(shiftTeam);
+                runliangdoudouRecord.setEnumShift(shiftTime.getEnumShift());
+            }
+            dataManager.unconstrained().save(new SaveContext().setDiscardSaved(true).saving(runliangdoudouRecordBatchList));
+        }
+    }
 }

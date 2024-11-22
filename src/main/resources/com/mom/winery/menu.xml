@@ -36,10 +36,13 @@
         <item view="MesTeamArrange.list" title="msg://com.mom.winery.view.mesteamarrange/mesTeamArrangeListView.title"/>
 
 
+
     </menu>
     <menu id="executeRecords" title="msg://com.mom.winery/menu.executeRecords.title" opened="true">
-        <item view="MesRunliangdouOperation.list"
-              title="msg://com.mom.winery.view.mesrunliangdouoperation/mesRunliangdouOperationListView.title"/>
+<!--        <item view="MesRunliangdouOperation.list"-->
+<!--              title="msg://com.mom.winery.view.mesrunliangdouoperation/mesRunliangdouOperationListView.title"/>-->
+        <item view="MesRunliangdoudouRecord2.list"
+              title="msg://com.mom.winery.view.mesrunliangdoudourecord/mesRunliangdoudouRecordList2View.title"/>
         <item view="MesRunliangdoudouRecord.list"
               title="msg://com.mom.winery.view.mesrunliangdoudourecord/mesRunliangdoudouRecordListView.title"/>
 <!--        <item view="MesZengguoRecordAnalysisi.list"-->

@@ -42,9 +42,19 @@ public class RunliangJob implements Job {
                 .query("select e from MesJiaochi e ")
                 .list();
 
+        List<MesShiftTime> shiftTimeList = dataManager.load(MesShiftTime.class)
+                .query("select e from MesShiftTime e " +
+                        "order by e.startTimeStr desc ")
+                .list();
+
+        List<MesTeamArrange> teamArrangeList = dataManager.load(MesTeamArrange.class)
+                .query("select e from MesTeamArrange e " +
+                        "order by e.periodStartDateStr desc ")
+                .list();
 
         for (JobConfig jobConfig : jobConfigList) {
             MesArea mesArea = jobConfig.getMesArea();
+            MesShopfloor mesShopfloor = mesArea.getMesShopfloor();
             Integer areaCode = mesArea.getAreaCode();
             Integer currentWinccId = jobConfig.getWinccId();
 
@@ -62,6 +72,14 @@ public class RunliangJob implements Job {
             if(areaRunliangdouListSize == 0) {
                 continue;
             }
+
+            List<MesShiftTime> shiftTimeListForShopfloow = shiftTimeList.stream()
+                    .filter(e -> e.getMesShopfloor().equals(mesShopfloor))
+                    .toList();
+            List<MesTeamArrange> teamArrangeListForShopfloor = teamArrangeList.stream()
+                    .filter(e -> e.getMesShopfloor().equals(mesShopfloor))
+                    .toList();
+
             /**
              * 解决如果通过 Nifi获取 Wincc 数据出错时的处理
              */
@@ -105,7 +123,7 @@ public class RunliangJob implements Job {
                             "order by e.winccId")
                     .parameter("areaCode", areaCode)
                     .parameter("currentWinccId", currentWinccId)
-                    .maxResults(1000)
+                    .maxResults(40000)
                     .list();
             if(winccRunliangdouList.isEmpty()) {
                 continue;
@@ -115,6 +133,7 @@ public class RunliangJob implements Job {
                     .map(WinccRunliangdou::getWinccId)
                     .max(Integer::compareTo)
                     .orElse(0);
+
             /**
              * 处理Wincc 润粮斗待处理的数据
              */
@@ -126,6 +145,8 @@ public class RunliangJob implements Job {
                 if (comment == null || comment.isEmpty()) {
                     continue;
                 }
+
+
                 // Split the comment string by commas
                 String[] commentParts = comment.split(",");
                 int propertyNumber = commentParts.length/areaRunliangdouListSize;
@@ -261,71 +282,77 @@ public class RunliangJob implements Job {
                         record.setPreLocation(rawLocation);
                         setRecordNormalInfo(record, mesRunliangdou.getLocation(), mesRunliangdou.getEmptyOrFull(), mesRunliangdou.getDiuZaoOrliangzao(), mesRunliangdou.getWaterQtyAdd(), mesRunliangdou.getRunliangDuration(), mesRunliangdou.getStartTime(), mesRunliangdou.getEndTime(), mesRunliangdou.getJiaochiLayer(), mesRunliangdou.getJiaochi(), mesRunliangdou.getJiaochiTime(), mesRunliangdou.getZaopeiType(), mesRunliangdou.getDaokeAddQty(), mesRunliangdou.getLiangshiAddQty(), mesRunliangdou.getZaopeiAddQty(), mesRunliangdou.getDurationQualified(), mesRunliangdou.getLiangshiType());
 
+
+                        setTanliangRecordShiftInfo(record, teamArrangeListForShopfloor, shiftTimeListForShopfloow);
+
                         mesRunliangdoudouRecordList.add(record);
 
-                        /**
-                         * 检查状态是否需要创建润粮斗操作记录
-                         * 33：320-接粮糟
-                         * 34：320-接丢糟
-                         * // 35：320-接壳
-                         */
-                        if(record.getLocation() !=null && (record.getLocation().getValueNo() == 33 || record.getLocation().getValueNo() == 34)){
-                            MesRunliangdouOperation operation = dataManager.create(MesRunliangdouOperation.class);
-                            operation.setMesRunliangdou(record.getMesRunliangdou());
-                            operation.setWinccUpdateTime(record.getWinccUpdateTime());
-                            operation.setWinccStartID(record.getWinccStartID());
-                            operation.setPreLocation(rawLocation);
-                            setOperationNormalInfo(operation, record);
-                            mesRunliangdouOperationList.add(operation);
-                        }
-                        /**
-                         * 根据状态结束操作信息
-                         * 31：提升机 && 满斗
-                         * 32：翻转卸料机  && 满斗
-                         */
-                        if(record.getLocation() != null && record.getLocation().getValueNo() == 32 && record.getEmptyOrFull().getValueNo() == 1) {
-                            MesRunliangdouOperation operation = mesRunliangdouOperationList.stream()
-                                    .filter(e -> e.getMesRunliangdou().equals(mesRunliangdou)
-                                            && e.getWinccUpdateTime().before(record.getWinccUpdateTime())
-                                            && (e.getLocation().getValueNo() == 33 || e.getLocation().getValueNo() == 34))
-                                    .max(Comparator.comparing(MesRunliangdouOperation::getWinccUpdateTime))
-                                    .orElse(null);
-                            if(operation != null) {
-                                operation.setWinccEndId(record.getWinccStartID());
-                                operation.setWinccEndTime(record.getWinccUpdateTime());
-                                if(operation.getWinccUpdateTime() != null && operation.getWinccEndTime() != null){
-                                    long duration = operation.getWinccEndTime().getTime() - operation.getWinccUpdateTime().getTime();
-                                    operation.setPhaseDuration((float) (duration/60000));
-                                }
-                                operation.setAfterLocation(record.getLocation());
-                                setOperationNormalInfo(operation, record);
-                                mesRunliangdouOperationList.add(operation);
-                            }else {
-                                if(rawWinccUpdateTime != null) {
-                                    List<MesRunliangdouOperation> preOperations = dataManager.load(MesRunliangdouOperation.class)
-                                            .query("select e from MesRunliangdouOperation e " +
-                                                    "where e.mesRunliangdou = :mesRunliangdou " +
-                                                    "and e.winccUpdateTime <= :winccUpdateTime " +
-                                                    "order by e.winccUpdateTime desc")
-                                            .parameter("mesRunliangdou", mesRunliangdou)
-                                            .parameter("winccUpdateTime", rawWinccUpdateTime)
-                                            .maxResults(1)
-                                            .list();
-                                    if (!preOperations.isEmpty()) {
-                                        MesRunliangdouOperation preOperation = preOperations.getFirst();
-                                        preOperation.setWinccEndId(record.getWinccStartID());
-                                        preOperation.setWinccEndTime(record.getWinccUpdateTime());
-                                        if (preOperation.getWinccUpdateTime() != null && preOperation.getWinccEndTime() != null) {
-                                            long duration = preOperation.getWinccEndTime().getTime() - preOperation.getWinccUpdateTime().getTime();
-                                            preOperation.setPhaseDuration((float) (duration / 60000));
-                                        }
-                                        preOperation.setAfterLocation(record.getLocation());
-                                        setOperationNormalInfo(preOperation, record);
-                                        mesRunliangdouOperationList.add(preOperation);
-                                    }
-                                }
-                            }
-                        }
+
+//                        /**
+//                         * 检查状态是否需要创建润粮斗操作记录
+//                         * 33：320-接粮糟
+//                         * 34：320-接丢糟
+//                         * // 35：320-接壳
+//                         */
+//                        if(record.getLocation() !=null && (record.getLocation().getValueNo() == 33 || record.getLocation().getValueNo() == 34)){
+//                            MesRunliangdouOperation operation = dataManager.create(MesRunliangdouOperation.class);
+//                            operation.setMesRunliangdou(record.getMesRunliangdou());
+//                            operation.setWinccUpdateTime(record.getWinccUpdateTime());
+//                            operation.setWinccStartID(record.getWinccStartID());
+//                            operation.setPreLocation(rawLocation);
+//                            setOperationNormalInfo(operation, record);
+//                            operation.setEnumShift(record.getEnumShift());
+//                            operation.setShiftTeam(record.getShiftTeam());
+//                            mesRunliangdouOperationList.add(operation);
+//                        }
+//                        /**
+//                         * 根据状态结束操作信息
+//                         * 31：提升机 && 满斗
+//                         * 32：翻转卸料机  && 满斗
+//                         */
+//                        if(record.getLocation() != null && record.getLocation().getValueNo() == 32 && record.getEmptyOrFull().getValueNo() == 1) {
+//                            MesRunliangdouOperation operation = mesRunliangdouOperationList.stream()
+//                                    .filter(e -> e.getMesRunliangdou().equals(mesRunliangdou)
+//                                            && e.getWinccUpdateTime().before(record.getWinccUpdateTime())
+//                                            && (e.getLocation().getValueNo() == 33 || e.getLocation().getValueNo() == 34))
+//                                    .max(Comparator.comparing(MesRunliangdouOperation::getWinccUpdateTime))
+//                                    .orElse(null);
+//                            if(operation != null) {
+//                                operation.setWinccEndId(record.getWinccStartID());
+//                                operation.setWinccEndTime(record.getWinccUpdateTime());
+//                                if(operation.getWinccUpdateTime() != null && operation.getWinccEndTime() != null){
+//                                    long duration = operation.getWinccEndTime().getTime() - operation.getWinccUpdateTime().getTime();
+//                                    operation.setPhaseDuration((float) (duration/60000));
+//                                }
+//                                operation.setAfterLocation(record.getLocation());
+//                                setOperationNormalInfo(operation, record);
+//                                mesRunliangdouOperationList.add(operation);
+//                            }else {
+//                                if(rawWinccUpdateTime != null) {
+//                                    List<MesRunliangdouOperation> preOperations = dataManager.load(MesRunliangdouOperation.class)
+//                                            .query("select e from MesRunliangdouOperation e " +
+//                                                    "where e.mesRunliangdou = :mesRunliangdou " +
+//                                                    "and e.winccUpdateTime <= :winccUpdateTime " +
+//                                                    "order by e.winccUpdateTime desc")
+//                                            .parameter("mesRunliangdou", mesRunliangdou)
+//                                            .parameter("winccUpdateTime", rawWinccUpdateTime)
+//                                            .maxResults(1)
+//                                            .list();
+//                                    if (!preOperations.isEmpty()) {
+//                                        MesRunliangdouOperation preOperation = preOperations.getFirst();
+//                                        preOperation.setWinccEndId(record.getWinccStartID());
+//                                        preOperation.setWinccEndTime(record.getWinccUpdateTime());
+//                                        if (preOperation.getWinccUpdateTime() != null && preOperation.getWinccEndTime() != null) {
+//                                            long duration = preOperation.getWinccEndTime().getTime() - preOperation.getWinccUpdateTime().getTime();
+//                                            preOperation.setPhaseDuration((float) (duration / 60000));
+//                                        }
+//                                        preOperation.setAfterLocation(record.getLocation());
+//                                        setOperationNormalInfo(preOperation, record);
+//                                        mesRunliangdouOperationList.add(preOperation);
+//                                    }
+//                                }
+//                            }
+//                        }
 
                         /**
                          * 处理前面具体步骤的结束信息
@@ -383,6 +410,52 @@ public class RunliangJob implements Job {
             mesRunliangdouOperationList.clear();
             mesRunliangdoudouRecordList.clear();
         }
+    }
+
+    private static void setTanliangRecordShiftInfo(MesRunliangdoudouRecord record, List<MesTeamArrange> teamArrangeList, List<MesShiftTime> shiftTimeList) {
+        Date recordDate = null;
+        recordDate = record.getStartTime();
+        String recordStartDate = "";
+        String recordStartHour = "";
+        String recordStartMinute = "";
+
+        String recordDateStr = "";
+        String recordDateAllstr = "";
+        MesTeamArrange teamArrange = null;
+
+        // 获取recordDate的日时分
+        recordDateStr = recordDate.toString();
+        recordStartDate = recordDateStr.substring(8, 10);
+        recordStartHour = recordDateStr.substring(11, 13);
+        recordStartMinute =recordDateStr.substring(14,16);
+        recordDateAllstr = recordStartDate + recordStartHour +  recordStartMinute;
+        String finalRecordDateAllstr = recordDateAllstr;
+        teamArrange = teamArrangeList.stream()
+                .filter(e -> e.getPeriodStartDateStr().compareTo(finalRecordDateAllstr) <= 0
+                        && e.getPeriodEndDateStr().compareTo(finalRecordDateAllstr) >= 0)
+                .findFirst()
+                .orElse(null);
+        if(teamArrange == null){
+            teamArrange = teamArrangeList.getFirst();
+        }
+        String hourMinuteStr = recordStartHour +  recordStartMinute;
+
+        MesShiftTime shiftTime = shiftTimeList.stream()
+                .filter(e -> e.getStartTimeStr().compareTo(hourMinuteStr) <= 0
+                        && e.getEndTimeStr().compareTo(hourMinuteStr) >= 0)
+                .findFirst()
+                .orElse(null);
+        if(shiftTime == null){
+            shiftTime = shiftTimeList.getFirst();
+        }
+        MesShiftTeam shiftTeam = switch (shiftTime.getEnumShift()) {
+            case EnumShiftConfig.DAY_SHIFT -> teamArrange.getDayShiftTeam();
+            case EnumShiftConfig.SHORT_NIGHT_SHIFT -> teamArrange.getShortNightTeam();
+            case EnumShiftConfig.LONG_NIGHT_SHIFT -> teamArrange.getLongNightTeam();
+        };
+
+        record.setShiftTeam(shiftTeam);
+        record.setEnumShift(shiftTime.getEnumShift());
     }
 
     private static void setOperationNormalInfo(MesRunliangdouOperation operation, MesRunliangdoudouRecord record) {

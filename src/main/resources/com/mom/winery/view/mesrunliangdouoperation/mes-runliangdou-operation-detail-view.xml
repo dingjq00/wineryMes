@@ -5,7 +5,9 @@
     <data>
         <instance id="mesRunliangdouOperationDc"
                   class="com.mom.winery.entity.MesRunliangdouOperation">
-            <fetchPlan extends="_base"/>
+            <fetchPlan extends="_base">
+                <property name="shiftTeam" fetchPlan="_base"/>
+            </fetchPlan>
             <loader id="mesRunliangdouOperationDl"/>
         </instance>
     </data>
@@ -34,6 +36,13 @@
             <select id="liangshiTypeField" property="liangshiType"/>
             <textField id="winccStartIDField" property="winccStartID"/>
             <textField id="winccEndIdField" property="winccEndId"/>
+            <entityPicker id="shiftTeamField" property="shiftTeam">
+                <actions>
+                    <action id="entityLookup" type="entity_lookup"/>
+                    <action id="entityClear" type="entity_clear"/>
+                </actions>
+            </entityPicker>
+            <select id="enumShiftField" property="enumShift"/>
         </formLayout>
         <hbox id="detailActions">
             <button id="saveAndCloseBtn" action="saveAction"/>
