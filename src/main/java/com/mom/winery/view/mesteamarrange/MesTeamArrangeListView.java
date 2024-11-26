@@ -10,6 +10,8 @@ import io.jmix.flowui.kit.component.button.JmixButton;
 import io.jmix.flowui.view.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.util.Date;
 import java.util.List;
 
@@ -35,14 +37,17 @@ public class MesTeamArrangeListView extends StandardListView<MesTeamArrange> {
                 .query("select e from MesShopfloor e " +
                         "where e.mesShopfloorName = '11车间'")
                 .one();
+        LocalDateTime startTime = LocalDateTime.of(2021, 1, 1, 0, 0, 0);
+        Date startTimeDate = Date.from(startTime.toInstant(ZoneOffset.ofHours(8)));
         List<MesZengguoRecord> zengguoRecordList = dataManager.load(MesZengguoRecord.class)
                 .query("select e from MesZengguoRecord e where e.shiftTeam is null " +
+                        "and e.endTimeTall >:startTimeDate " +
                         "and e.mesZengguo.mesArea.mesShopfloor = :shopfloor " )
+                .parameter("startTimeDate", startTimeDate)
                 .parameter("shopfloor", shopfloor)
                 .maxResults(100000)
                 .list();
         setZengguoRecordShiftTeam(shopfloor, zengguoRecordList);
-
     }
 
     @Subscribe(id = "setShiftToZengRecord", subject = "clickListener")
@@ -52,9 +57,13 @@ public class MesTeamArrangeListView extends StandardListView<MesTeamArrange> {
                 .query("select e from MesShopfloor e " +
                         "where e.mesShopfloorName = '12车间'")
                 .one();
+        LocalDateTime startTime = LocalDateTime.of(2021, 1, 1, 0, 0, 0);
+        Date startTimeDate = Date.from(startTime.toInstant(ZoneOffset.ofHours(8)));
         List<MesZengguoRecord> zengguoRecordList = dataManager.load(MesZengguoRecord.class)
                 .query("select e from MesZengguoRecord e where e.shiftTeam is null " +
+                        "and e.endTimeTall >:startTimeDate " +
                         "and e.mesZengguo.mesArea.mesShopfloor = :shopfloor " )
+                .parameter("startTimeDate", startTimeDate)
                 .parameter("shopfloor", shopfloor)
                 .maxResults(100000)
                 .list();
@@ -68,9 +77,13 @@ public class MesTeamArrangeListView extends StandardListView<MesTeamArrange> {
                 .query("select e from MesShopfloor e " +
                         "where  e.mesShopfloorName = '13车间'")
                 .one();
+        LocalDateTime startTime = LocalDateTime.of(2021, 1, 1, 0, 0, 0);
+        Date startTimeDate = Date.from(startTime.toInstant(ZoneOffset.ofHours(8)));
         List<MesZengguoRecord> zengguoRecordList = dataManager.load(MesZengguoRecord.class)
-                .query("select e from MesZengguoRecord e where e.shiftTeam is null and " +
-                        " e.mesZengguo.mesArea.mesShopfloor = :shopfloor " )
+                .query("select e from MesZengguoRecord e where e.shiftTeam is null " +
+                        "and e.endTimeTall >:startTimeDate " +
+                        "and e.mesZengguo.mesArea.mesShopfloor = :shopfloor " )
+                .parameter("startTimeDate", startTimeDate)
                 .parameter("shopfloor", shopfloor)
                 .maxResults(100000)
                 .list();
@@ -105,7 +118,7 @@ public class MesTeamArrangeListView extends StandardListView<MesTeamArrange> {
                 String recordDateAllstr = "";
                 MesTeamArrange teamArrange = null;
 
-                recordDate = zengguoRecord.getPhaseStartTimeTotal();
+                recordDate = zengguoRecord.getStartTimeTotal();
                 // 获取recordDate的日时分
                 recordDateStr = recordDate.toString();
                 recordStartDate = recordDateStr.substring(8, 10);

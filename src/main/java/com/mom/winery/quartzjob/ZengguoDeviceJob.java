@@ -14,8 +14,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
 import java.util.*;
 
 /**
@@ -378,7 +380,14 @@ public class ZengguoDeviceJob implements Job {
         String recordDateAllstr = "";
         MesTeamArrange teamArrange = null;
 
-        recordDate = record.getPhaseStartTimeTotal();
+//        recordDate = record.getPhaseStartTimeTotal();
+
+        recordDate = record.getStartTimeTotal();
+        LocalDateTime startTime = LocalDateTime.of(2021, 1, 1, 0, 0, 0);
+        Date startTimeDate = Date.from(startTime.toInstant(ZoneOffset.ofHours(8)));
+        if(recordDate.before(startTimeDate)){
+            return;
+        }
         // 获取recordDate的日时分
         recordDateStr = recordDate.toString();
         recordStartDate = recordDateStr.substring(8, 10);

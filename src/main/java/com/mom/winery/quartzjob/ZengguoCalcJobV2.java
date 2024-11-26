@@ -38,7 +38,7 @@ public class ZengguoCalcJobV2 implements Job {
                     "where (e.shangzengXiaolv is null or e.shangzengXiaolv <= :minXiaolv) " +
                     "and e.zengguoPhase.phaseNo = :zengguoPhaseNo  " +
                     "and e.phaseEndTimeTotal is not null " +
-                    "and e.phaseEndTimeTotal > :minDate " +
+                    "and e.endTimeTall > :minDate " +
                     "and (e.jiejiuDurationFirstClass > 0.2 or e.jiejiuDurationSecondClass > 0.2 " +
                     "or e.jiejiuDurationThirdClass > 0.2 or e.jiejiuDurationFeishui > 0.2)")
             .parameter("minXiaolv", 0.0)

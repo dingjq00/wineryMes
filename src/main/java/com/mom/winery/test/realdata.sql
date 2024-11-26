@@ -77,3 +77,28 @@ left join MES_AREA on MES_AREA.id = MES_TANLIANGJI.MES_AREA_ID
 left join MES_SHOPFLOOR on MES_SHOPFLOOR.id = MES_AREA.MES_SHOPFLOOR_ID
 Left join MES_SHIFT_TEAM  on MES_SHIFT_TEAM.id = record.SHIFT_TEAM_ID
 where record.ZENG_SEQUENCE > 0
+
+
+select
+    MES_SHOPFLOOR.MES_SHOPFLOOR_NAME,
+    MES_AREA.AREA_NAME,
+    MES_TANLIANGJI.TANLIANGJI_CODE,
+    MES_SHIFT_TEAM.TEAM_NAME,
+    CASE
+        WHEN record.ENUM_SHIFT = 'DAY_SHIFT' THEN '白班'
+        WHEN record.ENUM_SHIFT = 'SHORT_NIGHT_SHIFT' THEN '小夜班'
+        WHEN record.ENUM_SHIFT = 'LONG_NIGHT_SHIFT' THEN '长夜班'
+        ELSE '未知'
+        END AS shiftName,
+    record.*
+from MES_TANLIANGJI_RECORD AS record
+         left join MES_TANLIANGJI on MES_TANLIANGJI.id = record.MES_TANLIANGJI_ID
+         left join MES_AREA on MES_AREA.id = MES_TANLIANGJI.MES_AREA_ID
+         left join MES_SHOPFLOOR on MES_SHOPFLOOR.id = MES_AREA.MES_SHOPFLOOR_ID
+         Left join MES_SHIFT_TEAM  on MES_SHIFT_TEAM.id = record.SHIFT_TEAM_ID
+where record.ZENG_SEQUENCE > 0 and record.PHASE_START_TIME < '{{ start_date }}' and record.CREATED_DATE > '{{ end_date }}';
+
+    {
+"start_date":"2024-11-02",
+"end_date":"2024-11-17"
+}

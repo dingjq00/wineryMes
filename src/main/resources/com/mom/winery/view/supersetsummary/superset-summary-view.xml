@@ -2,8 +2,7 @@
 <view xmlns="http://jmix.io/schema/flowui/view" xmlns:superset="http://jmix.io/schema/superset/ui"
       title="msg://supersetSummaryView.title">
     <layout>
-        <superset:dashboard  id="dashboard" width="100%" height="100%"
-                             embeddedId="2855423a-df47-4144-9180-320d6c56aeef"/>
-
+<!--        <superset:dashboard  id="dashboard" width="100%" height="100%"-->
+<!--                             embeddedId="2855423a-df47-4144-9180-320d6c56aeef"/>-->
     </layout>
 </view>

@@ -2,7 +2,7 @@
 <view xmlns="http://jmix.io/schema/flowui/view" xmlns:superset="http://jmix.io/schema/superset/ui"
       title="msg://supersetShiftteamView.title">
     <layout>
-        <superset:dashboard  id="dashboard" width="100%" height="100%"
-                             embeddedId="b8c034f0-4617-4f1d-9e70-c39d01a8c153"/>
+<!--        <superset:dashboard  id="dashboard" width="100%" height="100%"-->
+<!--                             embeddedId="b8c034f0-4617-4f1d-9e70-c39d01a8c153"/>-->
     </layout>
 </view>

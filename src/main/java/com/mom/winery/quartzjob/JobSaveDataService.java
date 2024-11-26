@@ -54,10 +54,9 @@ public class JobSaveDataService {
     public void saveZengguoData(JobConfig jobConfig, List<MesZengguo> areaZengguoList, List<MesZengguoRecord> mesZengguoRecordList,List<MesZengguoOperation> mesZengguoOperationList,List<MesZengguoUnitProcedure> mesZengguoUnitProcedureList, Integer maxWinccId) {
         dataManager.unconstrained().save(new SaveContext().setDiscardSaved(true).saving(areaZengguoList));
         dataManager.unconstrained().save(new SaveContext().setDiscardSaved(true).saving(mesZengguoRecordList));
-        dataManager.unconstrained().save(new SaveContext().setDiscardSaved(true).saving(mesZengguoOperationList));
-        dataManager.unconstrained().save(new SaveContext().setDiscardSaved(true).saving(mesZengguoUnitProcedureList));
+//        dataManager.unconstrained().save(new SaveContext().setDiscardSaved(true).saving(mesZengguoOperationList));
+//        dataManager.unconstrained().save(new SaveContext().setDiscardSaved(true).saving(mesZengguoUnitProcedureList));
         jobConfig.setWinccId(maxWinccId);
         dataManager.unconstrained().save(new SaveContext().setDiscardSaved(true).saving(jobConfig));
     }
-
 }
