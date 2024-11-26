@@ -84,7 +84,7 @@
                 <column property="startTime" autoWidth="true"/>
                 <column property="shiftTeam" autoWidth="true"/>
                 <column property="enumShift" autoWidth="true"/>
-                <column property="runliangDuration" autoWidth="true"/>
+                <column property="runliangDuration" autoWidth="true" header="msg://column.header"/>
                 <column property="diuZaoOrliangzao" autoWidth="true"/>
                 <column property="zaopeiType" autoWidth="true"/>
                 <column property="daokeAddQty" autoWidth="true"/>
