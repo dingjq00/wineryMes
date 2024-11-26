@@ -68,10 +68,11 @@
                 <column property="startTimeTotal" autoWidth="true"/>
                 <column property="shangzengXiaolv"/>
                 <column property="shangzengXielv"/>
-                <column property="shangzengSecondClassXielv"/>
-                <column property="shangzengThirdClassXielv"/>
-                <column property="shangzengfirstThirdXielv"/>
-                <column property="shangzengSecondThirdXielv"/>
+                <column property="jiejiuDurationFirstClass" autoWidth="true"/>
+                <column property="jiejiuDurationSecondClass" autoWidth="true"/>
+                <column property="jiejiuDurationThirdClass" autoWidth="true"/>
+                <column property="jiejiuDurationFeishui" autoWidth="true"/>
+                <column property="jiejiuDurationJiuwei" autoWidth="true"/>
                 <column property="startTimeDeviceShangZeng" autoWidth="true"/>
                 <column property="startTimeKagai" autoWidth="true"/>
                 <column property="endTimeLiujiu" autoWidth="true"/>
@@ -106,11 +107,6 @@
                 <column property="shangzengDuration" autoWidth="true"/>
                 <column property="shangzengHeight" autoWidth="true"/>
                 <column property="shangzengTotalQty" autoWidth="true"/>
-                <column property="jiejiuDurationFirstClass" autoWidth="true"/>
-                <column property="jiejiuDurationSecondClass" autoWidth="true"/>
-                <column property="jiejiuDurationThirdClass" autoWidth="true"/>
-                <column property="jiejiuDurationFeishui" autoWidth="true"/>
-                <column property="jiejiuDurationJiuwei" autoWidth="true"/>
                 <column property="liangshuiAddQty" autoWidth="true"/>
                 <column property="huishoudiguoWaterAddQty" autoWidth="true"/>
                 <column property="hotWaterAddQty" autoWidth="true"/>
@@ -122,8 +118,10 @@
                 <column property="liujiuAddZhengzhuDuration" autoWidth="true"/>
                 <column property="phaseStartWinccId" autoWidth="true"/>
                 <column property="phaseEndWinccId" autoWidth="true"/>
-                <!--                <column property="mainPhase"/>-->
-                <!--                <column property="relatedRecordId"/>-->
+                <column property="shangzengSecondClassXielv"/>
+                <column property="shangzengThirdClassXielv"/>
+                <column property="shangzengfirstThirdXielv"/>
+                <column property="shangzengSecondThirdXielv"/>
                 <column property="sumDataRecord"/>
                 <column property="sumDataRecord.tanliangDuration"/>
                 <column property="sumDataRecord.tanliangAvgTemp"/>
