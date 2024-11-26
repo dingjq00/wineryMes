@@ -507,10 +507,10 @@ public class MesZengguoRecordAnalysisiListView extends StandardListView<MesZengg
                     +"甑序：" + zengguoRecord.getZengSequence() + "   " + formattedDate +"\n " +
                     "装甑效率：" + String.format("%.3f", zengguoRecord.getShangzengXiaolv()) + "\n" +
                     "一二级斜率：" + String.format("%.3f", zengguoRecord.getShangzengXielv()) + "\n" +
-                    "二级斜率：" + String.format("%.3f", zengguoRecord.getShangzengSecondClassXielv()) + "\n" +
-                    "二级三级斜率：" + String.format("%.3f", zengguoRecord.getShangzengSecondThirdXielv()) + "\n" +
-                    "三级斜率：" + String.format("%.3f", zengguoRecord.getShangzengThirdClassXielv()) + "\n" +
-                    "一至三级斜率：" + String.format("%.3f", zengguoRecord.getShangzengfirstThirdXielv()) + "\n" +
+//                    "二级斜率：" + String.format("%.3f", zengguoRecord.getShangzengSecondClassXielv()) + "\n" +
+//                    "二级三级斜率：" + String.format("%.3f", zengguoRecord.getShangzengSecondThirdXielv()) + "\n" +
+//                    "三级斜率：" + String.format("%.3f", zengguoRecord.getShangzengThirdClassXielv()) + "\n" +
+//                    "一至三级斜率：" + String.format("%.3f", zengguoRecord.getShangzengfirstThirdXielv()) + "\n" +
                     "各级酒级时长：" + String.format("%.3f", zengguoRecord.getJiejiuDurationFirstClass()) + " - " + String.format("%.3f", zengguoRecord.getJiejiuDurationSecondClass())+ " - "
                     + String.format("%.3f", zengguoRecord.getJiejiuDurationThirdClass()) + "\n" ;
 
