@@ -213,7 +213,7 @@ public class ZengguoCalcJob implements Job {
                         .orElse(0.0f);
             }
 
-            if(thirdClassMaxTemp > 1 && jiuweiMaxTemp > 1){
+            if(thirdClassMaxTemp > 1 ){
                 //一级酒面积
                 Float firstClassArea = 0.0f;
                 List<Float> firstClassAreaList = null;
