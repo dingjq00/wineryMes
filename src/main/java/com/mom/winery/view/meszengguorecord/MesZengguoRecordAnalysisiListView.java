@@ -3,6 +3,7 @@ package com.mom.winery.view.meszengguorecord;
 import com.mom.winery.app.WinccDataDealCommons;
 import com.mom.winery.entity.*;
 import com.mom.winery.view.main.MainView;
+import com.vaadin.flow.component.ClickEvent;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
 import io.jmix.chartsflowui.component.Chart;
@@ -21,7 +22,11 @@ import io.jmix.chartsflowui.kit.component.model.shared.Color;
 import io.jmix.chartsflowui.kit.component.model.visualMap.PiecewiseVisualMap;
 import io.jmix.chartsflowui.kit.data.chart.ListChartItems;
 import io.jmix.core.DataManager;
+import io.jmix.flowui.DialogWindows;
+import io.jmix.flowui.Notifications;
 import io.jmix.flowui.UiComponents;
+import io.jmix.flowui.component.grid.DataGrid;
+import io.jmix.flowui.kit.component.button.JmixButton;
 import io.jmix.flowui.model.CollectionLoader;
 import io.jmix.flowui.view.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,6 +60,12 @@ public class MesZengguoRecordAnalysisiListView extends StandardListView<MesZengg
     private VerticalLayout shangzengRealDataVerticalLayout;
     @Autowired
     private WinccDataDealCommons winccDataDealCommons;
+    @ViewComponent
+    private DataGrid<MesZengguoRecord> mesZengguoRecordsDataGrid;
+    @Autowired
+    private Notifications notifications;
+    @Autowired
+    private DialogWindows dialogWindows;
 
     public List<Long> getRecordIds() {
         return recordIds;
@@ -857,5 +868,19 @@ public class MesZengguoRecordAnalysisiListView extends StandardListView<MesZengg
             chart.withSeries(lineSeries2,lineSeries3,lineSeries5,barSeries);
             shangzengRealDataVerticalLayout.add(chart);
         }
+    }
+
+    @Subscribe(id = "detailSteps", subject = "clickListener")
+    public void onDetailStepsClick(final ClickEvent<JmixButton> event) {
+        MesZengguoRecord record = mesZengguoRecordsDataGrid.getSingleSelectedItem();
+        if (record == null) {
+            notifications.create("请选择一条记录").show();
+            return;
+        }
+        DialogWindow<MesZengguoRecordAccordingListView> window =
+                dialogWindows.view(this, MesZengguoRecordAccordingListView.class).build();
+        window.getView().setMesZengguo(record.getMesZengguo());
+        window.getView().setStartTime(record.getStartTimeTotal());
+        window.open();
     }
 }

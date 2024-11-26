@@ -34,7 +34,10 @@
         <item view="MesShiftTeam.list" title="msg://com.mom.winery.view.messhiftteam/mesShiftTeamListView.title"/>
         <item view="MesShiftTime.list" title="msg://com.mom.winery.view.messhifttime/mesShiftTimeListView.title"/>
         <item view="MesTeamArrange.list" title="msg://com.mom.winery.view.mesteamarrange/mesTeamArrangeListView.title"/>
-
+        <item view="MesZengguoRecordAccording.list"
+              title="msg://com.mom.winery.view.meszengguorecord/mesZengguoRecordAccordingListView.title"/>
+        <item view="MesZengguoRealDataAnalysis.list"
+              title="msg://com.mom.winery.view.meszengguorealdatav2/mesZengguoRealDataAnalysisListView.title"/>
 
 
     </menu>

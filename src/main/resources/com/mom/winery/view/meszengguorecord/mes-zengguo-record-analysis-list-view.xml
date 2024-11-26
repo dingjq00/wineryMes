@@ -40,11 +40,12 @@
             <properties include=".*"/>
         </genericFilter>
         <hbox id="buttonsPanel" classNames="buttons-panel">
-            <button id="bulkEditButton" action="mesZengguoRecordsDataGrid.bulkEdit"/>
-            <button id="editButton" action="mesZengguoRecordsDataGrid.edit"/>
-            <button id="excelExportButton" action="mesZengguoRecordsDataGrid.excelExport"/>
+<!--            <button id="bulkEditButton" action="mesZengguoRecordsDataGrid.bulkEdit"/>-->
+<!--            <button id="editButton" action="mesZengguoRecordsDataGrid.edit"/>-->
+<!--            <button id="excelExportButton" action="mesZengguoRecordsDataGrid.excelExport"/>-->
             <button id="refreshButton" action="mesZengguoRecordsDataGrid.refresh"/>
-            <button id="removeButton" action="mesZengguoRecordsDataGrid.remove"/>
+<!--            <button id="removeButton" action="mesZengguoRecordsDataGrid.remove"/>-->
+            <button id="detailSteps" text="执行详细信息"/>
             <simplePagination id="pagination" dataLoader="mesZengguoRecordsDl"/>
         </hbox>
         <dataGrid id="mesZengguoRecordsDataGrid"
