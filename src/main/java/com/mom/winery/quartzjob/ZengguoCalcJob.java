@@ -41,11 +41,9 @@ public class ZengguoCalcJob implements Job {
                     "where (e.shangzengXiaolv is null or e.shangzengXiaolv <= :minXiaolv) " +
                     "and ( e.endTimeTall > :minDate ) " +
                     "and (e.jiejiuDurationFirstClass > 0.2 or e.jiejiuDurationSecondClass > 0.2 " +
-                    "or e.jiejiuDurationThirdClass > 0.2 or e.jiejiuDurationFeishui > 0.2) " +
-                    "order by e.startTimeTotal")
+                    "or e.jiejiuDurationThirdClass > 0.2 or e.jiejiuDurationFeishui > 0.2) " )
             .parameter("minXiaolv", 0.0)
-            .parameter("minDate", minDate)
-//                .maxResults(500)
+            .parameter("minDate", minDate).maxResults(500)
             .list();
         if(mesZengguoRecordList.isEmpty()){
             return;

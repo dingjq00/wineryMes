@@ -193,7 +193,7 @@ public class MesZengguoRecordAnalysisiListView extends StandardListView<MesZengg
                     .maxResults(1)
                     .list();
             Chart chart = uiComponents.create(Chart.class);
-            chart.setMinHeight("40em");
+            chart.setMinHeight("30em");
             if(mesTanliangjiRecordList.isEmpty()){
                 chart.withTitle(new Title().withText("未找到摊晾机数据"));
                 shangzengRealDataVerticalLayout.add(chart);
@@ -362,7 +362,7 @@ public class MesZengguoRecordAnalysisiListView extends StandardListView<MesZengg
     private void getLiujiuQuxian(List<MesZengguoRecord> mesZengguoRecords, List<MesZengguoRealDataV2> mesZengguoRealDataList,List<MesZengguoRecord> totalRecords) {
         for (MesZengguoRecord zengguoRecord : mesZengguoRecords) {
             Chart chart = uiComponents.create(Chart.class);
-            chart.setMinHeight("40em");
+            chart.setMinHeight("30em");
             ListChartItems<EntityDataItem> chartItems = new ListChartItems<>();
             List<Integer> liujiuList = Arrays.asList(520,521,522,523,524);
 
