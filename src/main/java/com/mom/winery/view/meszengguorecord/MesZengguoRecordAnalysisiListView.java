@@ -435,6 +435,7 @@ public class MesZengguoRecordAnalysisiListView extends StandardListView<MesZengg
                                 jiutouEnd = i - 1;
                             }
                         }
+                        firstClassEnd = i;
                         break;
                     case 522: // 二级
                         if(secondClassStart == -1){
@@ -446,6 +447,7 @@ public class MesZengguoRecordAnalysisiListView extends StandardListView<MesZengg
                                 firstClassEnd = i - 1;
                             }
                         }
+                        secondClassEnd=i;
                         break;
                     case 523: // 三级
                         if(thirdClassStart == -1){
@@ -460,7 +462,7 @@ public class MesZengguoRecordAnalysisiListView extends StandardListView<MesZengg
                                 secondClassEnd = i - 1;
                             }
                         }
-//                        thirdClassEnd = i;
+                        thirdClassEnd = i;
                         break;
                     case 524: // 酒尾
                         if(jiuweiStart == -1){
