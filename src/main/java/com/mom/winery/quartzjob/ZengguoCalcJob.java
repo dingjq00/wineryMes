@@ -40,8 +40,7 @@ public class ZengguoCalcJob implements Job {
             .query("select e from MesZengguoRecord e " +
                     "where (e.shangzengXiaolv is null or e.shangzengXiaolv <= :minXiaolv) " +
                     "and ( e.endTimeTall > :minDate ) " +
-                    "and (e.jiejiuDurationFirstClass > 1.5 or e.jiejiuDurationSecondClass > 1.5 " +
-                    "or e.jiejiuDurationThirdClass > 1.5 or e.jiejiuDurationFeishui > 1.5) " )
+                    "and e.jiejiuDurationThirdClass >= 1.5 " )
             .parameter("minXiaolv", 0.0)
             .parameter("minDate", minDate).maxResults(500)
             .list();
