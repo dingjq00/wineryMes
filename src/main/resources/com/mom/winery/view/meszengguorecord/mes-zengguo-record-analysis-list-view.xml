@@ -66,8 +66,8 @@
                 <column property="zengSequence" autoWidth="true"/>
                 <column property="zaopeiType" autoWidth="true"/>
                 <column property="startTimeTotal" autoWidth="true"/>
-                <column property="shangzengXiaolv"/>
-                <column property="shangzengXielv"/>
+                <column property="shangzengXiaolv" autoWidth="true"/>
+                <column property="shangzengXielv" autoWidth="true"/>
                 <column property="jiejiuDurationFirstClass" autoWidth="true"/>
                 <column property="jiejiuDurationSecondClass" autoWidth="true"/>
                 <column property="jiejiuDurationThirdClass" autoWidth="true"/>

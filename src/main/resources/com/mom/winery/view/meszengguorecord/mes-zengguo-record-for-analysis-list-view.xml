@@ -78,12 +78,17 @@
                 <column property="zaopeiType" autoWidth="true"/>
                 <column property="startTimeTotal" autoWidth="true"/>
                 <column property="endTimeTall" autoWidth="true"/>
+
                 <column property="shangzengXiaolv" autoWidth="true"/>
                 <column property="shangzengXielv" autoWidth="true"/>
-                <column property="shangzengSecondClassXielv" autoWidth="true"/>
-                <column property="shangzengThirdClassXielv" autoWidth="true"/>
-                <column property="shangzengfirstThirdXielv" autoWidth="true"/>
-                <column property="shangzengSecondThirdXielv" autoWidth="true"/>
+                <column property="shiftTeam"/>
+                <column property="enumShift"/>
+                <column property="jiejiuDurationFirstClass" autoWidth="true"/>
+                <column property="jiejiuDurationSecondClass" autoWidth="true"/>
+                <column property="jiejiuDurationThirdClass" autoWidth="true"/>
+                <column property="jiejiuDurationFeishui" autoWidth="true"/>
+                <column property="jiejiuDurationJiuwei" autoWidth="true"/>
+
                 <column property="startTimeDeviceShangZeng" autoWidth="true"/>
                 <column property="shangzengLayer" autoWidth="true"/>
                 <column property="shangzengDuration" autoWidth="true"/>
@@ -116,11 +121,7 @@
                 <column property="daokeQtyUp" autoWidth="true"/>
                 <column property="liangshiQtyUp" autoWidth="true"/>
                 <column property="liangshiTypUp" autoWidth="true"/>
-                <column property="jiejiuDurationFirstClass" autoWidth="true"/>
-                <column property="jiejiuDurationSecondClass" autoWidth="true"/>
-                <column property="jiejiuDurationThirdClass" autoWidth="true"/>
-                <column property="jiejiuDurationFeishui" autoWidth="true"/>
-                <column property="jiejiuDurationJiuwei" autoWidth="true"/>
+
                 <column property="liangshuiAddQty" autoWidth="true"/>
                 <column property="huishoudiguoWaterAddQty" autoWidth="true"/>
                 <column property="hotWaterAddQty" autoWidth="true"/>
@@ -142,8 +143,11 @@
                 <column property="sumDataRecord.jiejiuFeishuiDuration"/>
                 <column property="sumDataRecord.jiejiuJiuweiDuration"/>
                 <column property="sumDataRecord.upZaopeiType"/>
-                <column property="shiftTeam"/>
-                <column property="enumShift"/>
+
+                <column property="shangzengSecondClassXielv" autoWidth="true"/>
+                <column property="shangzengThirdClassXielv" autoWidth="true"/>
+                <column property="shangzengfirstThirdXielv" autoWidth="true"/>
+                <column property="shangzengSecondThirdXielv" autoWidth="true"/>
                 <!--                <column property="phaseStartWinccId" autoWidth="true"/>-->
                 <!--                <column property="phaseEndWinccId" autoWidth="true"/>-->
             </columns>
