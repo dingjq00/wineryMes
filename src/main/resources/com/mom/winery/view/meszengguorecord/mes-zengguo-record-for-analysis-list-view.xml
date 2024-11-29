@@ -22,18 +22,11 @@
             </fetchPlan>
             <loader id="mesZengguoRecordsDl" readOnly="true">
                 <query>
-                    <![CDATA[
-select e from MesZengguoRecord e
-where e.startTimeTotal > :endTimeTall1
-and e.phaseEndTimeTotal = (
-    select max(sub.phaseEndTimeTotal)
-    from MesZengguoRecord sub
-    where sub.mesZengguo = e.mesZengguo
-      and sub.zengSequence = e.zengSequence
-      and sub.startTimeTotal = e.startTimeTotal
-      and sub.zengSequence > 0
-)
-]]>
+                                        <![CDATA[
+                    select e from MesZengguoRecord e
+                    where e.endTimeTall > :endTimeTall1
+                    order by e.startTimeTotal desc
+                    ]]>
                 </query>
             </loader>
         </collection>
