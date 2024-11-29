@@ -38,6 +38,8 @@ public class ZengguoDeviceJob implements Job {
     @Authenticated
     @Override
     public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
+
+        Date minDate2 = winccDataDealCommons.convertStringToDate("2021/01/01 00:00:00");
         List<JobConfig> jobConfigList = dataManager.load(JobConfig.class)
                 .query("select e from JobConfig e where e.mainPhase = :mainPhase")
                 .parameter("mainPhase", EnumProcessMainPhase.ZENGDEVICE)
@@ -329,13 +331,19 @@ public class ZengguoDeviceJob implements Job {
                         if (preRecord != null) {
                             preRecord.setPhaseEndTimeTotal(mesZengguo.getWinccUpdateTime());
                             preRecord.setPhaseEndWinccId(mesZengguo.getWinccUpdatId());
+
                             if (preRecord.getPhaseStartTimeTotal() != null && preRecord.getPhaseEndTimeTotal() != null) {
                                 long duration = preRecord.getPhaseEndTimeTotal().getTime() - preRecord.getPhaseStartTimeTotal().getTime();
                                 preRecord.setPhaseDuration((float) (duration / 60000));
                             }
 
                             setPrerecordNormalInfo(preRecord, rawStartTimeTotal, rawShangzengStartTime, rawKagaiTime, rawLiujiuEndTime, rawEndTimeTotal, rawJiaochiDown, rawJiaochiDownTime, rawJiaochiDownLayer, rawZaopeiTypeDown, rawRunliangWaterAddDown, rawRunliangDurationDown, rawZaopeiQtyDown, rawDaokeQtyDown, rawLiangshiQtyDown, rawLiangshiTypeDown, rawJiaochiUp, rawJiaochiUpTime, rawJiaochiUpLayer, rawZaopeiTypeUp, rawRunliangWaterAddUp, rawRunliangDurationUp, rawZaopeiQtyUp, rawDaokeQtyUp, rawLiangshiQtyUp, rawLiangshiTypeUp, rawPhase, rawZaopeiType, rawShangzengLayer, rawShangzengDuration, rawShangzengHeight, rawJiejiuFirstClassDuration, rawJiejiuSecondClassDuration, rawJiejiuThirdClassDuration, rawJiejiuDurationFeishui, rawJiejiuDurationJiuwei, rawLiangshuiAddQty, rawHuishoudiguoWaterAddQty, rawHotWaterAddQty, rawJiuweiAddQty, rawHuangshuiAddQty, rawZengSequence, rawEnergyQiShangzeng, rawEnergyQiZhengliu, rawLiujiuAddZhengzhuDuration);
-
+                            // 处理 scada异常
+                            if(!rawZengSequence.equals(record.getZengSequence()) ){
+                                if(preRecord.getZengSequence() > 0 && preRecord.getEndTimeTall().before(minDate2)){
+                                    preRecord.setEndTimeTall(preRecord.getPhaseEndTimeTotal());
+                                }
+                            }
 
                             mesZengguoRecordList.add(preRecord);
                         } else {
@@ -354,11 +362,19 @@ public class ZengguoDeviceJob implements Job {
                                     MesZengguoRecord preRecordInDB = preRecords.getFirst();
                                     preRecordInDB.setPhaseEndTimeTotal(winccUpdateTime);
                                     preRecordInDB.setPhaseEndWinccId(winccId);
+
                                     if (preRecordInDB.getPhaseStartTimeTotal() != null && preRecordInDB.getPhaseEndTimeTotal() != null) {
                                         long duration = preRecordInDB.getPhaseEndTimeTotal().getTime() - preRecordInDB.getPhaseStartTimeTotal().getTime();
                                         preRecordInDB.setPhaseDuration((float) (duration / 60000));
                                     }
                                     setPrerecordNormalInfo(preRecordInDB, rawStartTimeTotal, rawShangzengStartTime, rawKagaiTime, rawLiujiuEndTime, rawEndTimeTotal, rawJiaochiDown, rawJiaochiDownTime, rawJiaochiDownLayer, rawZaopeiTypeDown, rawRunliangWaterAddDown, rawRunliangDurationDown, rawZaopeiQtyDown, rawDaokeQtyDown, rawLiangshiQtyDown, rawLiangshiTypeDown, rawJiaochiUp, rawJiaochiUpTime, rawJiaochiUpLayer, rawZaopeiTypeUp, rawRunliangWaterAddUp, rawRunliangDurationUp, rawZaopeiQtyUp, rawDaokeQtyUp, rawLiangshiQtyUp, rawLiangshiTypeUp, rawPhase, rawZaopeiType, rawShangzengLayer, rawShangzengDuration, rawShangzengHeight, rawJiejiuFirstClassDuration, rawJiejiuSecondClassDuration, rawJiejiuThirdClassDuration, rawJiejiuDurationFeishui, rawJiejiuDurationJiuwei, rawLiangshuiAddQty, rawHuishoudiguoWaterAddQty, rawHotWaterAddQty, rawJiuweiAddQty, rawHuangshuiAddQty, rawZengSequence, rawEnergyQiShangzeng, rawEnergyQiZhengliu, rawLiujiuAddZhengzhuDuration);
+
+                                    // 处理 scada异常
+                                    if(!rawZengSequence.equals(record.getZengSequence()) ){
+                                        if(preRecordInDB.getZengSequence() > 0 && preRecordInDB.getEndTimeTall().before(minDate2)){
+                                            preRecordInDB.setEndTimeTall(preRecordInDB.getPhaseEndTimeTotal());
+                                        }
+                                    }
                                     mesZengguoRecordList.add(preRecordInDB);
                                 }
                             }
