@@ -39,10 +39,10 @@ public class ZengguoCalcJob implements Job {
         List<MesZengguoRecord> mesZengguoRecordList = dataManager.load(MesZengguoRecord.class)
             .query("select e from MesZengguoRecord e " +
                     "where (e.shangzengXiaolv is null or e.shangzengXiaolv <= :minXiaolv) " +
-                    "and ( e.endTimeTall > :minDate ) " +
+                    "and e.zengguoPhase.phaseNo > 524 " +
                     "and e.jiejiuDurationThirdClass >= 1.5 " )
             .parameter("minXiaolv", 0.0)
-            .parameter("minDate", minDate).maxResults(500)
+                .maxResults(500)
             .list();
         if(mesZengguoRecordList.isEmpty()){
             return;
