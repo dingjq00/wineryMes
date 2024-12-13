@@ -45,8 +45,8 @@
         <item view="MesRunliangdoudouRecord2.list" title="msg://com.mom.winery.view.mesrunliangdoudourecord/mesRunliangdoudouRecordList2View.title"/>
         <item view="MesZengguoRecordAnalysis.list" title="msg://com.mom.winery.view.meszengguorecord/mesZengguoRecordAnalysisListView.title"/>
         <item view="MesTanliangjiRecord.list" title="msg://com.mom.winery.view.mestanliangjirecord/mesTanliangjiRecordListView.title"/>
-<!--        <item view="SupersetShiftteamView" title="msg://com.mom.winery.view.supersetshiftteam/supersetShiftteamView.title" />-->
-<!--        <item view="SupersetSummaryView" title="msg://com.mom.winery.view.supersetsummary/supersetSummaryView.title"/>-->
+        <item view="SupersetShiftteamView" title="msg://com.mom.winery.view.supersetshiftteam/supersetShiftteamView.title" />
+        <item view="SupersetSummaryView" title="msg://com.mom.winery.view.supersetsummary/supersetSummaryView.title"/>
 
     </menu>
     <menu id="executeRecords" title="msg://com.mom.winery/menu.executeRecords.title" opened="false">

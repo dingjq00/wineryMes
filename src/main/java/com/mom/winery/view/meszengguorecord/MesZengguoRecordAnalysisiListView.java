@@ -309,8 +309,9 @@ public class MesZengguoRecordAnalysisiListView extends StandardListView<MesZengg
             Date minStartTime = recordZhengzhu.stream().
                     map(MesZengguoRecord::getPhaseStartTimeTotal)
                     .min(Date::compareTo).orElse(new Date());
-            Date maxEndTime = recordZhengzhu.stream().
-                    map(MesZengguoRecord::getPhaseEndTimeTotal)
+            Date maxEndTime = recordZhengzhu.stream()
+                    .map(MesZengguoRecord::getPhaseEndTimeTotal)
+            .filter(Objects::nonNull)
                     .max(Date::compareTo).orElse(new Date());
 
             List<MesZengguoRealDataV2> mesZengguoRealDataForUpList = mesZengguoRealDataList.stream()

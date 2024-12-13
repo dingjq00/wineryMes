@@ -35,7 +35,7 @@ public class ZengguoCalcJob implements Job {
     @Authenticated
     @Override
     public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
-        Date minDate = winccDataDealCommons.convertStringToDate("2021/01/01 00:00:00");
+        Date minDate = winccDataDealCommons.convertStringToDate("2024/12/01 00:00:00");
         List<MesZengguoRecord> mesZengguoRecordList = dataManager.load(MesZengguoRecord.class)
             .query("select e from MesZengguoRecord e " +
                     "where (e.shangzengXiaolv is null or e.shangzengXiaolv <= :minXiaolv) " +
@@ -43,7 +43,7 @@ public class ZengguoCalcJob implements Job {
                     "and e.jiejiuDurationThirdClass >= 1.5 " )
             .parameter("minXiaolv", 0.0)
             .parameter("minDate", minDate)
-            .maxResults(500)
+//            .maxResults(1500)
             .list();
         if(mesZengguoRecordList.isEmpty()){
             return;

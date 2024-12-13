@@ -2,6 +2,42 @@
 <project version="4">
   <component name="JmixDataStoreSettingsManager">
     <moduleSettings>
+      <entry key="IdeaProjects.wineryMes.main">
+        <ModuleSettings>
+          <option name="dataStoreOptionsV2">
+            <map>
+              <entry key="main">
+                <value>
+                  <DataStoreSettingsV2 />
+                </value>
+              </entry>
+              <entry key="winccdata">
+                <value>
+                  <DataStoreSettingsV2 />
+                </value>
+              </entry>
+            </map>
+          </option>
+        </ModuleSettings>
+      </entry>
+      <entry key="com.mom.wineryMes.main">
+        <ModuleSettings>
+          <option name="dataStoreOptionsV2">
+            <map>
+              <entry key="main">
+                <value>
+                  <DataStoreSettingsV2 />
+                </value>
+              </entry>
+              <entry key="winccdata">
+                <value>
+                  <DataStoreSettingsV2 />
+                </value>
+              </entry>
+            </map>
+          </option>
+        </ModuleSettings>
+      </entry>
       <entry key="wineryMes.main">
         <ModuleSettings>
           <option name="dataStoreOptionsV2">

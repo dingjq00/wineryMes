@@ -22,11 +22,11 @@
             </fetchPlan>
             <loader id="mesZengguoRecordsDl" readOnly="true">
                 <query>
-                                        <![CDATA[
-                    select e from MesZengguoRecord e
-                    where e.endTimeTall > :endTimeTall1
-                    order by e.startTimeTotal desc
-                    ]]>
+                                    <![CDATA[
+                select e from MesZengguoRecord e
+                where e.endTimeTall > :endTimeTall1
+                order by e.startTimeTotal desc
+                ]]>
                 </query>
             </loader>
         </collection>
